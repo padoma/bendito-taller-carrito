@@ -466,11 +466,7 @@ function toggleCart(){
 function volverCatalogo(){
 
     const volver =
-    localStorage.getItem(
-        "volverCatalogo"
-    );
-
-    if(volver){
+    localStorage.getItem("volverCatalogo");
 
         window.location.href =
         volver;
