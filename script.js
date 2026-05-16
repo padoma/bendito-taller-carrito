@@ -3,7 +3,9 @@ JSON.parse(localStorage.getItem("carrito")) || [];
 
 let productoActual = null;
 
-/* ===== CARGAR PRODUCTO DESDE URL ===== */
+/* ==========================
+   CARGAR PRODUCTO URL
+========================== */
 
 function obtenerProductoURL(){
 
@@ -20,7 +22,9 @@ function obtenerProductoURL(){
     abrirSelectorProducto();
 }
 
-/* ===== POPUP PRODUCTO ===== */
+/* ==========================
+   SELECTOR PRODUCTO
+========================== */
 
 function abrirSelectorProducto(){
 
@@ -28,17 +32,18 @@ function abrirSelectorProducto(){
 
     let opcionesHTML = "";
 
+    /* PRODUCTOS CON MEDIDAS */
+
     if(p.tipo === "medidas"){
 
         opcionesHTML = `
+
         <label>Medida</label>
 
         <select id="medidaSelect">
             ${p.opciones.map(op => `
                 <option value="${op.medida}|${op.mayor}|${op.unitario}">
                     ${op.medida}
-                    — Mayor $${op.mayor.toLocaleString("es-CL")}
-                    / Unitario $${op.unitario.toLocaleString("es-CL")}
                 </option>
             `).join("")}
         </select>
@@ -57,84 +62,160 @@ function abrirSelectorProducto(){
         `;
     }
 
+    /* PRODUCTOS SIMPLES */
+
     if(p.tipo === "simple"){
 
         opcionesHTML = `
+
         <label>Tipo compra</label>
 
         <select id="tipoCompraSimple">
+
             <option value="${p.unitario}">
-                Unitario —
-                $${p.unitario.toLocaleString("es-CL")}
+                Unitario
             </option>
 
             <option value="${p.mayor}">
-                X Mayor —
-                $${p.mayor.toLocaleString("es-CL")}
+                X Mayor
             </option>
+
         </select>
         `;
     }
 
+    /* PRODUCTOS CON VARIANTES */
+
     if(p.tipo === "variantes"){
 
         opcionesHTML = `
+
         <label>Selecciona opción</label>
 
         <select id="varianteSelect">
             ${p.opciones.map(op => `
                 <option value="${op.nombre}|${op.precio}">
                     ${op.nombre}
-                    — $${op.precio.toLocaleString("es-CL")}
                 </option>
             `).join("")}
         </select>
         `;
     }
 
-    const popup = document.createElement("div");
+    const popup =
+    document.createElement("div");
 
     popup.id = "popupProducto";
 
+    popup.style = `
+        position:fixed;
+        inset:0;
+        background:rgba(0,0,0,.35);
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        z-index:99999;
+        padding:20px;
+    `;
+
     popup.innerHTML = `
-    <div class="popup-box">
 
-        <img src="${p.imagen}" class="popup-img">
+    <div style="
+        background:#fffaf3;
+        width:100%;
+        max-width:420px;
+        border-radius:28px;
+        padding:28px;
+        box-shadow:0 10px 35px rgba(0,0,0,.18);
+    ">
 
-        <h2>${p.nombre}</h2>
+        <h2 style="
+            margin:0 0 20px;
+            text-align:center;
+            font-size:28px;
+        ">
+            ${p.nombre}
+        </h2>
 
         ${opcionesHTML}
 
-        <label>Cantidad</label>
+        <label style="
+            display:block;
+            margin-top:14px;
+            margin-bottom:8px;
+            font-weight:bold;
+        ">
+            Cantidad
+        </label>
 
         <input
             type="number"
             id="cantidadProducto"
             value="1"
             min="1"
+            style="
+                width:100%;
+                padding:14px;
+                border-radius:14px;
+                border:1px solid #ddd;
+                font-size:16px;
+            "
         >
 
-        <label>Observación</label>
+        <label style="
+            display:block;
+            margin-top:18px;
+            margin-bottom:8px;
+            font-weight:bold;
+        ">
+            Observación
+        </label>
 
         <textarea
             id="obsProducto"
-            placeholder="Opcional">
-        </textarea>
+            placeholder="Ej: lo necesito urgente"
+            style="
+                width:100%;
+                min-height:90px;
+                border-radius:14px;
+                border:1px solid #ddd;
+                padding:12px;
+                resize:none;
+            "
+        ></textarea>
 
         <button
-            class="btn-main"
-            onclick="agregarProducto()">
-
+            onclick="agregarProducto()"
+            style="
+                width:100%;
+                margin-top:20px;
+                border:none;
+                background:#7d8b63;
+                color:white;
+                padding:16px;
+                border-radius:16px;
+                font-size:17px;
+                cursor:pointer;
+            "
+        >
             Agregar al pedido
-
         </button>
 
         <button
-            class="btn-danger"
-            onclick="cerrarPopup()">
-
+            onclick="cerrarPopup()"
+            style="
+                width:100%;
+                margin-top:10px;
+                border:none;
+                background:#c9b8a3;
+                color:white;
+                padding:16px;
+                border-radius:16px;
+                font-size:17px;
+                cursor:pointer;
+            "
+        >
             Cancelar
-
         </button>
 
     </div>
@@ -143,7 +224,9 @@ function abrirSelectorProducto(){
     document.body.appendChild(popup);
 }
 
-/* ===== AGREGAR ===== */
+/* ==========================
+   AGREGAR PRODUCTO
+========================== */
 
 function agregarProducto(){
 
@@ -151,22 +234,25 @@ function agregarProducto(){
 
     let nuevoProducto = {
 
-        codigo:p.codigo,
-        nombre:p.nombre,
-        imagen:p.imagen,
-        cantidad:parseInt(
+        codigo: p.codigo,
+        nombre: p.nombre,
+        imagen: p.imagen,
+
+        cantidad: parseInt(
             document.getElementById(
                 "cantidadProducto"
             ).value
         ),
+
         observacion:
         document.getElementById(
             "obsProducto"
         ).value
-
     };
 
-    if(p.tipo==="medidas"){
+    /* MEDIDAS */
+
+    if(p.tipo === "medidas"){
 
         let data =
         document.getElementById(
@@ -185,12 +271,14 @@ function agregarProducto(){
         tipo;
 
         nuevoProducto.precio =
-        tipo==="mayor"
+        tipo === "mayor"
         ? parseInt(data[1])
         : parseInt(data[2]);
     }
 
-    if(p.tipo==="simple"){
+    /* SIMPLE */
+
+    if(p.tipo === "simple"){
 
         nuevoProducto.precio =
         parseInt(
@@ -200,7 +288,9 @@ function agregarProducto(){
         );
     }
 
-    if(p.tipo==="variantes"){
+    /* VARIANTES */
+
+    if(p.tipo === "variantes"){
 
         let data =
         document.getElementById(
@@ -222,14 +312,16 @@ function agregarProducto(){
     mostrarToast();
 }
 
-/* ===== CARRITO ===== */
+/* ==========================
+   RENDER CARRITO
+========================== */
 
 function renderCarrito(){
 
     let html = "";
     let total = 0;
 
-    carrito.forEach(item=>{
+    carrito.forEach(item => {
 
         let subtotal =
         item.precio *
@@ -274,8 +366,7 @@ function renderCarrito(){
     document.getElementById(
         "cartTotal"
     ).innerHTML =
-    `Total:
-    $${total.toLocaleString("es-CL")}`;
+    `Total: $${total.toLocaleString("es-CL")}`;
 
     document.getElementById(
         "cartButton"
@@ -283,7 +374,9 @@ function renderCarrito(){
     `🛒 (${carrito.length})`;
 }
 
-/* ===== TOAST ===== */
+/* ==========================
+   TOAST
+========================== */
 
 function mostrarToast(){
 
@@ -292,14 +385,16 @@ function mostrarToast(){
 
     toast.classList.add("show");
 
-    setTimeout(()=>{
+    setTimeout(() => {
 
         toast.classList.remove("show");
 
-    },2000);
+    }, 2000);
 }
 
-/* ===== ABRIR ===== */
+/* ==========================
+   CARRITO
+========================== */
 
 function toggleCart(){
 
@@ -309,12 +404,14 @@ function toggleCart(){
     );
 
     panel.style.display =
-    panel.style.display==="block"
+    panel.style.display === "block"
     ? "none"
     : "block";
 }
 
-/* ===== POPUP ===== */
+/* ==========================
+   CERRAR POPUP
+========================== */
 
 function cerrarPopup(){
 
@@ -328,7 +425,9 @@ function cerrarPopup(){
     }
 }
 
-/* ===== GUARDAR ===== */
+/* ==========================
+   GUARDAR
+========================== */
 
 function guardarCarrito(){
 
@@ -338,16 +437,18 @@ function guardarCarrito(){
     );
 }
 
-/* ===== INSTAGRAM ===== */
+/* ==========================
+   INSTAGRAM
+========================== */
 
 function copiarPedido(){
 
     let mensaje =
-`Hola 😊 quiero cotizar los siguientes productos de Bendito Taller:
+`Hola 😊 quiero cotizar estos productos:
 
 `;
 
-    carrito.forEach(item=>{
+    carrito.forEach(item => {
 
         mensaje +=
 `• ${item.nombre}
@@ -359,10 +460,9 @@ Cantidad: ${item.cantidad}
 `;
     });
 
-    mensaje += `
-Observaciones:
-${document.getElementById("obsGeneral").value}
-`;
+    mensaje +=
+`Observaciones:
+${document.getElementById("obsGeneral").value}`;
 
     navigator.clipboard.writeText(
         mensaje
@@ -374,7 +474,9 @@ ${document.getElementById("obsGeneral").value}
     );
 }
 
-/* ===== VACIAR ===== */
+/* ==========================
+   VACIAR
+========================== */
 
 function vaciarCarrito(){
 
@@ -389,7 +491,9 @@ function vaciarCarrito(){
     }
 }
 
-/* ===== INICIO ===== */
+/* ==========================
+   INICIO
+========================== */
 
 renderCarrito();
 obtenerProductoURL();
