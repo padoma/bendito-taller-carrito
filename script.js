@@ -15,9 +15,23 @@ function obtenerProductoURL(){
     const id =
     params.get("producto");
 
+    const volver =
+    params.get("volver");
+
+    /* guardar URL de regreso */
+
+    if(volver){
+
+        localStorage.setItem(
+            "volverCatalogo",
+            decodeURIComponent(volver)
+        );
+    }
+
     if(!id || !productos[id]) return;
 
-    productoActual = productos[id];
+    productoActual =
+    productos[id];
 
     abrirSelectorProducto();
 }
@@ -32,7 +46,7 @@ function abrirSelectorProducto(){
 
     let opcionesHTML = "";
 
-    /* PRODUCTOS CON MEDIDAS */
+    /* MEDIDAS */
 
     if(p.tipo === "medidas"){
 
@@ -40,17 +54,29 @@ function abrirSelectorProducto(){
 
         <label>Medida</label>
 
-        <select id="medidaSelect">
+        <select id="medidaSelect"
+        style="width:100%;
+        padding:14px;
+        border-radius:14px;
+        border:1px solid #ddd;
+        margin-bottom:14px;">
+
             ${p.opciones.map(op => `
                 <option value="${op.medida}|${op.mayor}|${op.unitario}">
                     ${op.medida}
                 </option>
             `).join("")}
+
         </select>
 
         <label>Tipo compra</label>
 
-        <select id="tipoCompra">
+        <select id="tipoCompra"
+        style="width:100%;
+        padding:14px;
+        border-radius:14px;
+        border:1px solid #ddd;">
+
             <option value="unitario">
                 Unitario
             </option>
@@ -58,11 +84,12 @@ function abrirSelectorProducto(){
             <option value="mayor">
                 X Mayor
             </option>
+
         </select>
         `;
     }
 
-    /* PRODUCTOS SIMPLES */
+    /* SIMPLE */
 
     if(p.tipo === "simple"){
 
@@ -70,7 +97,11 @@ function abrirSelectorProducto(){
 
         <label>Tipo compra</label>
 
-        <select id="tipoCompraSimple">
+        <select id="tipoCompraSimple"
+        style="width:100%;
+        padding:14px;
+        border-radius:14px;
+        border:1px solid #ddd;">
 
             <option value="${p.unitario}">
                 Unitario
@@ -84,7 +115,7 @@ function abrirSelectorProducto(){
         `;
     }
 
-    /* PRODUCTOS CON VARIANTES */
+    /* VARIANTES */
 
     if(p.tipo === "variantes"){
 
@@ -92,12 +123,18 @@ function abrirSelectorProducto(){
 
         <label>Selecciona opción</label>
 
-        <select id="varianteSelect">
+        <select id="varianteSelect"
+        style="width:100%;
+        padding:14px;
+        border-radius:14px;
+        border:1px solid #ddd;">
+
             ${p.opciones.map(op => `
                 <option value="${op.nombre}|${op.precio}">
                     ${op.nombre}
                 </option>
             `).join("")}
+
         </select>
         `;
     }
@@ -105,15 +142,16 @@ function abrirSelectorProducto(){
     const popup =
     document.createElement("div");
 
-    popup.id = "popupProducto";
+    popup.id =
+    "popupProducto";
 
     popup.style = `
         position:fixed;
         inset:0;
         background:rgba(0,0,0,.35);
         display:flex;
-        align-items:center;
         justify-content:center;
+        align-items:center;
         z-index:99999;
         padding:20px;
     `;
@@ -126,13 +164,12 @@ function abrirSelectorProducto(){
         max-width:420px;
         border-radius:28px;
         padding:28px;
-        box-shadow:0 10px 35px rgba(0,0,0,.18);
+        box-shadow:0 10px 35px rgba(0,0,0,.15);
     ">
 
         <h2 style="
             margin:0 0 20px;
             text-align:center;
-            font-size:28px;
         ">
             ${p.nombre}
         </h2>
@@ -141,7 +178,7 @@ function abrirSelectorProducto(){
 
         <label style="
             display:block;
-            margin-top:14px;
+            margin-top:18px;
             margin-bottom:8px;
             font-weight:bold;
         ">
@@ -173,7 +210,7 @@ function abrirSelectorProducto(){
 
         <textarea
             id="obsProducto"
-            placeholder="Ej: lo necesito urgente"
+            placeholder="Opcional"
             style="
                 width:100%;
                 min-height:90px;
@@ -230,15 +267,16 @@ function abrirSelectorProducto(){
 
 function agregarProducto(){
 
-    const p = productoActual;
+    const p =
+    productoActual;
 
     let nuevoProducto = {
 
-        codigo: p.codigo,
-        nombre: p.nombre,
-        imagen: p.imagen,
+        codigo:p.codigo,
+        nombre:p.nombre,
+        imagen:p.imagen,
 
-        cantidad: parseInt(
+        cantidad:parseInt(
             document.getElementById(
                 "cantidadProducto"
             ).value
@@ -250,9 +288,7 @@ function agregarProducto(){
         ).value
     };
 
-    /* MEDIDAS */
-
-    if(p.tipo === "medidas"){
+    if(p.tipo==="medidas"){
 
         let data =
         document.getElementById(
@@ -271,14 +307,12 @@ function agregarProducto(){
         tipo;
 
         nuevoProducto.precio =
-        tipo === "mayor"
+        tipo==="mayor"
         ? parseInt(data[1])
         : parseInt(data[2]);
     }
 
-    /* SIMPLE */
-
-    if(p.tipo === "simple"){
+    if(p.tipo==="simple"){
 
         nuevoProducto.precio =
         parseInt(
@@ -288,9 +322,7 @@ function agregarProducto(){
         );
     }
 
-    /* VARIANTES */
-
-    if(p.tipo === "variantes"){
+    if(p.tipo==="variantes"){
 
         let data =
         document.getElementById(
@@ -304,25 +336,31 @@ function agregarProducto(){
         parseInt(data[1]);
     }
 
-    carrito.push(nuevoProducto);
+    carrito.push(
+        nuevoProducto
+    );
 
     guardarCarrito();
-renderCarrito();
-cerrarPopup();
-mostrarToast();
+    renderCarrito();
+    cerrarPopup();
+    mostrarToast();
 
-/* volver automáticamente */
+    /* volver catálogo */
 
-setTimeout(() => {
+    setTimeout(() => {
 
-    if(document.referrer){
+        const volver =
+        localStorage.getItem(
+            "volverCatalogo"
+        );
 
-        window.location.href =
-        document.referrer;
+        if(volver){
 
-    }
+            window.location.href =
+            volver;
+        }
 
-}, 900);
+    },900);
 }
 
 /* ==========================
@@ -334,7 +372,7 @@ function renderCarrito(){
     let html = "";
     let total = 0;
 
-    carrito.forEach(item => {
+    carrito.forEach(item=>{
 
         let subtotal =
         item.precio *
@@ -379,7 +417,8 @@ function renderCarrito(){
     document.getElementById(
         "cartTotal"
     ).innerHTML =
-    `Total: $${total.toLocaleString("es-CL")}`;
+    `Total:
+    $${total.toLocaleString("es-CL")}`;
 
     document.getElementById(
         "cartButton"
@@ -394,33 +433,21 @@ function renderCarrito(){
 function mostrarToast(){
 
     const toast =
-    document.getElementById("toast");
+    document.getElementById(
+        "toast"
+    );
 
-    toast.classList.add("show");
+    toast.classList.add(
+        "show"
+    );
 
-    setTimeout(() => {
+    setTimeout(()=>{
 
-        toast.classList.remove("show");
+        toast.classList.remove(
+            "show"
+        );
 
-    }, 2000);
-}
-
-/* ==========================
-   VOLVER CATÁLOGO
-========================== */
-
-function volverCatalogo(){
-
-    if(document.referrer){
-
-        window.location.href =
-        document.referrer;
-
-    }else{
-
-        history.back();
-
-    }
+    },2000);
 }
 
 /* ==========================
@@ -435,9 +462,27 @@ function toggleCart(){
     );
 
     panel.style.display =
-    panel.style.display === "block"
+    panel.style.display==="block"
     ? "none"
     : "block";
+}
+
+/* ==========================
+   VOLVER CATÁLOGO
+========================== */
+
+function volverCatalogo(){
+
+    const volver =
+    localStorage.getItem(
+        "volverCatalogo"
+    );
+
+    if(volver){
+
+        window.location.href =
+        volver;
+    }
 }
 
 /* ==========================
@@ -452,6 +497,7 @@ function cerrarPopup(){
     );
 
     if(popup){
+
         popup.remove();
     }
 }
@@ -475,11 +521,11 @@ function guardarCarrito(){
 function copiarPedido(){
 
     let mensaje =
-`Hola 😊 quiero cotizar estos productos:
+`Hola 😊 quiero cotizar estos productos de Bendito Taller:
 
 `;
 
-    carrito.forEach(item => {
+    carrito.forEach(item=>{
 
         mensaje +=
 `• ${item.nombre}
@@ -492,7 +538,7 @@ Cantidad: ${item.cantidad}
     });
 
     mensaje +=
-`Observaciones:
+`\nObservaciones:
 ${document.getElementById("obsGeneral").value}`;
 
     navigator.clipboard.writeText(
