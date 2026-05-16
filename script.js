@@ -406,6 +406,24 @@ function mostrarToast(){
 }
 
 /* ==========================
+   VOLVER CATÁLOGO
+========================== */
+
+function volverCatalogo(){
+
+    if(document.referrer){
+
+        window.location.href =
+        document.referrer;
+
+    }else{
+
+        history.back();
+
+    }
+}
+
+/* ==========================
    CARRITO
 ========================== */
 
