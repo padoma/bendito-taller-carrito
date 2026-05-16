@@ -1,1 +1,168 @@
+*{
+    box-sizing:border-box;
+}
 
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:transparent;
+}
+
+/* ===== TOAST ===== */
+
+#toast{
+    position:fixed;
+    top:20px;
+    right:20px;
+    background:#7d8b63;
+    color:white;
+    padding:14px 20px;
+    border-radius:16px;
+    box-shadow:0 4px 15px rgba(0,0,0,.15);
+    opacity:0;
+    transform:translateY(-20px);
+    transition:.3s;
+    z-index:99999;
+}
+
+#toast.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* ===== BOTÓN CARRITO ===== */
+
+#cartButton{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    border:none;
+    border-radius:50px;
+    background:#7d8b63;
+    color:white;
+    font-size:16px;
+    padding:12px 18px;
+    cursor:pointer;
+    box-shadow:0 4px 20px rgba(0,0,0,.15);
+    z-index:9999;
+}
+
+/* ===== PANEL ===== */
+
+#cartPanel{
+    position:fixed;
+    bottom:85px;
+    right:20px;
+    width:360px;
+    max-height:80vh;
+    overflow-y:auto;
+    background:#fffaf3;
+    border-radius:24px;
+    padding:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,.15);
+    display:none;
+    z-index:9999;
+}
+
+.cart-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.close-btn{
+    border:none;
+    background:none;
+    font-size:22px;
+    cursor:pointer;
+}
+
+.cart-item{
+    display:flex;
+    gap:12px;
+    border-bottom:1px solid #eee;
+    padding:14px 0;
+}
+
+.cart-item img{
+    width:70px;
+    height:70px;
+    object-fit:cover;
+    border-radius:14px;
+}
+
+.item-info{
+    flex:1;
+}
+
+.item-title{
+    font-weight:bold;
+    margin-bottom:6px;
+}
+
+.item-detail{
+    color:#666;
+    font-size:14px;
+    margin-bottom:4px;
+}
+
+.item-price{
+    font-weight:bold;
+    color:#7d8b63;
+}
+
+#cartTotal{
+    margin-top:18px;
+    font-size:22px;
+    font-weight:bold;
+}
+
+/* ===== INPUTS ===== */
+
+textarea{
+    width:100%;
+    border:1px solid #ddd;
+    border-radius:14px;
+    padding:12px;
+    resize:none;
+    min-height:90px;
+    margin-top:8px;
+}
+
+/* ===== BOTONES ===== */
+
+.btn-main{
+    width:100%;
+    border:none;
+    background:#7d8b63;
+    color:white;
+    padding:14px;
+    border-radius:16px;
+    margin-top:15px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+.btn-danger{
+    width:100%;
+    border:none;
+    background:#c9b8a3;
+    color:white;
+    padding:14px;
+    border-radius:16px;
+    margin-top:10px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+/* ===== CELULAR ===== */
+
+@media(max-width:600px){
+
+    #cartPanel{
+        width:92%;
+        right:4%;
+        bottom:75px;
+    }
+
+}
