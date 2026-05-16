@@ -307,9 +307,22 @@ function agregarProducto(){
     carrito.push(nuevoProducto);
 
     guardarCarrito();
-    renderCarrito();
-    cerrarPopup();
-    mostrarToast();
+renderCarrito();
+cerrarPopup();
+mostrarToast();
+
+/* volver automáticamente */
+
+setTimeout(() => {
+
+    if(document.referrer){
+
+        window.location.href =
+        document.referrer;
+
+    }
+
+}, 900);
 }
 
 /* ==========================
