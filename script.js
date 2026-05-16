@@ -15,18 +15,10 @@ function obtenerProductoURL(){
     const id =
     params.get("producto");
 
-    const volver =
-    params.get("volver");
-
-    /* guardar URL de regreso */
-
-    if(volver){
-
-        localStorage.setItem(
-            "volverCatalogo",
-            decodeURIComponent(volver)
-        );
-    }
+    localStorage.setItem(
+    "volverCatalogo",
+    "https://sites.google.com/view/bendito-taller/p%C3%A1gina-principal"
+);
 
     if(!id || !productos[id]) return;
 
