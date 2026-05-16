@@ -1,295 +1,57 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bendito Taller - Pedido</title>
 
-<title>Bendito Taller Carrito</title>
-
-<style>
-
-body{
-    margin:0;
-    font-family: Arial, sans-serif;
-    background:#f7f2ea;
-}
-
-/* ===== BOTÓN FLOTANTE ===== */
-
-#cartButton{
-    position:fixed;
-    bottom:20px;
-    right:20px;
-    background:#7d8b63;
-    color:white;
-    border:none;
-    border-radius:50px;
-    padding:16px 22px;
-    font-size:16px;
-    cursor:pointer;
-    box-shadow:0 4px 15px rgba(0,0,0,.2);
-    z-index:999;
-}
-
-/* ===== PANEL CARRITO ===== */
-
-#cartPanel{
-    position:fixed;
-    bottom:90px;
-    right:20px;
-    width:340px;
-    max-height:500px;
-    overflow:auto;
-    background:#fffaf3;
-    border-radius:20px;
-    box-shadow:0 10px 30px rgba(0,0,0,.2);
-    padding:20px;
-    display:none;
-    z-index:999;
-}
-
-.cart-item{
-    border-bottom:1px solid #ddd;
-    padding:10px 0;
-}
-
-.total{
-    font-size:22px;
-    font-weight:bold;
-    margin-top:20px;
-}
-
-button{
-    background:#7d8b63;
-    color:white;
-    border:none;
-    padding:12px;
-    border-radius:12px;
-    cursor:pointer;
-    width:100%;
-    margin-top:10px;
-}
-
-textarea{
-    width:100%;
-    border-radius:10px;
-    padding:10px;
-}
-
-/* ===== PRODUCTOS DEMO ===== */
-
-.catalogo{
-    padding:20px;
-}
-
-.producto{
-    background:white;
-    border-radius:20px;
-    padding:20px;
-    margin-bottom:20px;
-    box-shadow:0 2px 10px rgba(0,0,0,.08);
-}
-
-select,input{
-    width:100%;
-    padding:10px;
-    border-radius:10px;
-    border:1px solid #ccc;
-    margin-top:8px;
-}
-
-@media(max-width:600px){
-
-#cartPanel{
-    width:90%;
-    right:5%;
-}
-
-}
-
-</style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<div class="catalogo">
+  <!-- AVISO -->
+  <div id="toast">
+    ✔ Agregado al pedido
+  </div>
 
-<h2>Bendito Taller</h2>
+  <!-- BOTÓN CARRITO -->
+  <button id="cartButton" onclick="toggleCart()">
+    🛒 (0)
+  </button>
 
-<!-- PRODUCTO DEMO -->
+  <!-- PANEL CARRITO -->
+  <div id="cartPanel">
 
-<div class="catalogo">
+    <div class="cart-header">
+      <h2>Tu Pedido</h2>
+      <button class="close-btn" onclick="toggleCart()">✕</button>
+    </div>
 
-<h2>Bendito Taller</h2>
+    <div id="cartItems"></div>
 
-<div id="productosContainer"></div>
+    <div id="cartTotal">
+      Total: $0
+    </div>
 
-</div>
+    <h3>Observaciones generales</h3>
 
-<!-- BOTÓN FLOTANTE -->
+    <textarea
+      id="obsGeneral"
+      placeholder="Ej: retiro viernes o necesito urgente">
+    </textarea>
 
-<button id="cartButton" onclick="toggleCart()">
-🛒 Pedido (0)
-</button>
+    <button class="btn-main" onclick="copiarPedido()">
+      Enviar pedido Instagram
+    </button>
 
-<!-- PANEL CARRITO -->
+    <button class="btn-danger" onclick="vaciarCarrito()">
+      Vaciar carrito
+    </button>
 
-<div id="cartPanel">
+  </div>
 
-<h2>Tu Pedido</h2>
-
-<div id="cartItems"></div>
-
-<div class="total" id="cartTotal">
-Total: $0
-</div>
-
-<h3>Observaciones Generales</h3>
-
-<textarea id="obsGeneral"></textarea>
-
-<button onclick="copiarPedido()">
-Enviar pedido Instagram
-</button>
-
-<button onclick="vaciarCarrito()">
-Vaciar carrito
-</button>
-
-</div>
-
-<script>
-
-let carrito = [];
-
-function agregarProducto(){
-
-let medidaData =
-document.getElementById("medida").value.split("|");
-
-let medida = medidaData[0];
-let mayor = parseInt(medidaData[1]);
-let unitario = parseInt(medidaData[2]);
-
-let tipo =
-document.getElementById("tipoCompra").value;
-
-let cantidad =
-parseInt(document.getElementById("cantidad").value);
-
-let obs =
-document.getElementById("obsProducto").value;
-
-let precio =
-tipo === "mayor"
-? mayor
-: unitario;
-
-carrito.push({
-codigo:"CO36",
-medida,
-tipo,
-cantidad,
-obs,
-precio
-});
-
-renderCarrito();
-
-}
-
-function renderCarrito(){
-
-let html = "";
-let total = 0;
-
-carrito.forEach((item)=>{
-
-let subtotal =
-item.precio * item.cantidad;
-
-total += subtotal;
-
-html += `
-<div class="cart-item">
-
-<strong>${item.codigo}</strong><br>
-
-${item.medida} cm<br>
-${item.tipo}<br>
-Cantidad: ${item.cantidad}<br>
-Subtotal:
-$${subtotal.toLocaleString("es-CL")}
-
-</div>
-`;
-
-});
-
-document.getElementById("cartItems")
-.innerHTML = html;
-
-document.getElementById("cartTotal")
-.innerHTML =
-`Total: $${total.toLocaleString("es-CL")}`;
-
-document.getElementById("cartButton")
-.innerHTML =
-`🛒 Pedido (${carrito.length})`;
-
-}
-
-function toggleCart(){
-
-let panel =
-document.getElementById("cartPanel");
-
-panel.style.display =
-panel.style.display === "block"
-? "none"
-: "block";
-
-}
-
-function copiarPedido(){
-
-let mensaje =
-"Hola 😊 quiero cotizar los siguientes productos de Bendito Taller:\n\n";
-
-carrito.forEach(item=>{
-
-mensaje +=
-`• ${item.codigo}
-Medida: ${item.medida} cm
-Compra: ${item.tipo}
-Cantidad: ${item.cantidad}
-
-`;
-
-});
-
-mensaje +=
-`Observaciones:
-${document.getElementById("obsGeneral").value}`;
-
-navigator.clipboard.writeText(mensaje);
-
-window.open(
-"https://www.instagram.com/bendito_taller_/",
-"_blank"
-);
-
-alert("Pedido copiado. Se abrió Instagram.");
-
-}
-
-function vaciarCarrito(){
-
-carrito = [];
-renderCarrito();
-
-}
-
-</script>
+  <script src="productos.js"></script>
+  <script src="script.js"></script>
 
 </body>
 </html>
