@@ -2,12 +2,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Tu carrito - Bendito Taller</title>
+<title>Tu carrito</title>
 </head>
 
 <body style="
 font-family:Arial;
-max-width:700px;
+max-width:800px;
 margin:auto;
 padding:20px;
 ">
@@ -23,14 +23,7 @@ Total:
 $<span id="total">0</span>
 </h2>
 
-<button onclick="vaciar()"
-style="
-padding:10px;
-background:#b00020;
-color:white;
-border:none;
-border-radius:8px;
-cursor:pointer;">
+<button onclick="vaciar()">
 🗑 Vaciar carrito
 </button>
 
@@ -40,35 +33,32 @@ cursor:pointer;">
 id="pedido"
 style="
 width:100%;
-height:160px;
-padding:10px;">
+height:160px;">
 </textarea>
 
 <br><br>
 
-<button onclick="generar()"
-style="
-padding:12px;
-background:black;
-color:white;
-border:none;
-border-radius:8px;
-cursor:pointer;">
+<button onclick="generar()">
 📋 Generar pedido
 </button>
 
-<button onclick="copiar()"
-style="
-padding:12px;
-background:green;
-color:white;
-border:none;
-border-radius:8px;
-cursor:pointer;">
+<button onclick="copiar()">
 📱 Copiar para Instagram
 </button>
 
 <script>
+
+function precioActual(item){
+
+if(
+item.cantidad >= item.mayorDesde
+&& item.precioMayor > 0
+){
+ return item.precioMayor;
+}
+
+return item.precio;
+}
 
 function render(){
 
@@ -83,39 +73,73 @@ let html = "";
 let total = 0;
 
 if(carrito.length === 0){
-html =
-"<p>Tu carrito está vacío 🛒</p>";
+ html =
+ "<p>Tu carrito está vacío 🛒</p>";
 }
 
 carrito.forEach((item,index)=>{
 
+let precio =
+precioActual(item);
+
 let subtotal =
-item.precio *
-item.cantidad;
+precio * item.cantidad;
 
 total += subtotal;
 
+let mayorista =
+item.cantidad >= item.mayorDesde
+&& item.precioMayor > 0;
+
 html += `
 <div style="
+display:flex;
+gap:15px;
+align-items:center;
 border:1px solid #ddd;
 padding:10px;
-margin-bottom:10px;
+margin-bottom:12px;
+border-radius:10px;">
+
+<img
+src="${item.imagen}"
+style="
+width:90px;
+height:90px;
+object-fit:cover;
 border-radius:8px;">
+
+<div style="flex:1">
 
 <b>${item.nombre}</b><br>
 
-Cantidad:
-${item.cantidad}<br>
+Precio:
+$${precio.toLocaleString('es-CL')}
 
-Subtotal:
-$${subtotal.toLocaleString('es-CL')}
+${mayorista
+? "<br><span style='color:green'>🎉 Precio mayorista aplicado</span>"
+: ""}
 
 <br><br>
 
-<button onclick="quitar(${index})">
-❌ Quitar
+<button onclick="restar(${index})">
+➖
 </button>
 
+${item.cantidad}
+
+<button onclick="sumar(${index})">
+➕
+</button>
+
+<br><br>
+
+Subtotal:
+<b>
+$${subtotal.toLocaleString('es-CL')}
+</b>
+
+</div>
 </div>
 `;
 });
@@ -131,16 +155,41 @@ total.toLocaleString("es-CL");
 
 }
 
-function quitar(index){
+function sumar(index){
 
 let carrito =
 JSON.parse(
 localStorage.getItem(
 "benditoCarrito"
 )
-) || [];
+);
 
-carrito.splice(index,1);
+carrito[index].cantidad++;
+
+localStorage.setItem(
+"benditoCarrito",
+JSON.stringify(carrito)
+);
+
+render();
+}
+
+function restar(index){
+
+let carrito =
+JSON.parse(
+localStorage.getItem(
+"benditoCarrito"
+)
+);
+
+carrito[index].cantidad--;
+
+if(
+carrito[index].cantidad <= 0
+){
+ carrito.splice(index,1);
+}
 
 localStorage.setItem(
 "benditoCarrito",
@@ -152,20 +201,11 @@ render();
 
 function vaciar(){
 
-if(confirm(
-"¿Vaciar carrito?"
-)){
-
 localStorage.removeItem(
 "benditoCarrito"
 );
 
 render();
-
-document.getElementById(
-"pedido"
-).value = "";
-}
 }
 
 function generar(){
@@ -184,9 +224,11 @@ let total = 0;
 
 carrito.forEach(item=>{
 
+let precio =
+precioActual(item);
+
 let subtotal =
-item.precio *
-item.cantidad;
+precio * item.cantidad;
 
 total += subtotal;
 
