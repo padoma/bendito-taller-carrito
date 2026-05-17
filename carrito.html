@@ -1,62 +1,227 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Tu carrito</title>
+<title>Tu carrito | Bendito Taller</title>
+
+<style>
+
+body{
+  font-family: Arial, sans-serif;
+  background:#f5f1eb;
+  margin:0;
+  padding:30px;
+  color:#4b372d;
+}
+
+.container{
+  max-width:900px;
+  margin:auto;
+}
+
+h1{
+  text-align:center;
+  margin-bottom:30px;
+  font-size:34px;
+}
+
+.card{
+  display:flex;
+  gap:18px;
+  background:white;
+  border-radius:18px;
+  padding:18px;
+  margin-bottom:18px;
+  box-shadow:
+  0 6px 18px rgba(0,0,0,.08);
+  align-items:center;
+}
+
+.card img{
+  width:110px;
+  height:110px;
+  object-fit:cover;
+  border-radius:14px;
+}
+
+.info{
+  flex:1;
+}
+
+.nombre{
+  font-size:22px;
+  font-weight:bold;
+}
+
+.precio{
+  margin-top:6px;
+  color:#7a5c4d;
+}
+
+.mayorista{
+  color:#2e7d32;
+  font-weight:bold;
+  margin-top:8px;
+}
+
+.ahorro{
+  color:#558b2f;
+  font-size:14px;
+  margin-top:4px;
+}
+
+.controles{
+  margin-top:14px;
+}
+
+.qty-btn{
+  border:none;
+  background:#d6c2b2;
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  cursor:pointer;
+  font-size:18px;
+}
+
+.cantidad{
+  margin:0 12px;
+  font-size:20px;
+  font-weight:bold;
+}
+
+.subtotal{
+  font-size:20px;
+  font-weight:bold;
+  margin-top:12px;
+}
+
+.resumen{
+  background:white;
+  border-radius:20px;
+  padding:28px;
+  margin-top:30px;
+  box-shadow:
+  0 6px 18px rgba(0,0,0,.08);
+}
+
+.total{
+  font-size:38px;
+  font-weight:bold;
+  text-align:center;
+  margin:15px 0;
+}
+
+textarea{
+  width:100%;
+  height:160px;
+  border-radius:12px;
+  border:1px solid #ddd;
+  padding:14px;
+  font-size:15px;
+  resize:none;
+  box-sizing:border-box;
+}
+
+.actions{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:18px;
+}
+
+button.action{
+  flex:1;
+  border:none;
+  padding:16px;
+  border-radius:14px;
+  cursor:pointer;
+  font-size:16px;
+  font-weight:bold;
+}
+
+.black{
+  background:#5d4037;
+  color:white;
+}
+
+.green{
+  background:#4caf50;
+  color:white;
+}
+
+.red{
+  background:#c62828;
+  color:white;
+}
+
+.vacio{
+  text-align:center;
+  font-size:20px;
+  margin-top:50px;
+}
+
+</style>
 </head>
 
-<body style="
-font-family:Arial;
-max-width:800px;
-margin:auto;
-padding:20px;
-">
+<body>
+
+<div class="container">
 
 <h1>🛒 Tu pedido</h1>
 
 <div id="carrito"></div>
 
-<hr>
+<div class="resumen">
 
-<h2>
-Total:
-$<span id="total">0</span>
+<h2 style="text-align:center;">
+Resumen del pedido
 </h2>
 
-<button onclick="vaciar()">
-🗑 Vaciar carrito
-</button>
-
-<br><br>
+<div class="total">
+$<span id="total">0</span>
+</div>
 
 <textarea
 id="pedido"
-style="
-width:100%;
-height:160px;">
+placeholder="Aquí aparecerá tu pedido">
 </textarea>
 
-<br><br>
+<div class="actions">
 
-<button onclick="generar()">
+<button
+class="action black"
+onclick="generar()">
 📋 Generar pedido
 </button>
 
-<button onclick="copiar()">
+<button
+class="action green"
+onclick="copiar()">
 📱 Copiar para Instagram
 </button>
+
+<button
+class="action red"
+onclick="vaciar()">
+🗑 Vaciar carrito
+</button>
+
+</div>
+
+</div>
+
+</div>
 
 <script>
 
 function precioActual(item){
-
 if(
 item.cantidad >= item.mayorDesde
 && item.precioMayor > 0
 ){
- return item.precioMayor;
+return item.precioMayor;
 }
-
 return item.precio;
 }
 
@@ -72,9 +237,11 @@ localStorage.getItem(
 let html = "";
 let total = 0;
 
-if(carrito.length === 0){
- html =
- "<p>Tu carrito está vacío 🛒</p>";
+if(carrito.length===0){
+html=`
+<div class="vacio">
+🛒 Tu carrito está vacío
+</div>`;
 }
 
 carrito.forEach((item,index)=>{
@@ -91,73 +258,66 @@ let mayorista =
 item.cantidad >= item.mayorDesde
 && item.precioMayor > 0;
 
+let ahorro =
+(item.precio -
+item.precioMayor)
+* item.cantidad;
+
 html += `
-<div style="
-display:flex;
-gap:15px;
-align-items:center;
-border:1px solid #ddd;
-padding:10px;
-margin-bottom:12px;
-border-radius:10px;">
+<div class="card">
 
-<img
-src="${item.imagen}"
-style="
-width:90px;
-height:90px;
-object-fit:cover;
-border-radius:8px;">
+<img src="${item.imagen}">
 
-<div style="flex:1">
+<div class="info">
 
-<b>${item.nombre}</b><br>
+<div class="nombre">
+${item.nombre}
+</div>
 
-Precio:
+<div class="precio">
+Precio unitario:
 $${precio.toLocaleString('es-CL')}
+</div>
 
-${mayorista
-? `<br>
-<span style="
-color:green;
-font-weight:bold;">
+${mayorista ? `
+<div class="mayorista">
 🎉 Precio mayorista aplicado
+</div>
+
+<div class="ahorro">
+💰 Ahorras
+$${ahorro.toLocaleString('es-CL')}
+comprando por mayor
+</div>
+` : ""}
+
+<div class="controles">
+
+<button
+class="qty-btn"
+onclick="restar(${index})">
+−
+</button>
+
+<span class="cantidad">
+${item.cantidad}
 </span>
 
-<br>
-
-<span style="
-color:#1b5e20;
-font-size:14px;">
-💰 Ahorras
-$${(
-(item.precio - item.precioMayor)
-* item.cantidad
-).toLocaleString('es-CL')}
-comprando por mayor
-</span>`
-: ""}
-
-<br><br>
-
-<button onclick="restar(${index})">
-➖
+<button
+class="qty-btn"
+onclick="sumar(${index})">
++
 </button>
-
-${item.cantidad}
-
-<button onclick="sumar(${index})">
-➕
-</button>
-
-<br><br>
-
-Subtotal:
-<b>
-$${subtotal.toLocaleString('es-CL')}
-</b>
 
 </div>
+
+<div class="subtotal">
+Subtotal:
+$${subtotal.toLocaleString('es-CL')}
+</div>
+
+</div>
+
 </div>
 `;
 });
@@ -174,56 +334,48 @@ total.toLocaleString("es-CL");
 }
 
 function sumar(index){
-
-let carrito =
+let c =
 JSON.parse(
 localStorage.getItem(
 "benditoCarrito"
-)
-);
-
-carrito[index].cantidad++;
-
+));
+c[index].cantidad++;
 localStorage.setItem(
 "benditoCarrito",
-JSON.stringify(carrito)
+JSON.stringify(c)
 );
-
 render();
 }
 
 function restar(index){
-
-let carrito =
+let c =
 JSON.parse(
 localStorage.getItem(
 "benditoCarrito"
-)
-);
+));
+c[index].cantidad--;
 
-carrito[index].cantidad--;
-
-if(
-carrito[index].cantidad <= 0
-){
- carrito.splice(index,1);
+if(c[index].cantidad<=0){
+c.splice(index,1);
 }
 
 localStorage.setItem(
 "benditoCarrito",
-JSON.stringify(carrito)
+JSON.stringify(c)
 );
 
 render();
 }
 
 function vaciar(){
-
+if(confirm(
+"¿Vaciar carrito?"
+)){
 localStorage.removeItem(
 "benditoCarrito"
 );
-
 render();
+}
 }
 
 function generar(){
@@ -238,7 +390,7 @@ localStorage.getItem(
 let texto =
 "Hola 👋 quiero hacer este pedido:\n\n";
 
-let total = 0;
+let total=0;
 
 carrito.forEach(item=>{
 
@@ -266,18 +418,14 @@ document.getElementById(
 }
 
 function copiar(){
-
 let t =
 document.getElementById(
 "pedido"
 );
-
 t.select();
-
 document.execCommand(
 "copy"
 );
-
 alert(
 "Pedido copiado 👍"
 );
