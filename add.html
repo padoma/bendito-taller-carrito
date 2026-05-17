@@ -13,7 +13,6 @@ align-items:center;
 height:100vh;
 margin:0;
 text-align:center;
-background:#fff;
 ">
 
 <div>
@@ -27,10 +26,16 @@ background:#fff;
 const params =
 new URLSearchParams(window.location.search);
 
-const id = params.get("id");
-const nombre = params.get("nombre");
-const precio =
-Number(params.get("precio"));
+const producto = {
+ id: params.get("id"),
+ nombre: params.get("nombre"),
+ precio: Number(params.get("precio")),
+ imagen: params.get("imagen"),
+ mayorDesde:
+ Number(params.get("mayordesde")) || 999,
+ precioMayor:
+ Number(params.get("preciomayor")) || 0
+};
 
 let carrito =
 JSON.parse(
@@ -40,15 +45,15 @@ localStorage.getItem(
 ) || [];
 
 let existe =
-carrito.find(p => p.id === id);
+carrito.find(
+p => p.id === producto.id
+);
 
 if(existe){
  existe.cantidad++;
 }else{
  carrito.push({
-   id,
-   nombre,
-   precio,
+   ...producto,
    cantidad:1
  });
 }
@@ -58,10 +63,9 @@ localStorage.setItem(
 JSON.stringify(carrito)
 );
 
-// cerrar sola
 setTimeout(() => {
-   window.close();
-}, 1200);
+ window.close();
+}, 1000);
 
 </script>
 
