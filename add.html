@@ -4,18 +4,19 @@
 <meta charset="UTF-8">
 <title>Agregar producto</title>
 </head>
-<body style="font-family:Arial; text-align:center; padding-top:60px;">
+
+<body style="font-family:Arial;text-align:center;padding-top:60px;">
 
 <h2>Producto agregado 🛒</h2>
 <p>Volviendo a Bendito Taller...</p>
 
 <script>
+
 const params = new URLSearchParams(window.location.search);
 
 const id = params.get("id");
 const nombre = params.get("nombre");
 const precio = Number(params.get("precio"));
-const volver = params.get("volver");
 
 let carrito =
 JSON.parse(localStorage.getItem("benditoCarrito")) || [];
@@ -39,10 +40,11 @@ localStorage.setItem(
 JSON.stringify(carrito)
 );
 
+// volver atrás automáticamente
 setTimeout(() => {
-   window.location.href =
-   volver || "https://www.benditotaller.cl";
-}, 1200);
+   history.back();
+}, 800);
+
 </script>
 
 </body>
