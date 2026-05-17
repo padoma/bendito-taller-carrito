@@ -169,6 +169,7 @@ button.action{
 .top-buttons{
   display:flex;
   gap:16px;
+  width:100%;
 }
 
 .grande{
@@ -178,14 +179,33 @@ button.action{
 }
 
 .vaciar{
-  margin-top:18px;
+  margin-top:20px;
   width:100%;
-  max-width:340px;
-  display:block;
-  margin-left:auto;
-  margin-right:auto;
   min-height:65px;
   font-size:18px;
+  display:block;
+}
+
+/* Ajustes para celular */
+
+@media (max-width:768px){
+
+  .top-buttons{
+    flex-direction:column;
+  }
+
+  .grande{
+    width:100%;
+    min-height:85px;
+    font-size:22px;
+  }
+
+  .vaciar{
+    width:100%;
+    min-height:65px;
+    font-size:18px;
+  }
+
 }
 
 </style>
