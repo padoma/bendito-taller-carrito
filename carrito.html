@@ -117,7 +117,25 @@ Precio:
 $${precio.toLocaleString('es-CL')}
 
 ${mayorista
-? "<br><span style='color:green'>🎉 Precio mayorista aplicado</span>"
+? `<br>
+<span style="
+color:green;
+font-weight:bold;">
+🎉 Precio mayorista aplicado
+</span>
+
+<br>
+
+<span style="
+color:#1b5e20;
+font-size:14px;">
+💰 Ahorras
+$${(
+(item.precio - item.precioMayor)
+* item.cantidad
+).toLocaleString('es-CL')}
+comprando por mayor
+</span>`
 : ""}
 
 <br><br>
