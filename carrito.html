@@ -479,7 +479,7 @@ precio * item.cantidad;
 total += subtotal;
 
 texto +=
-`• ${item.nombre}
+`• ${decodeURIComponent(item.nombre)}
 x${item.cantidad}
 = $${subtotal.toLocaleString('es-CL')}\n`;
 });
