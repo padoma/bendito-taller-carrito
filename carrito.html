@@ -166,6 +166,28 @@ button.action{
   margin-top:50px;
 }
 
+.top-buttons{
+  display:flex;
+  gap:16px;
+}
+
+.grande{
+  flex:1;
+  min-height:90px;
+  font-size:24px;
+}
+
+.vaciar{
+  margin-top:18px;
+  width:100%;
+  max-width:340px;
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
+  min-height:65px;
+  font-size:18px;
+}
+
 </style>
 </head>
 
@@ -220,20 +242,24 @@ placeholder="Aquí aparecerá tu pedido">
 
 <div class="actions">
 
+<div class="top-buttons">
+
 <button
-class="action black"
+class="action black grande"
 onclick="generar()">
 📋 Generar pedido
 </button>
 
 <button
-class="action green"
+class="action green grande"
 onclick="copiar()">
 📱 Copiar para Instagram
 </button>
 
+</div>
+
 <button
-class="action red"
+class="action red vaciar"
 onclick="vaciar()">
 🗑 Vaciar carrito
 </button>
