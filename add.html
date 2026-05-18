@@ -6,29 +6,64 @@
 </head>
 
 <body style="
-font-family:Arial;
+font-family:Arial,sans-serif;
 display:flex;
 justify-content:center;
 align-items:center;
 height:100vh;
 margin:0;
 text-align:center;
+background:#f5f1eb;
+padding:20px;
 ">
 
-<div>
-<h2>🛒 Producto agregado</h2>
+<div style="
+background:white;
+padding:30px;
+border-radius:22px;
+box-shadow:0 6px 18px rgba(0,0,0,.12);
+max-width:320px;
+width:100%;
+border:2px solid #00FFBC;
+">
 
-<p>
-Tu producto fue añadido al carrito
+<div style="
+font-size:56px;
+margin-bottom:10px;">
+🛍️
+</div>
+
+<h2 style="
+font-size:34px;
+margin:0 0 14px 0;
+color:#4b372d;">
+¡Producto agregado!
+</h2>
+
+<p style="
+font-size:24px;
+line-height:1.5;
+margin:0;
+color:#5f4b42;">
+Tu producto fue añadido
+al carrito
 </p>
 
 <p style="
-font-size:14px;
+font-size:20px;
+margin-top:20px;
 color:#777;">
 Esta ventana se cerrará en
-<span id="contador">3</span>
+
+<b>
+<span id="contador">
+3
+</span>
+</b>
+
 segundos...
 </p>
+
 </div>
 
 <script>
