@@ -38,7 +38,8 @@ new URLSearchParams(window.location.search);
 
 const producto = {
  id: params.get("id"),
- nombre: params.get("nombre"),
+ nombre: params.get("nombre")
+?.replace(/\+/g, " "),
  precio: Number(params.get("precio")),
  imagen: params.get("imagen"),
  mayorDesde:
