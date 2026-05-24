@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bendito Taller - Pedido</title>
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- AVISO -->
+  <div id="toast">
+    ✔ Agregado al pedido
+  </div>
+
+  <!-- BOTÓN CARRITO -->
+  <button id="cartButton" onclick="toggleCart()">
+    🛒 (0)
+  </button>
+
+  <!-- PANEL CARRITO -->
+  <div id="cartPanel">
+
+    <div class="cart-header">
+      <h2>Tu Pedido</h2>
+      <button class="close-btn" onclick="toggleCart()">✕</button>
+    </div>
+
+    <div id="cartItems"></div>
+
+    <div id="cartTotal">
+      Total: $0
+    </div>
+
+    <h3>Observaciones generales</h3>
+
+    <textarea
+      id="obsGeneral"
+      placeholder="Ej: retiro viernes o necesito urgente">
+    </textarea>
+
+    <button class="btn-main" onclick="copiarPedido()">
+      Enviar pedido Instagram
+    </button>
+
+    <button class="btn-danger" onclick="vaciarCarrito()">
+      Vaciar carrito
+    </button>
+
+  </div>
+
+  <script src="productos.js"></script>
+  <script src="script.js"></script>
+
+</body>
+</html>
