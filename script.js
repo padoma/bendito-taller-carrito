@@ -16,9 +16,9 @@ function obtenerProductoURL(){
     params.get("producto");
 
     localStorage.setItem(
-    "volverCatalogo",
-    "https://sites.google.com/view/bendito-taller/p%C3%A1gina-principal"
-);
+        "volverCatalogo",
+        "https://sites.google.com/view/bendito-taller/p%C3%A1gina-principal"
+    );
 
     if(!id || !productos[id]) return;
 
@@ -266,7 +266,8 @@ function agregarProducto(){
 
         codigo:p.codigo,
         nombre:p.nombre,
-        imagen:p.imagen,
+
+        imagen:`https://padoma.github.io/bendito-taller-carrito/img/${p.codigo}.jpg`,
 
         cantidad:parseInt(
             document.getElementById(
@@ -337,8 +338,6 @@ function agregarProducto(){
     cerrarPopup();
     mostrarToast();
 
-    /* volver catálogo */
-
     setTimeout(() => {
 
         const volver =
@@ -375,7 +374,11 @@ function renderCarrito(){
         html += `
         <div class="cart-item">
 
-            <img src="${item.imagen}">
+            <img 
+                src="${item.imagen}"
+                alt="${item.nombre}"
+                onerror="this.src='https://via.placeholder.com/90?text=Sin+Foto'"
+            >
 
             <div class="item-info">
 
@@ -468,9 +471,8 @@ function volverCatalogo(){
     const volver =
     localStorage.getItem("volverCatalogo");
 
-        window.location.href =
-        volver;
-    }
+    window.location.href =
+    volver;
 }
 
 /* ==========================
