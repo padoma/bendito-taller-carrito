@@ -391,13 +391,24 @@
         let total = 0;
 
         carrito.forEach((item, index) => {
+            // Recalcular precio dinámico en caliente por si cambió la cantidad
+            item.precio = item.cantidad >= 4 ? item.mayor : item.unitario;
+            item.tipo = (item.cantidad >= 4 && item.mayor < item.unitario) ? "Por Mayor" : "Unitario";
+
             let subtotal = item.precio * item.cantidad;
             total += subtotal;
 
             let detalles = [];
             if (item.medida) detalles.push(`Medida: ${item.medida}`);
             if (item.variante) detalles.push(`Opción: ${item.variante}`);
-            if (item.tipo) detalles.push(`${item.tipo}`);
+            
+            let ahorroStr = "";
+            if (item.cantidad >= 4 && item.mayor < item.unitario) {
+                detalles.push(`<span style="color: var(--primary-color); font-weight: 600;">Por Mayor</span>`);
+                let ahorro = (item.unitario - item.mayor) * item.cantidad;
+                ahorroStr = `<div style="font-size: 13px; color: #2e7d32; font-weight: 500; margin-top: 4px;">💰 Ahorras $${ahorro.toLocaleString("es-CL")} (Precio mayorista aplicado)</div>`;
+            }
+
             let detallesStr = detalles.join(" | ");
 
             itemsHtml += `
@@ -408,6 +419,7 @@
                         <div class="item-name">${item.nombre}</div>
                         <div class="item-meta">${detallesStr}</div>
                         ${item.observacion ? `<div class="item-obs">Nota: "${item.observacion}"</div>` : ""}
+                        ${ahorroStr}
                         
                         <div class="item-controls-price">
                             <div class="qty-controls">
@@ -457,6 +469,8 @@
 
     function sumar(index) {
         carrito[index].cantidad++;
+        carrito[index].precio = carrito[index].cantidad >= 4 ? carrito[index].mayor : carrito[index].unitario;
+        carrito[index].tipo = (carrito[index].cantidad >= 4 && carrito[index].mayor < carrito[index].unitario) ? "Por Mayor" : "Unitario";
         guardar();
         render();
     }
@@ -465,6 +479,9 @@
         carrito[index].cantidad--;
         if (carrito[index].cantidad <= 0) {
             carrito.splice(index, 1);
+        } else {
+            carrito[index].precio = carrito[index].cantidad >= 4 ? carrito[index].mayor : carrito[index].unitario;
+            carrito[index].tipo = (carrito[index].cantidad >= 4 && carrito[index].mayor < carrito[index].unitario) ? "Por Mayor" : "Unitario";
         }
         guardar();
         render();
@@ -493,20 +510,26 @@
         let mensaje = `Hola 😊 quiero cotizar estos productos de Bendito Taller:\n\n`;
 
         carrito.forEach(item => {
+            let precio = item.cantidad >= 4 ? item.mayor : item.unitario;
+            let subtotal = precio * item.cantidad;
+
             let det = [];
             if (item.medida) det.push(`Medida: ${item.medida}`);
             if (item.variante) det.push(`Opción: ${item.variante}`);
-            if (item.tipo) det.push(`${item.tipo}`);
+            if (item.cantidad >= 4 && item.mayor < item.unitario) det.push(`Precio Mayorista aplicado`);
             let detStr = det.length > 0 ? ` (${det.join(" | ")})` : "";
 
             mensaje += `• ${item.nombre}${detStr}\n`;
             mensaje += `  COD: ${item.codigo}\n`;
             mensaje += `  Cantidad: ${item.cantidad}\n`;
             if (item.observacion) mensaje += `  Nota: "${item.observacion}"\n`;
-            mensaje += `  Subtotal: $${(item.precio * item.cantidad).toLocaleString("es-CL")}\n\n`;
+            mensaje += `  Subtotal: $${subtotal.toLocaleString("es-CL")}\n\n`;
         });
 
-        const total = carrito.reduce((acc, item) => acc + (item.precio * item.cantidad), 0);
+        const total = carrito.reduce((acc, item) => {
+            let precio = item.cantidad >= 4 ? item.mayor : item.unitario;
+            return acc + (precio * item.cantidad);
+        }, 0);
         mensaje += `💰 Total estimado: $${total.toLocaleString("es-CL")}\n`;
 
         const obsGeneralVal = document.getElementById("obsGeneral").value.trim();
@@ -521,7 +544,6 @@
             })
             .catch(err => {
                 console.error("Error al copiar: ", err);
-                // Fallback manual para navegadores restrictivos
                 const t = document.createElement("textarea");
                 t.value = mensaje;
                 document.body.appendChild(t);
