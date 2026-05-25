@@ -1,5 +1,6 @@
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 let productoActual = null;
+let opcionPreseleccionada = "";
 
 /* ==========================
    CARGAR PRODUCTO URL
@@ -15,7 +16,15 @@ function obtenerProductoURL(){
 
     if(!id || !productos[id]) return;
 
-    productoActual = productos[id];
+    // Si es un alias/redirección a un producto padre agrupado
+    if (productos[id].parent) {
+        opcionPreseleccionada = productos[id].preselect;
+        productoActual = productos[productos[id].parent];
+    } else {
+        opcionPreseleccionada = "";
+        productoActual = productos[id];
+    }
+    
     abrirSelectorProducto();
 }
 
@@ -27,7 +36,7 @@ function abrirSelectorProducto(){
     let opcionesHTML = "";
     let preciosInfoHTML = "";
 
-    // Badge / Info de precios
+    // Badge / Info de precios (solo si tiene precios directos no vacíos)
     if (p.mayor && p.mayor < p.unitario) {
         preciosInfoHTML = `
         <div style="background: rgba(125, 139, 99, 0.08); border: 1px dashed var(--primary-color); border-radius: 16px; padding: 12px; margin-bottom: 18px; text-align: center; font-size: 14px;">
@@ -35,7 +44,7 @@ function abrirSelectorProducto(){
             <div style="font-weight: 500; color: var(--text-muted); margin-top: 4px;">✨ ¡Llevando <span style="color: var(--primary-color); font-weight: 700;">4 o más</span> pagas precio Mayorista: <span style="color: var(--primary-color); font-weight: 700;">$${p.mayor.toLocaleString("es-CL")}</span> c/u!</div>
         </div>
         `;
-    } else {
+    } else if (p.unitario) {
         preciosInfoHTML = `
         <div style="background: rgba(75, 55, 45, 0.04); border: 1px solid var(--border-color); border-radius: 16px; padding: 12px; margin-bottom: 18px; text-align: center; font-size: 14px;">
             <div style="font-weight: 700; color: var(--text-main);">Valor: $${p.unitario.toLocaleString("es-CL")}</div>
@@ -49,11 +58,14 @@ function abrirSelectorProducto(){
         <div class="modal-input-group">
             <label for="medidaSelect">Medida</label>
             <select id="medidaSelect" class="modal-select">
-                ${p.opciones.map(op => `
-                    <option value="${op.medida}|${op.mayor}|${op.unitario}">
+                ${p.opciones.map(op => {
+                    const selected = (opcionPreseleccionada && op.medida.toLowerCase().replace(/[^a-z0-9]/g, "") === opcionPreseleccionada.toLowerCase().replace(/[^a-z0-9]/g, "")) ? "selected" : "";
+                    return `
+                    <option value="${op.medida}|${op.mayor}|${op.unitario}" ${selected}>
                         ${op.medida} (Unitario: $${op.unitario.toLocaleString("es-CL")} / 4+: $${op.mayor.toLocaleString("es-CL")})
                     </option>
-                `).join("")}
+                    `;
+                }).join("")}
             </select>
         </div>
         `;
