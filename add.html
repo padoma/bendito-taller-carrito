@@ -15,7 +15,9 @@
     <script src="productos.js"></script>
     <script>
         const params = new URLSearchParams(window.location.search);
-        const originalId = params.get("id") || "";
+        
+        // Soporta tanto ?id=CA10 como ?producto=CA10 de enlaces antiguos y nuevos
+        const originalId = params.get("id") || params.get("producto") || "";
         
         // Normalizar ID antiguo a minúsculas y sin caracteres especiales (ej: reno-base -> renobase)
         let cleanId = originalId.toLowerCase().replace(/[^a-z0-9]/g, "");
@@ -24,16 +26,20 @@
         if (cleanId && productos[cleanId]) {
             window.location.href = `index.html?producto=${cleanId}`;
         } else {
-            // Si el ID normalizado no existe, verificar si contiene alguna clave parcial
             let encontrado = false;
-            for (let key in productos) {
-                if (key.includes(cleanId) || cleanId.includes(key)) {
-                    window.location.href = `index.html?producto=${key}`;
-                    encontrado = true;
-                    break;
+            
+            // Solo buscar coincidencia parcial si cleanId no está vacío
+            if (cleanId) {
+                for (let key in productos) {
+                    if (key.includes(cleanId) || cleanId.includes(key)) {
+                        window.location.href = `index.html?producto=${key}`;
+                        encontrado = true;
+                        break;
+                    }
                 }
             }
-            // Fallback: Redirigir a la raíz del catálogo si no hay coincidencia
+            
+            // Fallback: Redirigir a la raíz si no hay coincidencia
             if (!encontrado) {
                 window.location.href = "index.html";
             }
