@@ -439,37 +439,57 @@ const productos = {
         "mayor": 3800,
         "unitario": 4300
     },
-    "ca120cm": {
-        "codigo": "CA1_20CM",
-        "nombre": "CA1_20CM",
+    "ca1": {
+        "codigo": "CA1",
+        "nombre": "CA1",
         "imagen": "img/CA1.jpg",
-        "tipo": "simple",
-        "mayor": 2000,
-        "unitario": 3000
+        "tipo": "medidas",
+        "opciones": [
+            {
+                "medida": "20 cm",
+                "mayor": 2000,
+                "unitario": 3000
+            },
+            {
+                "medida": "30 cm",
+                "mayor": 3000,
+                "unitario": 3800
+            }
+        ]
+    },
+    "ca120cm": {
+        "parent": "ca1",
+        "preselect": "20 cm"
     },
     "ca130cm": {
-        "codigo": "CA1_30CM",
-        "nombre": "CA1_30CM",
-        "imagen": "img/CA1.jpg",
-        "tipo": "simple",
-        "mayor": 3000,
-        "unitario": 3800
+        "parent": "ca1",
+        "preselect": "30 cm"
+    },
+    "ca10": {
+        "codigo": "CA10",
+        "nombre": "CA10",
+        "imagen": "img/CA10.jpg",
+        "tipo": "medidas",
+        "opciones": [
+            {
+                "medida": "20 cm",
+                "mayor": 2000,
+                "unitario": 3500
+            },
+            {
+                "medida": "30 cm",
+                "mayor": 3500,
+                "unitario": 4500
+            }
+        ]
     },
     "ca1020cm": {
-        "codigo": "CA10_20CM",
-        "nombre": "CA10_20CM",
-        "imagen": "img/CA10.jpg",
-        "tipo": "simple",
-        "mayor": 2000,
-        "unitario": 3500
+        "parent": "ca10",
+        "preselect": "20 cm"
     },
     "ca1030cm": {
-        "codigo": "CA10_30CM",
-        "nombre": "CA10_30CM",
-        "imagen": "img/CA10.jpg",
-        "tipo": "simple",
-        "mayor": 3500,
-        "unitario": 4500
+        "parent": "ca10",
+        "preselect": "30 cm"
     },
     "ca11trio": {
         "codigo": "CA11_TRIO",
@@ -479,37 +499,57 @@ const productos = {
         "mayor": 1000,
         "unitario": 1400
     },
-    "ca123mm": {
-        "codigo": "CA12_3MM",
-        "nombre": "CA12_3MM",
+    "ca12": {
+        "codigo": "CA12",
+        "nombre": "CA12",
         "imagen": "img/CA12.jpg",
-        "tipo": "simple",
-        "mayor": 2000,
-        "unitario": 3000
+        "tipo": "medidas",
+        "opciones": [
+            {
+                "medida": "3 mm",
+                "mayor": 2000,
+                "unitario": 3000
+            },
+            {
+                "medida": "5.5 mm",
+                "mayor": 3000,
+                "unitario": 3800
+            }
+        ]
+    },
+    "ca123mm": {
+        "parent": "ca12",
+        "preselect": "3 mm"
     },
     "ca1255mm": {
-        "codigo": "CA12_5,5MM",
-        "nombre": "CA12_5,5MM",
-        "imagen": "img/CA12.jpg",
-        "tipo": "simple",
-        "mayor": 3000,
-        "unitario": 3800
+        "parent": "ca12",
+        "preselect": "5.5 mm"
+    },
+    "ca13": {
+        "codigo": "CA13",
+        "nombre": "CA13",
+        "imagen": "img/CA13.jpg",
+        "tipo": "medidas",
+        "opciones": [
+            {
+                "medida": "3 mm",
+                "mayor": 2800,
+                "unitario": 3500
+            },
+            {
+                "medida": "5.5 mm",
+                "mayor": 3800,
+                "unitario": 4500
+            }
+        ]
     },
     "ca133mm": {
-        "codigo": "CA13_3MM",
-        "nombre": "CA13_3MM",
-        "imagen": "img/CA13.jpg",
-        "tipo": "simple",
-        "mayor": 2800,
-        "unitario": 3500
+        "parent": "ca13",
+        "preselect": "3 mm"
     },
     "ca1355mm": {
-        "codigo": "CA13_5,5MM",
-        "nombre": "CA13_5,5MM",
-        "imagen": "img/CA13.jpg",
-        "tipo": "simple",
-        "mayor": 3800,
-        "unitario": 4500
+        "parent": "ca13",
+        "preselect": "5.5 mm"
     },
     "ca14": {
         "codigo": "CA14",
@@ -527,37 +567,57 @@ const productos = {
         "mayor": 3900,
         "unitario": 4600
     },
-    "ca1620cm": {
-        "codigo": "CA16_20CM",
-        "nombre": "CA16_20CM",
+    "ca16": {
+        "codigo": "CA16",
+        "nombre": "CA16",
         "imagen": "img/CA16.jpg",
-        "tipo": "simple",
-        "mayor": 2200,
-        "unitario": 3000
+        "tipo": "medidas",
+        "opciones": [
+            {
+                "medida": "20 cm",
+                "mayor": 2200,
+                "unitario": 3000
+            },
+            {
+                "medida": "30 cm",
+                "mayor": 3000,
+                "unitario": 3800
+            }
+        ]
+    },
+    "ca1620cm": {
+        "parent": "ca16",
+        "preselect": "20 cm"
     },
     "ca1630cm": {
-        "codigo": "CA16_30CM",
-        "nombre": "CA16_30CM",
-        "imagen": "img/CA16.jpg",
-        "tipo": "simple",
-        "mayor": 3000,
-        "unitario": 3800
+        "parent": "ca16",
+        "preselect": "30 cm"
+    },
+    "ca17": {
+        "codigo": "CA17",
+        "nombre": "CA17",
+        "imagen": "img/CA17.jpg",
+        "tipo": "medidas",
+        "opciones": [
+            {
+                "medida": "20 cm",
+                "mayor": 2200,
+                "unitario": 3000
+            },
+            {
+                "medida": "30 cm",
+                "mayor": 3000,
+                "unitario": 3800
+            }
+        ]
     },
     "ca1720cm": {
-        "codigo": "CA17_20CM",
-        "nombre": "CA17_20CM",
-        "imagen": "img/CA17.jpg",
-        "tipo": "simple",
-        "mayor": 2200,
-        "unitario": 3000
+        "parent": "ca17",
+        "preselect": "20 cm"
     },
     "ca1730cm": {
-        "codigo": "CA17_30_CM",
-        "nombre": "CA17_30_CM",
-        "imagen": "img/CA17.jpg",
-        "tipo": "simple",
-        "mayor": 3000,
-        "unitario": 3800
+        "parent": "ca17",
+        "preselect": "30 cm"
     },
     "ca18": {
         "codigo": "CA18",
@@ -567,69 +627,109 @@ const productos = {
         "mayor": 4800,
         "unitario": 5600
     },
-    "ca220cm": {
-        "codigo": "CA2_20CM",
-        "nombre": "CA2_20CM",
+    "ca2": {
+        "codigo": "CA2",
+        "nombre": "CA2",
         "imagen": "img/CA2.jpg",
-        "tipo": "simple",
-        "mayor": 2000,
-        "unitario": 3000
+        "tipo": "medidas",
+        "opciones": [
+            {
+                "medida": "20 cm",
+                "mayor": 2000,
+                "unitario": 3000
+            },
+            {
+                "medida": "30 cm",
+                "mayor": 3000,
+                "unitario": 3800
+            }
+        ]
+    },
+    "ca220cm": {
+        "parent": "ca2",
+        "preselect": "20 cm"
     },
     "ca230cm": {
-        "codigo": "CA2_30CM",
-        "nombre": "CA2_30CM",
-        "imagen": "img/CA2.jpg",
-        "tipo": "simple",
-        "mayor": 3000,
-        "unitario": 3800
+        "parent": "ca2",
+        "preselect": "30 cm"
+    },
+    "ca4": {
+        "codigo": "CA4",
+        "nombre": "CA4",
+        "imagen": "img/CA4.jpg",
+        "tipo": "medidas",
+        "opciones": [
+            {
+                "medida": "20 cm",
+                "mayor": 2000,
+                "unitario": 3000
+            },
+            {
+                "medida": "30 cm",
+                "mayor": 3000,
+                "unitario": 3800
+            }
+        ]
     },
     "ca420cm": {
-        "codigo": "CA4_20CM",
-        "nombre": "CA4_20CM",
-        "imagen": "img/CA4.jpg",
-        "tipo": "simple",
-        "mayor": 2000,
-        "unitario": 3000
+        "parent": "ca4",
+        "preselect": "20 cm"
     },
     "ca430cm": {
-        "codigo": "CA4_30CM",
-        "nombre": "CA4_30CM",
-        "imagen": "img/CA4.jpg",
-        "tipo": "simple",
-        "mayor": 3000,
-        "unitario": 3800
+        "parent": "ca4",
+        "preselect": "30 cm"
+    },
+    "ca5": {
+        "codigo": "CA5",
+        "nombre": "CA5",
+        "imagen": "img/CA5.jpg",
+        "tipo": "medidas",
+        "opciones": [
+            {
+                "medida": "20 cm",
+                "mayor": 2000,
+                "unitario": 3000
+            },
+            {
+                "medida": "30 cm",
+                "mayor": 3000,
+                "unitario": 3800
+            }
+        ]
     },
     "ca520cm": {
-        "codigo": "CA5_20CM",
-        "nombre": "CA5_20CM",
-        "imagen": "img/CA5.jpg",
-        "tipo": "simple",
-        "mayor": 2000,
-        "unitario": 3000
+        "parent": "ca5",
+        "preselect": "20 cm"
     },
     "ca530cm": {
-        "codigo": "CA5_30CM",
-        "nombre": "CA5_30CM",
-        "imagen": "img/CA5.jpg",
-        "tipo": "simple",
-        "mayor": 3000,
-        "unitario": 3800
+        "parent": "ca5",
+        "preselect": "30 cm"
+    },
+    "ca6": {
+        "codigo": "CA6",
+        "nombre": "CA6",
+        "imagen": "img/CA6.jpg",
+        "tipo": "medidas",
+        "opciones": [
+            {
+                "medida": "20 cm",
+                "mayor": 2000,
+                "unitario": 3000
+            },
+            {
+                "medida": "30 cm",
+                "mayor": 3000,
+                "unitario": 3800
+            }
+        ]
     },
     "ca620cm": {
-        "codigo": "CA6_20CM",
-        "nombre": "CA6_20CM",
-        "imagen": "img/CA6.jpg",
-        "tipo": "simple",
-        "mayor": 2000,
-        "unitario": 3000
+        "parent": "ca6",
+        "preselect": "20 cm"
     },
     "ca630cm": {
-        "codigo": "CA6_30CM",
-        "nombre": "CA6_30CM",
-        "imagen": "img/CA6.jpg",
-        "tipo": "simple",
-        "mayor": 3000,
-        "unitario": 3800
+        "parent": "ca6",
+        "preselect": "30 cm"
     },
     "ca7": {
         "codigo": "CA7",
@@ -799,37 +899,57 @@ const productos = {
         "mayor": 5000,
         "unitario": 5800
     },
-    "co120cm": {
-        "codigo": "CO1_20CM",
-        "nombre": "CO1_20CM",
+    "co1": {
+        "codigo": "CO1",
+        "nombre": "CO1",
         "imagen": "img/CO1.jpg",
-        "tipo": "simple",
-        "mayor": 2000,
-        "unitario": 3000
+        "tipo": "medidas",
+        "opciones": [
+            {
+                "medida": "20 cm",
+                "mayor": 2000,
+                "unitario": 3000
+            },
+            {
+                "medida": "30 cm",
+                "mayor": 3500,
+                "unitario": 5000
+            }
+        ]
+    },
+    "co120cm": {
+        "parent": "co1",
+        "preselect": "20 cm"
     },
     "co130cm": {
-        "codigo": "CO1_30CM",
-        "nombre": "CO1_30CM",
-        "imagen": "img/CO1.jpg",
-        "tipo": "simple",
-        "mayor": 3500,
-        "unitario": 5000
+        "parent": "co1",
+        "preselect": "30 cm"
+    },
+    "co10": {
+        "codigo": "CO10",
+        "nombre": "CO10",
+        "imagen": "img/CO10.jpg",
+        "tipo": "medidas",
+        "opciones": [
+            {
+                "medida": "20 cm",
+                "mayor": 2500,
+                "unitario": 3000
+            },
+            {
+                "medida": "30 cm",
+                "mayor": 3500,
+                "unitario": 4300
+            }
+        ]
     },
     "co1020cm": {
-        "codigo": "CO10_20CM",
-        "nombre": "CO10_20CM",
-        "imagen": "img/CO10.jpg",
-        "tipo": "simple",
-        "mayor": 2500,
-        "unitario": 3000
+        "parent": "co10",
+        "preselect": "20 cm"
     },
     "co1030cm": {
-        "codigo": "CO10_30CM",
-        "nombre": "CO10_30CM",
-        "imagen": "img/CO10.jpg",
-        "tipo": "simple",
-        "mayor": 3500,
-        "unitario": 4300
+        "parent": "co10",
+        "preselect": "30 cm"
     },
     "co11": {
         "codigo": "CO11",
@@ -839,21 +959,31 @@ const productos = {
         "mayor": 1000,
         "unitario": 1800
     },
-    "co1220cm": {
-        "codigo": "CO12_20CM",
-        "nombre": "CO12_20CM",
+    "co12": {
+        "codigo": "CO12",
+        "nombre": "CO12",
         "imagen": "img/CO12.jpg",
-        "tipo": "simple",
-        "mayor": 2000,
-        "unitario": 2800
+        "tipo": "medidas",
+        "opciones": [
+            {
+                "medida": "20 cm",
+                "mayor": 2000,
+                "unitario": 2800
+            },
+            {
+                "medida": "30 cm",
+                "mayor": 3500,
+                "unitario": 4300
+            }
+        ]
+    },
+    "co1220cm": {
+        "parent": "co12",
+        "preselect": "20 cm"
     },
     "co1230cm": {
-        "codigo": "CO12_30CM",
-        "nombre": "CO12_30CM",
-        "imagen": "img/CO12.jpg",
-        "tipo": "simple",
-        "mayor": 3500,
-        "unitario": 4300
+        "parent": "co12",
+        "preselect": "30 cm"
     },
     "co13": {
         "codigo": "CO13",
@@ -871,21 +1001,31 @@ const productos = {
         "mayor": 900,
         "unitario": 1500
     },
-    "co1520cm": {
-        "codigo": "CO15_20CM",
-        "nombre": "CO15_20CM",
+    "co15": {
+        "codigo": "CO15",
+        "nombre": "CO15",
         "imagen": "img/CO15.jpg",
-        "tipo": "simple",
-        "mayor": 2000,
-        "unitario": 3000
+        "tipo": "medidas",
+        "opciones": [
+            {
+                "medida": "20 cm",
+                "mayor": 2000,
+                "unitario": 3000
+            },
+            {
+                "medida": "30 cm",
+                "mayor": 3500,
+                "unitario": 4300
+            }
+        ]
+    },
+    "co1520cm": {
+        "parent": "co15",
+        "preselect": "20 cm"
     },
     "co1530cm": {
-        "codigo": "CO15_30CM",
-        "nombre": "CO15_30CM",
-        "imagen": "img/CO15.jpg",
-        "tipo": "simple",
-        "mayor": 3500,
-        "unitario": 4300
+        "parent": "co15",
+        "preselect": "30 cm"
     },
     "co16": {
         "codigo": "CO16",
@@ -895,21 +1035,31 @@ const productos = {
         "mayor": 2800,
         "unitario": 3500
     },
-    "co1720cm": {
-        "codigo": "CO17_20CM",
-        "nombre": "CO17_20CM",
+    "co17": {
+        "codigo": "CO17",
+        "nombre": "CO17",
         "imagen": "img/CO17.jpg",
-        "tipo": "simple",
-        "mayor": 2000,
-        "unitario": 3000
+        "tipo": "medidas",
+        "opciones": [
+            {
+                "medida": "20 cm",
+                "mayor": 2000,
+                "unitario": 3000
+            },
+            {
+                "medida": "30 cm",
+                "mayor": 3500,
+                "unitario": 4300
+            }
+        ]
+    },
+    "co1720cm": {
+        "parent": "co17",
+        "preselect": "20 cm"
     },
     "co1730cm": {
-        "codigo": "CO17_30CM",
-        "nombre": "CO17_30CM",
-        "imagen": "img/CO17.jpg",
-        "tipo": "simple",
-        "mayor": 3500,
-        "unitario": 4300
+        "parent": "co17",
+        "preselect": "30 cm"
     },
     "co18": {
         "codigo": "CO18",
@@ -927,21 +1077,31 @@ const productos = {
         "mayor": 600,
         "unitario": 600
     },
-    "co220cm": {
-        "codigo": "CO2_20CM",
-        "nombre": "CO2_20CM",
+    "co2": {
+        "codigo": "CO2",
+        "nombre": "CO2",
         "imagen": "img/CO2.jpg",
-        "tipo": "simple",
-        "mayor": 2000,
-        "unitario": 2800
+        "tipo": "medidas",
+        "opciones": [
+            {
+                "medida": "20 cm",
+                "mayor": 2000,
+                "unitario": 2800
+            },
+            {
+                "medida": "30 cm",
+                "mayor": 3500,
+                "unitario": 4500
+            }
+        ]
+    },
+    "co220cm": {
+        "parent": "co2",
+        "preselect": "20 cm"
     },
     "co230cm": {
-        "codigo": "CO2_30CM",
-        "nombre": "CO2_30CM",
-        "imagen": "img/CO2.jpg",
-        "tipo": "simple",
-        "mayor": 3500,
-        "unitario": 4500
+        "parent": "co2",
+        "preselect": "30 cm"
     },
     "co20": {
         "codigo": "CO20",
@@ -975,37 +1135,57 @@ const productos = {
         "mayor": 1500,
         "unitario": 1500
     },
-    "co2420cm": {
-        "codigo": "CO24_20CM",
-        "nombre": "CO24_20CM",
+    "co24": {
+        "codigo": "CO24",
+        "nombre": "CO24",
         "imagen": "img/CO24.jpg",
-        "tipo": "simple",
-        "mayor": 2000,
-        "unitario": 2800
+        "tipo": "medidas",
+        "opciones": [
+            {
+                "medida": "20 cm",
+                "mayor": 2000,
+                "unitario": 2800
+            },
+            {
+                "medida": "30 cm",
+                "mayor": 3500,
+                "unitario": 4000
+            }
+        ]
+    },
+    "co2420cm": {
+        "parent": "co24",
+        "preselect": "20 cm"
     },
     "co2430cm": {
-        "codigo": "CO24_30CM",
-        "nombre": "CO24_30CM",
-        "imagen": "img/CO24.jpg",
-        "tipo": "simple",
-        "mayor": 3500,
-        "unitario": 4000
+        "parent": "co24",
+        "preselect": "30 cm"
+    },
+    "co25": {
+        "codigo": "CO25",
+        "nombre": "CO25",
+        "imagen": "img/CO25.jpg",
+        "tipo": "medidas",
+        "opciones": [
+            {
+                "medida": "20 cm",
+                "mayor": 2000,
+                "unitario": 2800
+            },
+            {
+                "medida": "30 cm",
+                "mayor": 3500,
+                "unitario": 4000
+            }
+        ]
     },
     "co2520cm": {
-        "codigo": "CO25_20CM",
-        "nombre": "CO25_20CM",
-        "imagen": "img/CO25.jpg",
-        "tipo": "simple",
-        "mayor": 2000,
-        "unitario": 2800
+        "parent": "co25",
+        "preselect": "20 cm"
     },
     "co2530cm": {
-        "codigo": "CO25_30CM",
-        "nombre": "CO25_30CM",
-        "imagen": "img/CO25.jpg",
-        "tipo": "simple",
-        "mayor": 3500,
-        "unitario": 4000
+        "parent": "co25",
+        "preselect": "30 cm"
     },
     "co26": {
         "codigo": "Co26",
@@ -1015,21 +1195,31 @@ const productos = {
         "mayor": 5500,
         "unitario": 5500
     },
-    "co2720cm": {
-        "codigo": "CO27_20CM",
-        "nombre": "CO27_20CM",
+    "co27": {
+        "codigo": "CO27",
+        "nombre": "CO27",
         "imagen": "img/CO27.jpg",
-        "tipo": "simple",
-        "mayor": 2000,
-        "unitario": 2800
+        "tipo": "medidas",
+        "opciones": [
+            {
+                "medida": "20 cm",
+                "mayor": 2000,
+                "unitario": 2800
+            },
+            {
+                "medida": "30 cm",
+                "mayor": 3500,
+                "unitario": 4500
+            }
+        ]
+    },
+    "co2720cm": {
+        "parent": "co27",
+        "preselect": "20 cm"
     },
     "co2730cm": {
-        "codigo": "CO27_30CM",
-        "nombre": "CO27_30CM",
-        "imagen": "img/CO27.jpg",
-        "tipo": "simple",
-        "mayor": 3500,
-        "unitario": 4500
+        "parent": "co27",
+        "preselect": "30 cm"
     },
     "co28": {
         "codigo": "Co28",
@@ -1039,21 +1229,31 @@ const productos = {
         "mayor": 1200,
         "unitario": 1800
     },
-    "co2920cm": {
-        "codigo": "Co29_20CM",
-        "nombre": "Co29_20CM",
+    "co29": {
+        "codigo": "Co29",
+        "nombre": "Co29",
         "imagen": "img/Co29.jpg",
-        "tipo": "simple",
-        "mayor": 2000,
-        "unitario": 2800
+        "tipo": "medidas",
+        "opciones": [
+            {
+                "medida": "20 cm",
+                "mayor": 2000,
+                "unitario": 2800
+            },
+            {
+                "medida": "30 cm",
+                "mayor": 3000,
+                "unitario": 4000
+            }
+        ]
+    },
+    "co2920cm": {
+        "parent": "co29",
+        "preselect": "20 cm"
     },
     "co2930cm": {
-        "codigo": "Co29_30CM",
-        "nombre": "Co29_30CM",
-        "imagen": "img/Co29.jpg",
-        "tipo": "simple",
-        "mayor": 3000,
-        "unitario": 4000
+        "parent": "co29",
+        "preselect": "30 cm"
     },
     "co3": {
         "codigo": "CO3",
@@ -1087,53 +1287,83 @@ const productos = {
         "mayor": 2800,
         "unitario": 3500
     },
-    "co3320cm": {
-        "codigo": "Co33_20CM",
-        "nombre": "Co33_20CM",
+    "co33": {
+        "codigo": "Co33",
+        "nombre": "Co33",
         "imagen": "img/Co33.jpg",
-        "tipo": "simple",
-        "mayor": 2000,
-        "unitario": 2800
+        "tipo": "medidas",
+        "opciones": [
+            {
+                "medida": "20 cm",
+                "mayor": 2000,
+                "unitario": 2800
+            },
+            {
+                "medida": "30 cm",
+                "mayor": 3500,
+                "unitario": 4000
+            }
+        ]
+    },
+    "co3320cm": {
+        "parent": "co33",
+        "preselect": "20 cm"
     },
     "co3330cm": {
-        "codigo": "Co33_30_CM",
-        "nombre": "Co33_30_CM",
-        "imagen": "img/Co33.jpg",
-        "tipo": "simple",
-        "mayor": 3500,
-        "unitario": 4000
+        "parent": "co33",
+        "preselect": "30 cm"
+    },
+    "co34": {
+        "codigo": "Co34",
+        "nombre": "Co34",
+        "imagen": "img/Co34.jpg",
+        "tipo": "medidas",
+        "opciones": [
+            {
+                "medida": "20 cm",
+                "mayor": 2000,
+                "unitario": 2800
+            },
+            {
+                "medida": "30 cm",
+                "mayor": 3500,
+                "unitario": 4000
+            }
+        ]
     },
     "co3420cm": {
-        "codigo": "Co34_20CM",
-        "nombre": "Co34_20CM",
-        "imagen": "img/Co34.jpg",
-        "tipo": "simple",
-        "mayor": 2000,
-        "unitario": 2800
+        "parent": "co34",
+        "preselect": "20 cm"
     },
     "co3430cm": {
-        "codigo": "Co34_30_CM",
-        "nombre": "Co34_30_CM",
-        "imagen": "img/Co34.jpg",
-        "tipo": "simple",
-        "mayor": 3500,
-        "unitario": 4000
+        "parent": "co34",
+        "preselect": "30 cm"
+    },
+    "co36": {
+        "codigo": "CO36",
+        "nombre": "CO36",
+        "imagen": "img/CO36.jpg",
+        "tipo": "medidas",
+        "opciones": [
+            {
+                "medida": "20 cm",
+                "mayor": 2000,
+                "unitario": 2800
+            },
+            {
+                "medida": "30 cm",
+                "mayor": 3300,
+                "unitario": 4300
+            }
+        ]
     },
     "co3620cm": {
-        "codigo": "CO36_20CM",
-        "nombre": "CO36_20CM",
-        "imagen": "img/CO36.jpg",
-        "tipo": "simple",
-        "mayor": 2000,
-        "unitario": 2800
+        "parent": "co36",
+        "preselect": "20 cm"
     },
     "co3630cm": {
-        "codigo": "CO36_30CM",
-        "nombre": "CO36_30CM",
-        "imagen": "img/CO36.jpg",
-        "tipo": "simple",
-        "mayor": 3300,
-        "unitario": 4300
+        "parent": "co36",
+        "preselect": "30 cm"
     },
     "co37": {
         "codigo": "CO37",
@@ -1143,101 +1373,161 @@ const productos = {
         "mayor": 1500,
         "unitario": 1500
     },
-    "co420cm": {
-        "codigo": "CO4_20CM",
-        "nombre": "CO4_20CM",
+    "co4": {
+        "codigo": "CO4",
+        "nombre": "CO4",
         "imagen": "img/CO4.jpg",
-        "tipo": "simple",
-        "mayor": 2000,
-        "unitario": 2800
+        "tipo": "medidas",
+        "opciones": [
+            {
+                "medida": "20 cm",
+                "mayor": 2000,
+                "unitario": 2800
+            },
+            {
+                "medida": "30 cm",
+                "mayor": 3000,
+                "unitario": 4000
+            }
+        ]
+    },
+    "co420cm": {
+        "parent": "co4",
+        "preselect": "20 cm"
     },
     "co430cm": {
-        "codigo": "CO4_30CM",
-        "nombre": "CO4_30CM",
-        "imagen": "img/CO4.jpg",
-        "tipo": "simple",
-        "mayor": 3000,
-        "unitario": 4000
+        "parent": "co4",
+        "preselect": "30 cm"
+    },
+    "co5": {
+        "codigo": "CO5",
+        "nombre": "CO5",
+        "imagen": "img/CO5.jpg",
+        "tipo": "medidas",
+        "opciones": [
+            {
+                "medida": "20 cm",
+                "mayor": 2000,
+                "unitario": 2800
+            },
+            {
+                "medida": "30 cm",
+                "mayor": 3300,
+                "unitario": 4300
+            }
+        ]
     },
     "co520cm": {
-        "codigo": "CO5_20CM",
-        "nombre": "CO5_20CM",
-        "imagen": "img/CO5.jpg",
-        "tipo": "simple",
-        "mayor": 2000,
-        "unitario": 2800
+        "parent": "co5",
+        "preselect": "20 cm"
     },
     "co530cm": {
-        "codigo": "CO5_30CM",
-        "nombre": "CO5_30CM",
-        "imagen": "img/CO5.jpg",
-        "tipo": "simple",
-        "mayor": 3300,
-        "unitario": 4300
+        "parent": "co5",
+        "preselect": "30 cm"
+    },
+    "co6": {
+        "codigo": "CO6",
+        "nombre": "CO6",
+        "imagen": "img/CO6.jpg",
+        "tipo": "medidas",
+        "opciones": [
+            {
+                "medida": "20 cm",
+                "mayor": 2000,
+                "unitario": 2800
+            },
+            {
+                "medida": "30 cm",
+                "mayor": 3300,
+                "unitario": 4300
+            }
+        ]
     },
     "co620cm": {
-        "codigo": "CO6_20CM",
-        "nombre": "CO6_20CM",
-        "imagen": "img/CO6.jpg",
-        "tipo": "simple",
-        "mayor": 2000,
-        "unitario": 2800
+        "parent": "co6",
+        "preselect": "20 cm"
     },
     "co630cm": {
-        "codigo": "CO6_30CM",
-        "nombre": "CO6_30CM",
-        "imagen": "img/CO6.jpg",
-        "tipo": "simple",
-        "mayor": 3300,
-        "unitario": 4300
+        "parent": "co6",
+        "preselect": "30 cm"
+    },
+    "co7": {
+        "codigo": "CO7",
+        "nombre": "CO7",
+        "imagen": "img/CO7.jpg",
+        "tipo": "medidas",
+        "opciones": [
+            {
+                "medida": "20 cm",
+                "mayor": 2000,
+                "unitario": 3000
+            },
+            {
+                "medida": "30 cm",
+                "mayor": 3000,
+                "unitario": 4000
+            }
+        ]
     },
     "co720cm": {
-        "codigo": "CO7_20CM",
-        "nombre": "CO7_20CM",
-        "imagen": "img/CO7.jpg",
-        "tipo": "simple",
-        "mayor": 2000,
-        "unitario": 3000
+        "parent": "co7",
+        "preselect": "20 cm"
     },
     "co730cm": {
-        "codigo": "CO7_30CM",
-        "nombre": "CO7_30CM",
-        "imagen": "img/CO7.jpg",
-        "tipo": "simple",
-        "mayor": 3000,
-        "unitario": 4000
+        "parent": "co7",
+        "preselect": "30 cm"
+    },
+    "co8": {
+        "codigo": "CO8",
+        "nombre": "CO8",
+        "imagen": "img/CO8.jpg",
+        "tipo": "medidas",
+        "opciones": [
+            {
+                "medida": "20 cm",
+                "mayor": 2000,
+                "unitario": 2800
+            },
+            {
+                "medida": "30 cm",
+                "mayor": 3300,
+                "unitario": 4300
+            }
+        ]
     },
     "co820cm": {
-        "codigo": "CO8_20CM",
-        "nombre": "CO8_20CM",
-        "imagen": "img/CO8.jpg",
-        "tipo": "simple",
-        "mayor": 2000,
-        "unitario": 2800
+        "parent": "co8",
+        "preselect": "20 cm"
     },
     "co830cm": {
-        "codigo": "CO8_30CM",
-        "nombre": "CO8_30CM",
-        "imagen": "img/CO8.jpg",
-        "tipo": "simple",
-        "mayor": 3300,
-        "unitario": 4300
+        "parent": "co8",
+        "preselect": "30 cm"
+    },
+    "co9": {
+        "codigo": "CO9",
+        "nombre": "CO9",
+        "imagen": "img/CO9.jpg",
+        "tipo": "medidas",
+        "opciones": [
+            {
+                "medida": "20 cm",
+                "mayor": 2000,
+                "unitario": 2800
+            },
+            {
+                "medida": "30 cm",
+                "mayor": 3000,
+                "unitario": 4000
+            }
+        ]
     },
     "co920cm": {
-        "codigo": "CO9_20CM",
-        "nombre": "CO9_20CM",
-        "imagen": "img/CO9.jpg",
-        "tipo": "simple",
-        "mayor": 2000,
-        "unitario": 2800
+        "parent": "co9",
+        "preselect": "20 cm"
     },
     "co930cm": {
-        "codigo": "CO9_30CM",
-        "nombre": "CO9_30CM",
-        "imagen": "img/CO9.jpg",
-        "tipo": "simple",
-        "mayor": 3000,
-        "unitario": 4000
+        "parent": "co9",
+        "preselect": "30 cm"
     },
     "colganteangelcorazon": {
         "codigo": "colgante angel corazón",
@@ -1615,21 +1905,31 @@ const productos = {
         "mayor": 1000,
         "unitario": 1500
     },
-    "estrellasgrabadas5cm": {
-        "codigo": "Estrellas grabadas_5CM",
-        "nombre": "Estrellas grabadas_5CM",
+    "estrellasgrabadas": {
+        "codigo": "Estrellas grabadas",
+        "nombre": "Estrellas grabadas",
         "imagen": "img/Estrellas grabadas.jpg",
-        "tipo": "simple",
-        "mayor": 200,
-        "unitario": 200
+        "tipo": "medidas",
+        "opciones": [
+            {
+                "medida": "5 cm",
+                "mayor": 200,
+                "unitario": 200
+            },
+            {
+                "medida": "9 cm",
+                "mayor": 400,
+                "unitario": 400
+            }
+        ]
+    },
+    "estrellasgrabadas5cm": {
+        "parent": "estrellasgrabadas",
+        "preselect": "5 cm"
     },
     "estrellasgrabadas9cm": {
-        "codigo": "Estrellas grabadas_9CM",
-        "nombre": "Estrellas grabadas_9CM",
-        "imagen": "img/Estrellas grabadas.jpg",
-        "tipo": "simple",
-        "mayor": 400,
-        "unitario": 400
+        "parent": "estrellasgrabadas",
+        "preselect": "9 cm"
     },
     "estrellas": {
         "codigo": "Estrellas",
@@ -2343,21 +2643,31 @@ const productos = {
         "mayor": 5000,
         "unitario": 5800
     },
+    "renobase": {
+        "codigo": "reno base",
+        "nombre": "reno base",
+        "imagen": "img/reno base.jpg",
+        "tipo": "medidas",
+        "opciones": [
+            {
+                "medida": "3 mm",
+                "mayor": 1000,
+                "unitario": 1000
+            },
+            {
+                "medida": "5.5 mm",
+                "mayor": 1800,
+                "unitario": 1800
+            }
+        ]
+    },
     "renobase3mm": {
-        "codigo": "reno base_3MM",
-        "nombre": "reno base_3MM",
-        "imagen": "img/Corona  Reno.jpg",
-        "tipo": "simple",
-        "mayor": 1000,
-        "unitario": 1000
+        "parent": "renobase",
+        "preselect": "3 mm"
     },
     "renobase5mm": {
-        "codigo": "reno base_5MM",
-        "nombre": "reno base_5MM",
-        "imagen": "img/Corona  Reno.jpg",
-        "tipo": "simple",
-        "mayor": 1800,
-        "unitario": 1800
+        "parent": "renobase",
+        "preselect": "5.5 mm"
     },
     "renograbado": {
         "codigo": "reno grabado",
