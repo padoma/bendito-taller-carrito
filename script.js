@@ -187,16 +187,21 @@ function agregarProducto(){
     cerrarPopup();
     mostrarToast();
 
-    // Redirección segura para iframes
+    // Intentar cerrar la pestaña primero (si fue abierta como pestaña nueva / popup)
     setTimeout(() => {
-        const volver = localStorage.getItem("volverCatalogo");
-        if(volver){
-            if (window.self !== window.top) {
-                window.top.location.href = volver;
-            } else {
-                window.location.href = volver;
+        window.close();
+        
+        // Fallback: Si no se cerró después de 300ms (bloqueado por navegador), redirigir
+        setTimeout(() => {
+            const volver = localStorage.getItem("volverCatalogo");
+            if(volver){
+                if (window.self !== window.top) {
+                    window.top.location.href = volver;
+                } else {
+                    window.location.href = volver;
+                }
             }
-        }
+        }, 300);
     }, 900);
 }
 
