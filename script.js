@@ -25,6 +25,23 @@ function obtenerProductoURL(){
 function abrirSelectorProducto(){
     const p = productoActual;
     let opcionesHTML = "";
+    let preciosInfoHTML = "";
+
+    // Badge / Info de precios
+    if (p.mayor && p.mayor < p.unitario) {
+        preciosInfoHTML = `
+        <div style="background: rgba(125, 139, 99, 0.08); border: 1px dashed var(--primary-color); border-radius: 16px; padding: 12px; margin-bottom: 18px; text-align: center; font-size: 14px;">
+            <div style="font-weight: 700; color: var(--primary-color);">🏷️ Valor Unitario: $${p.unitario.toLocaleString("es-CL")}</div>
+            <div style="font-weight: 500; color: var(--text-muted); margin-top: 4px;">✨ ¡Llevando <span style="color: var(--primary-color); font-weight: 700;">4 o más</span> pagas precio Mayorista: <span style="color: var(--primary-color); font-weight: 700;">$${p.mayor.toLocaleString("es-CL")}</span> c/u!</div>
+        </div>
+        `;
+    } else {
+        preciosInfoHTML = `
+        <div style="background: rgba(75, 55, 45, 0.04); border: 1px solid var(--border-color); border-radius: 16px; padding: 12px; margin-bottom: 18px; text-align: center; font-size: 14px;">
+            <div style="font-weight: 700; color: var(--text-main);">Valor: $${p.unitario.toLocaleString("es-CL")}</div>
+        </div>
+        `;
+    }
 
     /* MEDIDAS */
     if(p.tipo === "medidas"){
@@ -34,34 +51,9 @@ function abrirSelectorProducto(){
             <select id="medidaSelect" class="modal-select">
                 ${p.opciones.map(op => `
                     <option value="${op.medida}|${op.mayor}|${op.unitario}">
-                        ${op.medida}
+                        ${op.medida} (Unitario: $${op.unitario.toLocaleString("es-CL")} / 4+: $${op.mayor.toLocaleString("es-CL")})
                     </option>
                 `).join("")}
-            </select>
-        </div>
-
-        <div class="modal-input-group">
-            <label for="tipoCompra">Tipo de compra</label>
-            <select id="tipoCompra" class="modal-select">
-                <option value="unitario">Unitario</option>
-                <option value="mayor">Por Mayor</option>
-            </select>
-        </div>
-        `;
-    }
-
-    /* SIMPLE */
-    if(p.tipo === "simple"){
-        opcionesHTML = `
-        <div class="modal-input-group">
-            <label for="tipoCompraSimple">Tipo de compra</label>
-            <select id="tipoCompraSimple" class="modal-select">
-                <option value="unitario|${p.unitario}">
-                    Unitario ($${p.unitario.toLocaleString("es-CL")})
-                </option>
-                <option value="mayor|${p.mayor}">
-                    Por Mayor ($${p.mayor.toLocaleString("es-CL")})
-                </option>
             </select>
         </div>
         `;
@@ -91,6 +83,7 @@ function abrirSelectorProducto(){
     <div class="modal-container">
         <h2>${p.nombre}</h2>
         
+        ${preciosInfoHTML}
         ${opcionesHTML}
 
         <div class="modal-input-group">
@@ -140,44 +133,45 @@ function agregarProducto(){
         cantidad: cantidadVal,
         observacion: document.getElementById("obsProducto").value.trim(),
         medida: "",
-        tipo: "",
         variante: "",
-        precio: 0
+        unitario: p.unitario,
+        mayor: p.mayor || p.unitario,
+        precio: 0,
+        tipo: ""
     };
 
     if(p.tipo === "medidas"){
         const data = document.getElementById("medidaSelect").value.split("|");
-        const tipo = document.getElementById("tipoCompra").value;
-
         nuevoProducto.medida = data[0];
-        nuevoProducto.tipo = tipo === "mayor" ? "Por Mayor" : "Unitario";
-        nuevoProducto.precio = tipo === "mayor" ? parseInt(data[1]) : parseInt(data[2]);
-    }
-
-    if(p.tipo === "simple"){
-        const data = document.getElementById("tipoCompraSimple").value.split("|");
-        nuevoProducto.tipo = data[0] === "mayor" ? "Por Mayor" : "Unitario";
-        nuevoProducto.precio = parseInt(data[1]);
+        nuevoProducto.mayor = parseInt(data[1]);
+        nuevoProducto.unitario = parseInt(data[2]);
     }
 
     if(p.tipo === "variantes"){
         const data = document.getElementById("varianteSelect").value.split("|");
         nuevoProducto.variante = data[0];
-        nuevoProducto.precio = parseInt(data[1]);
-        nuevoProducto.tipo = "Unitario"; // Por defecto
+        // En variantes el precio unitario y mayor es el mismo en la db original
+        nuevoProducto.unitario = parseInt(data[1]);
+        nuevoProducto.mayor = parseInt(data[1]);
     }
 
-    // Si ya existe el producto con los mismos atributos (código, medida, variante, tipo, observación), sumar cantidad
+    // Calcular el precio dinámicamente según la cantidad (4 o más aplica precio mayor)
+    nuevoProducto.precio = nuevoProducto.cantidad >= 4 ? nuevoProducto.mayor : nuevoProducto.unitario;
+    nuevoProducto.tipo = (nuevoProducto.cantidad >= 4 && nuevoProducto.mayor < nuevoProducto.unitario) ? "Por Mayor" : "Unitario";
+
+    // Si ya existe el producto con los mismos atributos (código, medida, variante, observación), sumar cantidad
     let existente = carrito.find(item => 
         item.codigo === nuevoProducto.codigo &&
         item.medida === nuevoProducto.medida &&
         item.variante === nuevoProducto.variante &&
-        item.tipo === nuevoProducto.tipo &&
         item.observacion === nuevoProducto.observacion
     );
 
     if (existente) {
         existente.cantidad += nuevoProducto.cantidad;
+        // Recalcular precio para el consolidado
+        existente.precio = existente.cantidad >= 4 ? existente.mayor : existente.unitario;
+        existente.tipo = (existente.cantidad >= 4 && existente.mayor < existente.unitario) ? "Por Mayor" : "Unitario";
     } else {
         carrito.push(nuevoProducto);
     }
@@ -213,13 +207,19 @@ function renderCarrito(){
     let total = 0;
 
     carrito.forEach((item, index) => {
+        // Recalcular precio dinámico en caliente por si cambió la cantidad
+        item.precio = item.cantidad >= 4 ? item.mayor : item.unitario;
+        item.tipo = (item.cantidad >= 4 && item.mayor < item.unitario) ? "Por Mayor" : "Unitario";
+
         let subtotal = item.precio * item.cantidad;
         total += subtotal;
 
         let detallesAdicionales = [];
         if (item.medida) detallesAdicionales.push(`Medida: ${item.medida}`);
         if (item.variante) detallesAdicionales.push(`Opción: ${item.variante}`);
-        if (item.tipo) detallesAdicionales.push(`${item.tipo}`);
+        if (item.tipo && item.mayor < item.unitario) {
+            detallesAdicionales.push(`<span style="color: var(--primary-color); font-weight: 600;">${item.tipo}</span>`);
+        }
 
         let detailsString = detallesAdicionales.join(" | ");
 
@@ -259,6 +259,9 @@ function renderCarrito(){
 ========================== */
 function sumarCantidad(index) {
     carrito[index].cantidad++;
+    // Recalcular
+    carrito[index].precio = carrito[index].cantidad >= 4 ? carrito[index].mayor : carrito[index].unitario;
+    carrito[index].tipo = (carrito[index].cantidad >= 4 && carrito[index].mayor < carrito[index].unitario) ? "Por Mayor" : "Unitario";
     guardarCarrito();
     renderCarrito();
 }
@@ -267,6 +270,10 @@ function restarCantidad(index) {
     carrito[index].cantidad--;
     if (carrito[index].cantidad <= 0) {
         carrito.splice(index, 1);
+    } else {
+        // Recalcular
+        carrito[index].precio = carrito[index].cantidad >= 4 ? carrito[index].mayor : carrito[index].unitario;
+        carrito[index].tipo = (carrito[index].cantidad >= 4 && carrito[index].mayor < carrito[index].unitario) ? "Por Mayor" : "Unitario";
     }
     guardarCarrito();
     renderCarrito();
@@ -315,7 +322,6 @@ function cerrarPopup(){
         popup.remove();
     }
     
-    // Si entramos con ?producto=id en la URL, limpiar el parametro para evitar que reabra
     const url = new URL(window.location);
     url.searchParams.delete('producto');
     window.history.replaceState({}, document.title, url.pathname);
@@ -340,20 +346,27 @@ function copiarPedido(){
     let mensaje = `Hola 😊 quiero cotizar estos productos de Bendito Taller:\n\n`;
 
     carrito.forEach(item => {
+        // Forzar cálculo para estar seguro
+        let precio = item.cantidad >= 4 ? item.mayor : item.unitario;
+        let subtotal = precio * item.cantidad;
+
         let det = [];
         if (item.medida) det.push(`Medida: ${item.medida}`);
         if (item.variante) det.push(`Opción: ${item.variante}`);
-        if (item.tipo) det.push(`${item.tipo}`);
+        if (item.cantidad >= 4 && item.mayor < item.unitario) det.push(`Precio Mayorista aplicado`);
         let detStr = det.length > 0 ? ` (${det.join(" | ")})` : "";
 
         mensaje += `• ${item.nombre}${detStr}\n`;
         mensaje += `  COD: ${item.codigo}\n`;
         mensaje += `  Cantidad: ${item.cantidad}\n`;
         if (item.observacion) mensaje += `  Nota: "${item.observacion}"\n`;
-        mensaje += `  Subtotal: $${(item.precio * item.cantidad).toLocaleString("es-CL")}\n\n`;
+        mensaje += `  Subtotal: $${subtotal.toLocaleString("es-CL")}\n\n`;
     });
 
-    const total = carrito.reduce((acc, item) => acc + (item.precio * item.cantidad), 0);
+    const total = carrito.reduce((acc, item) => {
+        let precio = item.cantidad >= 4 ? item.mayor : item.unitario;
+        return acc + (precio * item.cantidad);
+    }, 0);
     mensaje += `💰 Total estimado: $${total.toLocaleString("es-CL")}\n`;
 
     const obsGeneralVal = document.getElementById("obsGeneral").value.trim();
@@ -368,7 +381,6 @@ function copiarPedido(){
         })
         .catch(err => {
             console.error("Error al copiar: ", err);
-            // Fallback manual en caso de error
             const t = document.createElement("textarea");
             t.value = mensaje;
             document.body.appendChild(t);
