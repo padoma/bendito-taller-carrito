@@ -591,12 +591,16 @@
     }
 
     function volverCatalogo() {
-        const volver = localStorage.getItem("volverCatalogo") || "https://sites.google.com/view/bendito-taller/p%C3%A1gina-principal";
-        if (window.self !== window.top) {
-            window.top.location.href = volver;
-        } else {
-            window.location.href = volver;
-        }
+        window.close();
+        
+        setTimeout(() => {
+            const volver = localStorage.getItem("volverCatalogo") || "https://sites.google.com/view/bendito-taller/p%C3%A1gina-principal";
+            if (window.self !== window.top) {
+                window.top.location.href = volver;
+            } else {
+                window.location.href = volver;
+            }
+        }, 300);
     }
 
     function copiar() {
