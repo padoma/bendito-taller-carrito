@@ -301,6 +301,29 @@
             filter: brightness(0.97);
         }
 
+        .delete-btn {
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-size: 18px;
+            margin-left: 10px;
+            padding: 4px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        .delete-btn:hover {
+            background-color: rgba(220, 53, 69, 0.1);
+            transform: scale(1.1);
+        }
+
+        .delete-btn:active {
+            transform: scale(0.95);
+        }
+
         .empty-state {
             text-align: center;
             padding: 50px 20px;
@@ -495,6 +518,7 @@
                                 <button class="qty-btn" onclick="restar(${index})">−</button>
                                 <span class="qty-number">${item.cantidad}</span>
                                 <button class="qty-btn" onclick="sumar(${index})">+</button>
+                                <button class="delete-btn" onclick="eliminar(${index})" title="Eliminar producto">🗑️</button>
                             </div>
                             <div class="item-subtotal">$${subtotal.toLocaleString("es-CL")}</div>
                         </div>
@@ -543,12 +567,19 @@
     }
 
     function restar(index) {
-        carrito[index].cantidad--;
-        if (carrito[index].cantidad <= 0) {
-            carrito.splice(index, 1);
+        if (carrito[index].cantidad > 1) {
+            carrito[index].cantidad--;
+            guardar();
+            render();
         }
-        guardar();
-        render();
+    }
+
+    function eliminar(index) {
+        if (confirm("¿Deseas eliminar este producto de tu pedido?")) {
+            carrito.splice(index, 1);
+            guardar();
+            render();
+        }
     }
 
     function vaciar() {
