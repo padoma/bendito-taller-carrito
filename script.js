@@ -96,6 +96,10 @@ function abrirSelectorProducto(){
     <div class="modal-container">
         <h2>${p.nombre}</h2>
         
+        <div class="modal-image-wrapper">
+            <img src="${p.imagen}" alt="${p.nombre}" class="modal-image" onerror="this.src='https://via.placeholder.com/150?text=Sin+Foto'">
+        </div>
+        
         ${opcionesHTML}
         
         <div id="modalPreciosInfo"></div>
