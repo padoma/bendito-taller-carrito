@@ -348,6 +348,7 @@ function agregarProducto(){
 
     // Intentar cerrar la pestaña primero
     setTimeout(() => {
+        window.open('', '_self');
         window.close();
         
         // Fallback
@@ -471,6 +472,7 @@ function toggleCart(){
    VOLVER AL CATÁLOGO
 ========================== */
 function volverCatalogo(){
+    window.open('', '_self');
     window.close();
     
     setTimeout(() => {
@@ -499,6 +501,7 @@ function cerrarPopup(){
     window.history.replaceState({}, document.title, url.pathname);
 
     // Intentar cerrar la pestaña del popup
+    window.open('', '_self');
     window.close();
 
     // Fallback si la pestaña sigue abierta
