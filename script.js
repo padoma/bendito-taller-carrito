@@ -252,27 +252,20 @@ function actualizarPreciosModal() {
     const inputCantidad = parseInt(document.getElementById("cantidadProducto").value) || 1;
     const totalCantidad = yaEnCart + inputCantidad;
 
-    let aplicaMayorista = false;
-    if (esInter) {
-        aplicaMayorista = (totalCantidad >= 4);
-    } else {
-        aplicaMayorista = (inputCantidad >= 4);
-    }
-
-    let activePrice = aplicaMayorista ? mayor : unitario;
+    // El precio mostrado arriba en el modal depende únicamente del selector de cantidad
+    let aplicaMayoristaModal = (inputCantidad >= 4);
+    let activePrice = aplicaMayoristaModal ? mayor : unitario;
 
     if (mayor && mayor < unitario) {
         let badgeHTML = "";
         
-        if (aplicaMayorista) {
-            if (esInter && yaEnCart > 0) {
-                badgeHTML = `<div style="font-weight: 600; color: #2e7d32; margin-top: 4px; font-size: 13px;">🎉 ¡Precio Mayorista aplicado! (Combinando con tu carrito)</div>`;
-            } else {
-                badgeHTML = `<div style="font-weight: 600; color: #2e7d32; margin-top: 4px; font-size: 13px;">🎉 ¡Precio Mayorista aplicado! (Llevas 4+ unidades)</div>`;
-            }
+        if (aplicaMayoristaModal) {
+            badgeHTML = `<div style="font-weight: 600; color: #2e7d32; margin-top: 4px; font-size: 13px;">🎉 ¡Precio Mayorista aplicado! (Llevas 4+ unidades)</div>`;
         } else {
             if (esInter) {
-                if (yaEnCart > 0) {
+                if (totalCantidad >= 4 && yaEnCart > 0) {
+                    badgeHTML = `<div style="font-weight: 600; color: #2e7d32; margin-top: 4px; font-size: 13px;">🎉 ¡Se aplicará precio Mayorista al agregarlo! (Combina con los ${yaEnCart} que ya tienes)</div>`;
+                } else if (yaEnCart > 0) {
                     badgeHTML = `<div style="font-weight: 500; color: var(--text-muted); margin-top: 4px; font-size: 13px;">Llevas <span style="font-weight:700; color: var(--primary-color);">${yaEnCart}</span> en tu carrito. Agrega <span style="font-weight:700; color: var(--primary-color);">${4 - totalCantidad}</span> más para activar Mayorista ($${mayor.toLocaleString("es-CL")} c/u)</div>`;
                 } else {
                     badgeHTML = `<div style="font-weight: 500; color: var(--text-muted); margin-top: 4px; font-size: 13px;">✨ Combina <span style="color: var(--primary-color); font-weight: 700;">4 o más</span> de esta categoría para activar Mayorista: <span style="color: var(--primary-color); font-weight: 700;">$${mayor.toLocaleString("es-CL")}</span> c/u</div>`;
@@ -412,6 +405,7 @@ function renderCarrito(){
                         <button onclick="restarCantidad(${index})" style="border: none; background: #e5dacb; width: 24px; height: 24px; border-radius: 50%; cursor: pointer; font-weight: bold; color: #4b372d; font-size: 14px; display: flex; align-items: center; justify-content: center;">-</button>
                         <span style="font-weight: bold; font-size: 14px;">${item.cantidad}</span>
                         <button onclick="sumarCantidad(${index})" style="border: none; background: #e5dacb; width: 24px; height: 24px; border-radius: 50%; cursor: pointer; font-weight: bold; color: #4b372d; font-size: 14px; display: flex; align-items: center; justify-content: center;">+</button>
+                        <button onclick="eliminarProducto(${index})" style="border: none; background: transparent; cursor: pointer; font-size: 16px; margin-left: 6px; padding: 4px; display: inline-flex; align-items: center; justify-content: center; border-radius: 6px; transition: background-color 0.2s;" onmouseover="this.style.backgroundColor='rgba(220, 53, 69, 0.1)'" onmouseout="this.style.backgroundColor='transparent'" title="Eliminar producto">🗑️</button>
                     </div>
                     <div class="item-price">$${subtotal.toLocaleString("es-CL")}</div>
                 </div>
@@ -436,13 +430,21 @@ function sumarCantidad(index) {
 }
 
 function restarCantidad(index) {
-    carrito[index].cantidad--;
-    if (carrito[index].cantidad <= 0) {
-        carrito.splice(index, 1);
+    if (carrito[index].cantidad > 1) {
+        carrito[index].cantidad--;
+        recalcularPreciosCarrito();
+        guardarCarrito();
+        renderCarrito();
     }
-    recalcularPreciosCarrito();
-    guardarCarrito();
-    renderCarrito();
+}
+
+function eliminarProducto(index) {
+    if (confirm("¿Deseas eliminar este producto de tu pedido?")) {
+        carrito.splice(index, 1);
+        recalcularPreciosCarrito();
+        guardarCarrito();
+        renderCarrito();
+    }
 }
 
 /* ==========================
