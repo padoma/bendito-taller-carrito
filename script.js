@@ -471,19 +471,23 @@ function toggleCart(){
    VOLVER AL CATÁLOGO
 ========================== */
 function volverCatalogo(){
-    const volver = localStorage.getItem("volverCatalogo");
-    if(volver){
-        if (window.self !== window.top) {
-            window.top.location.href = volver;
-        } else {
-            window.location.href = volver;
+    window.close();
+    
+    setTimeout(() => {
+        const volver = localStorage.getItem("volverCatalogo");
+        if(volver){
+            if (window.self !== window.top) {
+                window.top.location.href = volver;
+            } else {
+                window.location.href = volver;
+            }
         }
-    }
+    }, 300);
 }
 
 /* ==========================
    CERRAR POPUP
-========================== */
+========================= */
 function cerrarPopup(){
     const popup = document.getElementById("popupProducto");
     if(popup){
@@ -493,6 +497,14 @@ function cerrarPopup(){
     const url = new URL(window.location);
     url.searchParams.delete('producto');
     window.history.replaceState({}, document.title, url.pathname);
+
+    // Intentar cerrar la pestaña del popup
+    window.close();
+
+    // Fallback si la pestaña sigue abierta
+    setTimeout(() => {
+        volverCatalogo();
+    }, 300);
 }
 
 /* ==========================
