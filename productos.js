@@ -491,7 +491,7 @@ const productos = {
         "parent": "ca10",
         "preselect": "30 cm"
     },
-    "ca11trio": {
+    "ca11": {
         "codigo": "CA11_TRIO",
         "nombre": "CA11_TRIO",
         "imagen": "img/CA11.jpg",
