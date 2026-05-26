@@ -371,6 +371,76 @@
     // Leer del LocalStorage compartido del Sistema A ("carrito")
     let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
+    // Set de códigos intercambiables normalizados (lowercase, sin caracteres especiales)
+    const codigosIntercambiablesNorm = new Set([
+        "bc4", "co120cm", "co130cm", "co1020cm", "co1030cm", "co11", 
+        "co1220cm", "co1230cm", "co13", "co14", "co1520cm", "co1530cm", 
+        "co16", "co1720cm", "co1730cm", "co18", "co19", "co220cm", 
+        "co230cm", "co20", "co21", "co22", "co23", "co2420cm", "co2430cm", 
+        "co2520cm", "co2530cm", "co26", "co2720cm", "co2730cm", "co28", 
+        "co2920cm", "co2930cm", "co3", "co30", "co31", "co32", "co3320cm", 
+        "co3330cm", "co3420cm", "co3430cm", "co3620cm", "co3630cm", 
+        "co37", "co420cm", "co430cm", "co520cm", "co530cm", "co620cm", 
+        "co630cm", "co720cm", "co730cm", "co820cm", "co830cm", "co920cm", 
+        "co930cm", "cruz1", "cruz2", "setcorazonesmulticapa", "florcora1", 
+        "florcora2", "florcora3", "bc1", "bc2", "bc3", "ca120cm", "ca130cm", 
+        "ca1020cm", "ca1030cm", "ca11trio", "ca123mm", "ca1255mm", 
+        "ca133mm", "ca1355mm", "ca14", "ca15", "ca1620cm", "ca1630cm", 
+        "ca1720cm", "ca1730cm", "ca18", "ca220cm", "ca230cm", "ca420cm", 
+        "ca430cm", "ca520cm", "ca530cm", "ca620cm", "ca630cm", "ca7", 
+        "ca8", "ca9trio"
+    ]);
+
+    function obtenerCodigoItemNormalizado(item) {
+        let raw = item.codigo;
+        if (item.medida) {
+            raw += "_" + item.medida;
+        } else if (item.variante) {
+            raw += "_" + item.variante;
+        }
+        return raw.toLowerCase().replace(/[^a-z0-9]/g, "");
+    }
+
+    function esItemIntercambiable(itemNorm) {
+        return codigosIntercambiablesNorm.has(itemNorm);
+    }
+
+    function esMedida30cm(itemNorm) {
+        return itemNorm.includes("30cm");
+    }
+
+    function recalcularPreciosCarrito() {
+        let totalGeneral = 0;
+        let total30cm = 0;
+
+        // Primer paso: Contar cantidades de intercambiables
+        carrito.forEach(item => {
+            const norm = obtenerCodigoItemNormalizado(item);
+            if (esItemIntercambiable(norm)) {
+                if (esMedida30cm(norm)) {
+                    total30cm += item.cantidad;
+                } else {
+                    totalGeneral += item.cantidad;
+                }
+            }
+        });
+
+        // Segundo paso: Asignar precios y subtotales en base a las sumas grupales
+        carrito.forEach(item => {
+            const norm = obtenerCodigoItemNormalizado(item);
+            let aplicaMayorista = false;
+
+            if (esItemIntercambiable(norm)) {
+                aplicaMayorista = esMedida30cm(norm) ? (total30cm >= 4) : (totalGeneral >= 4);
+            } else {
+                aplicaMayorista = (item.cantidad >= 4);
+            }
+
+            item.precio = aplicaMayorista ? item.mayor : item.unitario;
+            item.tipo = (aplicaMayorista && item.mayor < item.unitario) ? "Por Mayor" : "Unitario";
+        });
+    }
+
     function render() {
         const container = document.getElementById("cartContainer");
         
@@ -387,14 +457,13 @@
             return;
         }
 
+        // Recalcular precios antes de renderizar
+        recalcularPreciosCarrito();
+
         let itemsHtml = "";
         let total = 0;
 
         carrito.forEach((item, index) => {
-            // Recalcular precio dinámico en caliente por si cambió la cantidad
-            item.precio = item.cantidad >= 4 ? item.mayor : item.unitario;
-            item.tipo = (item.cantidad >= 4 && item.mayor < item.unitario) ? "Por Mayor" : "Unitario";
-
             let subtotal = item.precio * item.cantidad;
             total += subtotal;
 
@@ -403,7 +472,7 @@
             if (item.variante) detalles.push(`Opción: ${item.variante}`);
             
             let ahorroStr = "";
-            if (item.cantidad >= 4 && item.mayor < item.unitario) {
+            if (item.precio < item.unitario) {
                 detalles.push(`<span style="color: var(--primary-color); font-weight: 600;">Por Mayor</span>`);
                 let ahorro = (item.unitario - item.mayor) * item.cantidad;
                 ahorroStr = `<div style="font-size: 13px; color: #2e7d32; font-weight: 500; margin-top: 4px;">💰 Ahorras $${ahorro.toLocaleString("es-CL")} (Precio mayorista aplicado)</div>`;
@@ -469,8 +538,6 @@
 
     function sumar(index) {
         carrito[index].cantidad++;
-        carrito[index].precio = carrito[index].cantidad >= 4 ? carrito[index].mayor : carrito[index].unitario;
-        carrito[index].tipo = (carrito[index].cantidad >= 4 && carrito[index].mayor < carrito[index].unitario) ? "Por Mayor" : "Unitario";
         guardar();
         render();
     }
@@ -479,9 +546,6 @@
         carrito[index].cantidad--;
         if (carrito[index].cantidad <= 0) {
             carrito.splice(index, 1);
-        } else {
-            carrito[index].precio = carrito[index].cantidad >= 4 ? carrito[index].mayor : carrito[index].unitario;
-            carrito[index].tipo = (carrito[index].cantidad >= 4 && carrito[index].mayor < carrito[index].unitario) ? "Por Mayor" : "Unitario";
         }
         guardar();
         render();
@@ -510,13 +574,13 @@
         let mensaje = `Hola 😊 quiero cotizar estos productos de Bendito Taller:\n\n`;
 
         carrito.forEach(item => {
-            let precio = item.cantidad >= 4 ? item.mayor : item.unitario;
+            let precio = item.precio;
             let subtotal = precio * item.cantidad;
 
             let det = [];
             if (item.medida) det.push(`Medida: ${item.medida}`);
             if (item.variante) det.push(`Opción: ${item.variante}`);
-            if (item.cantidad >= 4 && item.mayor < item.unitario) det.push(`Precio Mayorista aplicado`);
+            if (item.precio < item.unitario) det.push(`Precio Mayorista aplicado`);
             let detStr = det.length > 0 ? ` (${det.join(" | ")})` : "";
 
             mensaje += `• ${item.nombre}${detStr}\n`;
@@ -526,10 +590,7 @@
             mensaje += `  Subtotal: $${subtotal.toLocaleString("es-CL")}\n\n`;
         });
 
-        const total = carrito.reduce((acc, item) => {
-            let precio = item.cantidad >= 4 ? item.mayor : item.unitario;
-            return acc + (precio * item.cantidad);
-        }, 0);
+        const total = carrito.reduce((acc, item) => acc + (item.precio * item.cantidad), 0);
         mensaje += `💰 Total estimado: $${total.toLocaleString("es-CL")}\n`;
 
         const obsGeneralVal = document.getElementById("obsGeneral").value.trim();
