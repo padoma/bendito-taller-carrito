@@ -173,34 +173,88 @@ function actualizarPreciosModal() {
     }
 
     const norm = obtenerCodigoItemNormalizado(tempItem);
-    const esInter = esItemIntercambiable(norm);
+    const normBase = obtenerCodigoBaseNormalizado(tempItem);
     const es30 = esMedida30cm(norm);
-    
-    // Obtener cantidad que ya está en el carrito
-    const yaEnCart = esInter ? obtenerCantidadIntercambiablesEnCart(es30) : 0;
     const inputCantidad = parseInt(document.getElementById("cantidadProducto").value) || 1;
-    const totalCantidad = yaEnCart + inputCantidad;
 
-    // El precio mostrado arriba en el modal depende únicamente del selector de cantidad
-    let aplicaMayoristaModal = (inputCantidad >= 4);
+    // Caso Especial: Aros
+    if (esItemAros(normBase)) {
+        let badgeHTML = "";
+        let activePrice = 750;
+        if (inputCantidad >= 20) {
+            activePrice = 400;
+            badgeHTML = `<div style="font-weight: 600; color: #2e7d32; margin-top: 4px; font-size: 13px;">🎉 ¡Precio Mayorista (20+) aplicado!</div>`;
+        } else if (inputCantidad >= 10) {
+            activePrice = 500;
+            badgeHTML = `<div style="font-weight: 600; color: #2e7d32; margin-top: 4px; font-size: 13px;">🎉 ¡Precio Mayorista (10+) aplicado!</div>`;
+        } else {
+            const yaEnCartAros = obtenerCantidadArosEnCart();
+            const totalAros = yaEnCartAros + inputCantidad;
+            if (totalAros >= 20 && yaEnCartAros > 0) {
+                badgeHTML = `<div style="font-weight: 600; color: #2e7d32; margin-top: 4px; font-size: 13px;">🎉 ¡Se aplicará precio de $400 al agregarlo! (Combina con los ${yaEnCartAros} que ya tienes)</div>`;
+            } else if (totalAros >= 10 && yaEnCartAros > 0) {
+                badgeHTML = `<div style="font-weight: 600; color: #2e7d32; margin-top: 4px; font-size: 13px;">🎉 ¡Se aplicará precio de $500 al agregarlo! (Combina con los ${yaEnCartAros} que ya tienes)</div>`;
+            } else if (yaEnCartAros > 0) {
+                badgeHTML = `<div style="font-weight: 500; color: var(--text-muted); margin-top: 4px; font-size: 13px;">Llevas <span style="font-weight:700; color: var(--primary-color);">${yaEnCartAros}</span> aros en tu carrito. Agrega <span style="font-weight:700; color: var(--primary-color);">${10 - totalAros}</span> más para activar precio de $500.</div>`;
+            } else {
+                badgeHTML = `<div style="font-weight: 500; color: var(--text-muted); margin-top: 4px; font-size: 13px;">✨ Lleva <span style="color: var(--primary-color); font-weight: 700;">10+ unidades</span> por <span style="color: var(--primary-color); font-weight: 700;">$500</span> c/u o <span style="color: var(--primary-color); font-weight: 700;">20+</span> por <span style="color: var(--primary-color); font-weight: 700;">$400</span> c/u.</div>`;
+            }
+        }
+        
+        container.innerHTML = `
+        <div style="background: rgba(125, 139, 99, 0.08); border: 1px dashed var(--primary-color); border-radius: 16px; padding: 12px; margin-bottom: 18px; text-align: center; font-size: 14px;">
+            <div style="font-weight: 700; color: var(--text-main); font-size: 15px;">🏷️ Precio: $${activePrice.toLocaleString("es-CL")} c/u</div>
+            ${badgeHTML}
+        </div>
+        `;
+        return;
+    }
+
+    // Regla de combinación general
+    const grp = obtenerGrupoDeItem(normBase);
+    const esInter = esItemIntercambiable(norm);
+    
+    let yaEnCart = 0;
+    let minQty = 4;
+    let esCombinable = false;
+    let descGrupo = "";
+
+    if (esInter) {
+        esCombinable = true;
+        yaEnCart = obtenerCantidadIntercambiablesEnCart(es30);
+        minQty = 4;
+        descGrupo = es30 ? "esta categoría (30 cm)" : "esta categoría (20 cm o simples)";
+    } else if (grp) {
+        esCombinable = true;
+        yaEnCart = obtenerCantidadGrupoEnCart(grp.id);
+        minQty = grp.min;
+        descGrupo = "esta categoría combinable";
+    } else if (noCombinables3.has(normBase)) {
+        minQty = 3;
+    } else if (noCombinables6.has(normBase)) {
+        minQty = 6;
+    }
+
+    const totalCantidad = yaEnCart + inputCantidad;
+    let aplicaMayoristaModal = (inputCantidad >= minQty);
     let activePrice = aplicaMayoristaModal ? mayor : unitario;
 
     if (mayor && mayor < unitario) {
         let badgeHTML = "";
         
         if (aplicaMayoristaModal) {
-            badgeHTML = `<div style="font-weight: 600; color: #2e7d32; margin-top: 4px; font-size: 13px;">🎉 ¡Precio Mayorista aplicado! (Llevas 4+ unidades)</div>`;
+            badgeHTML = `<div style="font-weight: 600; color: #2e7d32; margin-top: 4px; font-size: 13px;">🎉 ¡Precio Mayorista aplicado! (Llevas ${inputCantidad}+ unidades)</div>`;
         } else {
-            if (esInter) {
-                if (totalCantidad >= 4 && yaEnCart > 0) {
+            if (esCombinable) {
+                if (totalCantidad >= minQty && yaEnCart > 0) {
                     badgeHTML = `<div style="font-weight: 600; color: #2e7d32; margin-top: 4px; font-size: 13px;">🎉 ¡Se aplicará precio Mayorista al agregarlo! (Combina con los ${yaEnCart} que ya tienes)</div>`;
                 } else if (yaEnCart > 0) {
-                    badgeHTML = `<div style="font-weight: 500; color: var(--text-muted); margin-top: 4px; font-size: 13px;">Llevas <span style="font-weight:700; color: var(--primary-color);">${yaEnCart}</span> en tu carrito. Agrega <span style="font-weight:700; color: var(--primary-color);">${4 - totalCantidad}</span> más para activar Mayorista ($${mayor.toLocaleString("es-CL")} c/u)</div>`;
+                    badgeHTML = `<div style="font-weight: 500; color: var(--text-muted); margin-top: 4px; font-size: 13px;">Llevas <span style="font-weight:700; color: var(--primary-color);">${yaEnCart}</span> en tu carrito. Agrega <span style="font-weight:700; color: var(--primary-color);">${minQty - totalCantidad}</span> más para activar Mayorista ($${mayor.toLocaleString("es-CL")} c/u)</div>`;
                 } else {
-                    badgeHTML = `<div style="font-weight: 500; color: var(--text-muted); margin-top: 4px; font-size: 13px;">✨ Combina <span style="color: var(--primary-color); font-weight: 700;">4 o más</span> de esta categoría para activar Mayorista: <span style="color: var(--primary-color); font-weight: 700;">$${mayor.toLocaleString("es-CL")}</span> c/u</div>`;
+                    badgeHTML = `<div style="font-weight: 500; color: var(--text-muted); margin-top: 4px; font-size: 13px;">✨ Combina <span style="color: var(--primary-color); font-weight: 700;">${minQty} o más</span> de ${descGrupo} para activar Mayorista: <span style="color: var(--primary-color); font-weight: 700;">$${mayor.toLocaleString("es-CL")}</span> c/u</div>`;
                 }
             } else {
-                badgeHTML = `<div style="font-weight: 500; color: var(--text-muted); margin-top: 4px; font-size: 13px;">✨ Llevando <span style="color: var(--primary-color); font-weight: 700;">4 o más</span>: <span style="color: var(--primary-color); font-weight: 700;">$${mayor.toLocaleString("es-CL")}</span> c/u</div>`;
+                badgeHTML = `<div style="font-weight: 500; color: var(--text-muted); margin-top: 4px; font-size: 13px;">✨ Llevando <span style="color: var(--primary-color); font-weight: 700;">${minQty} o más</span>: <span style="color: var(--primary-color); font-weight: 700;">$${mayor.toLocaleString("es-CL")}</span> c/u</div>`;
             }
         }
 
@@ -252,6 +306,13 @@ function agregarProducto(){
         nuevoProducto.variante = data[0];
         nuevoProducto.unitario = parseInt(data[1]);
         nuevoProducto.mayor = parseInt(data[1]);
+    }
+
+    // Sobrescribir precios de aros si aplica
+    const normBase = obtenerCodigoBaseNormalizado(nuevoProducto);
+    if (esItemAros(normBase)) {
+        nuevoProducto.unitario = 750;
+        nuevoProducto.mayor = 400;
     }
 
     // Si ya existe el producto con los mismos atributos, sumar cantidad
@@ -458,9 +519,6 @@ function copiarPedido(){
     let mensaje = `Hola 😊 quiero cotizar estos productos de Bendito Taller:\n\n`;
 
     carrito.forEach(item => {
-        let precio = item.precio;
-        let subtotal = precio * item.cantidad;
-
         let det = [];
         if (item.medida) det.push(`Medida: ${item.medida}`);
         if (item.variante) det.push(`Opción: ${item.variante}`);
@@ -468,10 +526,9 @@ function copiarPedido(){
         let detStr = det.length > 0 ? ` (${det.join(" | ")})` : "";
 
         mensaje += `• ${item.nombre}${detStr}\n`;
-        mensaje += `  COD: ${item.codigo}\n`;
         mensaje += `  Cantidad: ${item.cantidad}\n`;
         if (item.observacion) mensaje += `  Nota: "${item.observacion}"\n`;
-        mensaje += `  Subtotal: $${subtotal.toLocaleString("es-CL")}\n\n`;
+        mensaje += `\n`;
     });
 
     const total = carrito.reduce((acc, item) => acc + (item.precio * item.cantidad), 0);
