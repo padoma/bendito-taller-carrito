@@ -3436,5 +3436,21 @@ const productos = {
         "tipo": "simple",
         "mayor": 800,
         "unitario": 800
+    },
+    "banderinmexicano": {
+        "codigo": "banderin mexicano",
+        "nombre": "banderin mexicano",
+        "imagen": "img/banderinmexicano.jpg",
+        "tipo": "simple",
+        "unitario": 900,
+        "mayor": 900
+    },
+    "banderinmex": {
+        "codigo": "banderin mex",
+        "nombre": "banderin mex",
+        "imagen": "img/banderinmex.jpg",
+        "tipo": "simple",
+        "unitario": 900,
+        "mayor": 900
     }
 };
