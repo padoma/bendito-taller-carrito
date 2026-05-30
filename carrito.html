@@ -540,9 +540,6 @@
         let mensaje = `Hola 😊 quiero cotizar estos productos de Bendito Taller:\n\n`;
 
         carrito.forEach(item => {
-            let precio = item.precio;
-            let subtotal = precio * item.cantidad;
-
             let det = [];
             if (item.medida) det.push(`Medida: ${item.medida}`);
             if (item.variante) det.push(`Opción: ${item.variante}`);
@@ -550,10 +547,9 @@
             let detStr = det.length > 0 ? ` (${det.join(" | ")})` : "";
 
             mensaje += `• ${item.nombre}${detStr}\n`;
-            mensaje += `  COD: ${item.codigo}\n`;
             mensaje += `  Cantidad: ${item.cantidad}\n`;
             if (item.observacion) mensaje += `  Nota: "${item.observacion}"\n`;
-            mensaje += `  Subtotal: $${subtotal.toLocaleString("es-CL")}\n\n`;
+            mensaje += `\n`;
         });
 
         const total = carrito.reduce((acc, item) => acc + (item.precio * item.cantidad), 0);
