@@ -100,7 +100,17 @@ const gruposCombinables = [
     {
         id: "abejas_mariposas",
         min: 4,
-        codigos: ["abejareina", "abejareina2", "marip1", "marip2", "marip3", "marip4", "marip5", "marip6"]
+        codigos: [
+            "abejareina",
+            "abejareina2",
+            "marip1",
+            "marip2",
+            "marip3",
+            "marip4",
+            "marip5",
+            "marip6",
+            "banderinmexicano"
+        ]
     },
     {
         id: "cuadros_c",
@@ -198,6 +208,10 @@ function esMedida30cm(itemNorm) {
     return itemNorm.includes("30cm");
 }
 
+function esMedida20cm(itemNorm) {
+    return itemNorm.includes("20cm");
+}
+
 function esItemAros(normBase) {
     return normBase.startsWith("aros");
 }
@@ -241,8 +255,9 @@ function recalcularPreciosCarrito(cartArray) {
     const list = cartArray || (typeof carrito !== 'undefined' ? carrito : []);
     
     // 1. Contadores para los grupos combinables
-    let totalOriginalGeneral = 0;
-    let totalOriginal30cm = 0;
+    let totalIntercambiables30cm = 0;
+    let totalIntercambiables20cm = 0;
+    let totalIntercambiablesTodo = 0;
     const totalPorGrupo = {};
     gruposCombinables.forEach(g => {
         totalPorGrupo[g.id] = 0;
@@ -254,12 +269,14 @@ function recalcularPreciosCarrito(cartArray) {
         const normFull = obtenerCodigoItemNormalizado(item);
         const normBase = obtenerCodigoBaseNormalizado(item);
 
-        // Grupo original (Corazones/Cruces/Altares)
+        // Grupo original (Corazones/Cruces/Altares/Intercambiables)
         if (esItemIntercambiable(normFull)) {
             if (esMedida30cm(normFull)) {
-                totalOriginal30cm += item.cantidad;
+                totalIntercambiables30cm += item.cantidad;
+            } else if (esMedida20cm(normFull)) {
+                totalIntercambiables20cm += item.cantidad;
             } else {
-                totalOriginalGeneral += item.cantidad;
+                totalIntercambiablesTodo += item.cantidad;
             }
         }
 
@@ -296,7 +313,13 @@ function recalcularPreciosCarrito(cartArray) {
                 item.tipo = "Unitario";
             }
         } else if (esItemIntercambiable(normFull)) {
-            aplicaMayorista = esMedida30cm(normFull) ? (totalOriginal30cm >= 4) : (totalOriginalGeneral >= 4);
+            if (esMedida30cm(normFull)) {
+                aplicaMayorista = (totalIntercambiables30cm + totalIntercambiablesTodo) >= 4;
+            } else if (esMedida20cm(normFull)) {
+                aplicaMayorista = (totalIntercambiables20cm + totalIntercambiablesTodo) >= 4;
+            } else {
+                aplicaMayorista = (totalIntercambiables30cm + totalIntercambiables20cm + totalIntercambiablesTodo) >= 4;
+            }
             item.precio = aplicaMayorista ? item.mayor : item.unitario;
             item.tipo = (aplicaMayorista && item.mayor < item.unitario) ? "Por Mayor" : "Unitario";
         } else {
