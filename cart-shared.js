@@ -1,3 +1,6 @@
+// Configuración del contacto de la tienda (número de WhatsApp)
+const numeroWhatsapp = "56976819662";
+
 // Set de códigos intercambiables normalizados (lowercase, sin caracteres especiales) - Grupo original de Corazones/Cruces/Altares
 const codigosIntercambiablesNorm = new Set([
     "bc4", "co120cm", "co130cm", "co1020cm", "co1030cm", "co11", 
