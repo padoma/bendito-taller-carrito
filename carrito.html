@@ -382,7 +382,7 @@
     <div class="header">
         <img src="https://padoma.github.io/bendito-taller-carrito/img/LOGO.png" alt="Bendito Taller" class="logo">
         <h1>Tu Carrito de Compras</h1>
-        <p>Revisa tus artículos y copia el pedido para enviarlo por Instagram</p>
+        <p>Revisa tus artículos y envía el pedido por WhatsApp</p>
     </div>
 
     <!-- LISTA DE PRODUCTOS -->
@@ -473,7 +473,7 @@
 
                 <div class="actions-grid">
                     <button class="btn-action btn-primary" onclick="copiar()">
-                        📱 Copiar Pedido para Instagram
+                        💬 Enviar Pedido por WhatsApp
                     </button>
                     <button class="btn-action btn-secondary" onclick="volverCatalogo()">
                         ⬅ Seguir Comprando
@@ -562,8 +562,8 @@
 
         navigator.clipboard.writeText(mensaje)
             .then(() => {
-                alert("¡Pedido copiado al portapapeles! Abrir Instagram para enviarlo.");
-                window.open("https://www.instagram.com/bendito_taller_/", "_blank");
+                alert("¡Redirigiendo a WhatsApp para enviar tu pedido! (El texto del pedido también ha sido copiado al portapapeles)");
+                window.open(`https://wa.me/${numeroWhatsapp}?text=${encodeURIComponent(mensaje)}`, "_blank");
             })
             .catch(err => {
                 console.error("Error al copiar: ", err);
@@ -573,8 +573,8 @@
                 t.select();
                 document.execCommand("copy");
                 document.body.removeChild(t);
-                alert("¡Pedido copiado! Abrir Instagram para enviarlo.");
-                window.open("https://www.instagram.com/bendito_taller_/", "_blank");
+                alert("¡Redirigiendo a WhatsApp para enviar tu pedido!");
+                window.open(`https://wa.me/${numeroWhatsapp}?text=${encodeURIComponent(mensaje)}`, "_blank");
             });
     }
 
