@@ -541,8 +541,8 @@ function copiarPedido(){
 
     navigator.clipboard.writeText(mensaje)
         .then(() => {
-            alert("¡Pedido copiado al portapapeles! Abre Instagram para enviarlo.");
-            window.open("https://www.instagram.com/bendito_taller_/", "_blank");
+            alert("¡Redirigiendo a WhatsApp para enviar tu pedido! (El texto del pedido también ha sido copiado al portapapeles)");
+            window.open(`https://wa.me/${numeroWhatsapp}?text=${encodeURIComponent(mensaje)}`, "_blank");
         })
         .catch(err => {
             console.error("Error al copiar: ", err);
@@ -552,8 +552,8 @@ function copiarPedido(){
             t.select();
             document.execCommand("copy");
             document.body.removeChild(t);
-            alert("¡Pedido copiado! Abre Instagram para enviarlo.");
-            window.open("https://www.instagram.com/bendito_taller_/", "_blank");
+            alert("¡Redirigiendo a WhatsApp para enviar tu pedido!");
+            window.open(`https://wa.me/${numeroWhatsapp}?text=${encodeURIComponent(mensaje)}`, "_blank");
         });
 }
 
