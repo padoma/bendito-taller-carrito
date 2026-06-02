@@ -2738,8 +2738,8 @@ const productos = {
         "nombre": "Set Anillos2",
         "imagen": "img/Set Anillos2.jpg",
         "tipo": "simple",
-        "mayor": 2000,
-        "unitario": 2500
+        "mayor": 2300,
+        "unitario": 2800
     },
     "setanillos3": {
         "codigo": "Set Anillos3",
