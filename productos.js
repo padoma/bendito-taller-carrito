@@ -2842,7 +2842,7 @@ const productos = {
         "nombre": "Set figuras nav1",
         "imagen": "img/Set figuras nav1.jpg",
         "tipo": "simple",
-        "mayor": 1200,
+        "mayor": 1500,
         "unitario": 1500
     },
     "setfiguritas1": {
