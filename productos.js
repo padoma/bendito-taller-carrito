@@ -1566,7 +1566,7 @@ const productos = {
         "nombre": "colgante1",
         "imagen": "img/colgante1.jpg",
         "tipo": "simple",
-        "mayor": 650,
+        "mayor": 500,
         "unitario": 650
     },
     "colgante2": {
@@ -1575,22 +1575,22 @@ const productos = {
         "imagen": "img/colgante2.jpg",
         "tipo": "simple",
         "mayor": 650,
-        "unitario": 650
+        "unitario": 500
     },
     "colgante3": {
         "codigo": "colgante3",
         "nombre": "colgante3",
         "imagen": "img/colgante3.jpg",
         "tipo": "simple",
-        "mayor": 700,
-        "unitario": 700
+        "mayor": 550,
+        "unitario": 750
     },
     "colgante4": {
         "codigo": "colgante4",
         "nombre": "colgante4",
         "imagen": "img/colgante4.jpg",
         "tipo": "simple",
-        "mayor": 700,
+        "mayor": 550,
         "unitario": 700
     },
     "colibri": {
