@@ -1574,8 +1574,8 @@ const productos = {
         "nombre": "colgante2",
         "imagen": "img/colgante2.jpg",
         "tipo": "simple",
-        "mayor": 650,
-        "unitario": 500
+        "mayor": 500,
+        "unitario": 650
     },
     "colgante3": {
         "codigo": "colgante3",
