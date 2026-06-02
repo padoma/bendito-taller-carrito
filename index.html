@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bendito Taller - Pedido</title>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -37,15 +40,15 @@
 
     <textarea
       id="obsGeneral"
-      placeholder="Ej: retiro viernes o necesito urgente">
+      placeholder="con factura / solo boleta">
     </textarea>
 
     <button class="btn-main" onclick="volverCatalogo()">
-  Seguir viendo productos
-   </button>
+      Volver al Catálogo
+    </button>
 
     <button class="btn-main" onclick="copiarPedido()">
-      Enviar pedido Instagram
+      Envíame tu pedido por WhatsApp pinchando aquí... ❤️
     </button>
 
     <button class="btn-danger" onclick="vaciarCarrito()">
@@ -55,6 +58,7 @@
   </div>
 
   <script src="productos.js"></script>
+  <script src="cart-shared.js"></script>
   <script src="script.js"></script>
 
 </body>

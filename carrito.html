@@ -1,514 +1,585 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Tu carrito | Bendito Taller</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tu Pedido | Bendito Taller</title>
+    
+    <!-- Google Fonts Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-<style>
+    <style>
+        :root {
+            --primary-color: #7d8b63;
+            --primary-gradient: linear-gradient(135deg, #7d8b63 0%, #63704b 100%);
+            --danger-gradient: linear-gradient(135deg, #c9b8a3 0%, #b2a18c 100%);
+            --bg-light: #fffcf8;
+            --bg-card: #ffffff;
+            --text-main: #4b372d;
+            --text-muted: #73645b;
+            --border-color: #e5dacb;
+            --shadow-sm: 0 4px 10px rgba(75, 55, 45, 0.05);
+            --shadow-md: 0 10px 25px rgba(75, 55, 45, 0.08);
+            --shadow-lg: 0 20px 40px rgba(75, 55, 45, 0.12);
+        }
 
-body{
-  font-family: Arial, sans-serif;
-  background:#f5f1eb;
-  margin:0;
-  padding:30px;
-  color:#4b372d;
-}
+        * {
+            box-sizing: border-box;
+        }
 
-.container{
-  max-width:900px;
-  margin:auto;
-}
+        body {
+            margin: 0;
+            padding: 40px 20px;
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            -webkit-font-smoothing: antialiased;
+        }
 
-h1{
-  text-align:center;
-  margin-bottom:30px;
-  font-size:34px;
-}
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
 
-.card{
-  display:flex;
-  gap:18px;
-  background:white;
-  border-radius:18px;
-  padding:18px;
-  margin-bottom:18px;
-  box-shadow:
-  0 6px 18px rgba(0,0,0,.08);
-  align-items:center;
-}
+        /* ===== HEADER ===== */
+        .header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
 
-.card img{
-  width:200px;
-  height:200px;
-  object-fit:cover;
-  border-radius:20px;
-}
+        .header img.logo {
+            max-width: 180px;
+            width: 100%;
+            height: auto;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 4px 8px rgba(75, 55, 45, 0.08));
+        }
 
-.info{
-  flex:1;
-}
+        .header h1 {
+            margin: 0;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
 
-.nombre{
-  font-size:40px;
-  font-weight:bold;
-}
+        .header p {
+            margin: 8px 0 0 0;
+            font-size: 16px;
+            color: var(--text-muted);
+        }
 
-.precio{
-  font-size:40px;
-  margin-top:6px;
-  color:#7a5c4d;
-}
+        /* ===== CART ITEMS ===== */
+        .cart-list {
+            margin-bottom: 25px;
+        }
 
-.mayorista{
-  font-size:40px;
-  color:#2e7d32;
-  font-weight:bold;
-  margin-top:8px;
-}
+        .cart-item-card {
+            display: flex;
+            gap: 20px;
+            background-color: var(--bg-card);
+            border-radius: 24px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(229, 218, 203, 0.4);
+            align-items: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
 
-.ahorro{
-  font-size:40px;
-  color:#558b2f;
-  font-size:40px;
-  margin-top:4px;
-}
+        .cart-item-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
 
-.controles{
-  margin-top:14px;
-}
+        .cart-item-card img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 18px;
+            border: 1px solid rgba(229, 218, 203, 0.3);
+            box-shadow: var(--shadow-sm);
+        }
 
-.qty-btn{
-  border:none;
-  background:#d6c2b2;
-  width:50px;
-  height:70px;
-  border-radius:50%;
-  cursor:pointer;
-  font-size:60px;
-}
+        .item-details {
+            flex: 1;
+        }
 
-.cantidad{
-  margin:0 12px;
-  font-size:40px;
-  font-weight:bold;
-}
+        .item-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 4px;
+        }
 
-.subtotal{
-  font-size:55px;
-  font-weight:bold;
-  margin-top:12px;
-}
+        .item-meta {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
 
-.resumen{
-  background:white;
-  border-radius:20px;
-  padding:28px;
-  margin-top:30px;
-  box-shadow:
-  0 6px 18px rgba(0,0,0,.08);
-}
+        .item-obs {
+            font-size: 13px;
+            font-style: italic;
+            color: #8e8076;
+            margin-top: 4px;
+            background: #fffcf8;
+            padding: 6px 10px;
+            border-radius: 10px;
+            border-left: 2px solid var(--primary-color);
+            display: inline-block;
+        }
 
-.total{
-  font-size:55px;
-  font-weight:bold;
-  text-align:center;
-  margin:15px 0;
-}
+        .item-controls-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 12px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
 
-textarea{
-  width:100%;
-  height:220px;
-  border-radius:16px;
-  border:2px solid #d6c2b2;
-  padding:18px;
-  font-size:40px;
-  line-height:1.6;
-  resize:none;
-  box-sizing:border-box;
-  font-family:Arial,sans-serif;
-}
+        .qty-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-.actions{
-  display:flex;
-  gap:12px;
-  flex-wrap:wrap;
-  margin-top:18px;
-}
+        .qty-btn {
+            border: none;
+            background-color: #f0e6da;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s, transform 0.1s;
+        }
 
-button.action{
-  flex:1;
-  border:none;
-  padding:22px;
-  border-radius:18px;
-  cursor:pointer;
-  font-size:40px;
-  font-weight:bold;
-}
+        .qty-btn:hover {
+            background-color: var(--border-color);
+            transform: scale(1.05);
+        }
 
-.black{
-  background:#EBAAA4;
-  color:white;
-}
+        .qty-btn:active {
+            transform: scale(0.95);
+        }
 
-.green{
-  background:#009189;
-  color:white;
-}
+        .qty-number {
+            font-size: 15px;
+            font-weight: 700;
+            min-width: 20px;
+            text-align: center;
+        }
 
-.red{
-  background:#c62828;
-  color:white;
-}
+        .item-subtotal {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
 
-.vacio{
-  text-align:center;
-  font-size:20px;
-  margin-top:50px;
-}
+        /* ===== RESUMEN CARD ===== */
+        .summary-card {
+            background-color: var(--bg-card);
+            border-radius: 28px;
+            padding: 30px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(229, 218, 203, 0.4);
+        }
 
-.top-buttons{
-  display:flex;
-  gap:16px;
-  width:100%;
-}
+        .summary-card h2 {
+            margin: 0 0 15px 0;
+            font-size: 20px;
+            font-weight: 700;
+            text-align: center;
+        }
 
-.grande{
-  flex:1;
-  min-height:90px;
-  font-size:24px;
-}
+        .total-display {
+            font-size: 28px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--text-main);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 15px;
+        }
 
-.vaciar{
-  margin-top:20px;
-  width:100%;
-  min-height:65px;
-  font-size:18px;
-  display:block;
-}
+        .obs-label {
+            display: block;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
 
-/* Ajustes para celular */
+        textarea.general-obs {
+            width: 100%;
+            height: 55px;
+            border-radius: 18px;
+            border: 1.5px solid var(--border-color);
+            padding: 10px 14px;
+            font-size: 14px;
+            font-family: inherit;
+            color: var(--text-main);
+            resize: none;
+            outline: none;
+            background: rgba(255, 255, 255, 0.6);
+            transition: all 0.2s;
+        }
 
-@media (max-width:768px){
+        textarea.general-obs:focus {
+            border-color: var(--primary-color);
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(125, 139, 99, 0.15);
+        }
 
-  .top-buttons{
-    flex-direction:column;
-  }
+        /* ===== ACTIONS ===== */
+        .actions-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 20px;
+        }
 
-  .grande{
-    width:100%;
-    min-height:85px;
-    font-size:22px;
-  }
+        .btn-action {
+            border: none;
+            padding: 16px;
+            border-radius: 20px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+        }
 
-  .vaciar{
-    width:100%;
-    min-height:65px;
-    font-size:18px;
-  }
+        .btn-action:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
 
-}
+        .btn-action:active {
+            transform: translateY(0);
+        }
 
-</style>
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: white;
+            grid-column: span 2;
+            font-size: 16px;
+            padding: 18px;
+        }
+
+        .btn-primary:hover {
+            filter: brightness(1.03);
+        }
+
+        .btn-secondary {
+            background: #e2d9cf;
+            color: var(--text-main);
+        }
+
+        .btn-secondary:hover {
+            background: var(--border-color);
+        }
+
+        .btn-danger {
+            background: var(--danger-gradient);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            filter: brightness(0.97);
+        }
+
+        .delete-btn {
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-size: 18px;
+            margin-left: 10px;
+            padding: 4px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        .delete-btn:hover {
+            background-color: rgba(220, 53, 69, 0.1);
+            transform: scale(1.1);
+        }
+
+        .delete-btn:active {
+            transform: scale(0.95);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            background-color: var(--bg-card);
+            border-radius: 24px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(229, 218, 203, 0.4);
+            font-size: 18px;
+            color: var(--text-muted);
+        }
+
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 600px) {
+            body {
+                padding: 20px 10px;
+            }
+
+            .header h1 {
+                font-size: 26px;
+            }
+
+            .cart-item-card {
+                padding: 16px;
+                gap: 15px;
+            }
+
+            .cart-item-card img {
+                width: 80px;
+                height: 80px;
+            }
+
+            .item-name {
+                font-size: 16px;
+            }
+
+            .actions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-primary {
+                grid-column: span 1;
+            }
+        }
+    </style>
 </head>
-
 <body>
 
 <div class="container">
+    
+    <!-- HEADER -->
+    <div class="header">
+        <img src="https://padoma.github.io/bendito-taller-carrito/img/LOGO.png" alt="Bendito Taller" class="logo">
+        <h1>Tu Carrito de Compras</h1>
+        <p>Revisa tus artículos y envía el pedido por WhatsApp</p>
+    </div>
 
-<div style="text-align:center; margin-bottom:25px;">
-
-<img
-src="https://padoma.github.io/bendito-taller-carrito/img/LOGO.png"
-style="
-max-width:220px;
-width:100%;
-height:auto;
-margin-bottom:10px;
-">
-
-<h1 style="
-margin:0;
-font-size:55px;
-color:#4b372d;">
-🛒 Tu pedido "prueba2"
-</h1>
-
-<p style="
-margin-top:8px;
-color:#7a5c4d;
-font-size:40px;">
-Selecciona tus productos y envíanos tu pedido por Instagram
-</p>
+    <!-- LISTA DE PRODUCTOS -->
+    <div id="cartContainer"></div>
 
 </div>
-
-<div id="carrito"></div>
-
-<div class="resumen">
-
-<h2 style="text-align:center;font-size:55px;">
-Resumen del pedido
-  
-</h2>
-
-<div class="total">
-$<span id="total">0</span>
-</div>
-
-<textarea
-id="pedido"
-placeholder="Aquí aparecerá tu pedido">
-</textarea>
-
-<div class="actions">
-
-<div class="top-buttons">
-
-<button
-class="action black grande"
-onclick="generar()">
-📋 Generar pedido
-</button>
-
-<button
-class="action green grande"
-onclick="copiar()">
-📱 Copiar para Instagram
-</button>
-
-</div>
-
-<button
-class="action red vaciar"
-onclick="vaciar()">
-🗑 Vaciar carrito
-</button>
-
-</div>
-
-</div>
-
-</div>
-
+<script src="cart-shared.js"></script>
 <script>
+    // Leer del LocalStorage compartido del Sistema A ("carrito")
+    let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-function precioActual(item){
-if(
-item.cantidad >= item.mayorDesde
-&& item.precioMayor > 0
-){
-return item.precioMayor;
-}
-return item.precio;
-}
+    function render() {
+        const container = document.getElementById("cartContainer");
+        
+        if (carrito.length === 0) {
+            container.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-state-icon">🛒</div>
+                    <div>Tu carrito está vacío.</div>
+                    <button class="btn-action btn-secondary" onclick="volverCatalogo()" style="margin: 20px auto 0 auto;">
+                        ⬅ Volver al Catálogo
+                    </button>
+                </div>
+            `;
+            return;
+        }
 
-function render(){
+        // Recalcular precios antes de renderizar
+        recalcularPreciosCarrito();
 
-let carrito =
-JSON.parse(
-localStorage.getItem(
-"benditoCarrito"
-)
-) || [];
+        let itemsHtml = "";
+        let total = 0;
 
-let html = "";
-let total = 0;
+        carrito.forEach((item, index) => {
+            let subtotal = item.precio * item.cantidad;
+            total += subtotal;
 
-if(carrito.length===0){
-html=`
-<div class="vacio">
-🛒 Tu carrito está vacío
-</div>`;
-}
+            let detalles = [];
+            if (item.medida) detalles.push(`Medida: ${item.medida}`);
+            if (item.variante) detalles.push(`Opción: ${item.variante}`);
+            
+            let ahorroStr = "";
+            if (item.precio < item.unitario) {
+                detalles.push(`<span style="color: var(--primary-color); font-weight: 600;">Por Mayor</span>`);
+                let ahorro = (item.unitario - item.mayor) * item.cantidad;
+                ahorroStr = `<div style="font-size: 13px; color: #2e7d32; font-weight: 500; margin-top: 4px;">💰 Ahorras $${ahorro.toLocaleString("es-CL")} (Precio mayorista aplicado)</div>`;
+            }
 
-carrito.forEach((item,index)=>{
+            let detallesStr = detalles.join(" | ");
 
-let precio =
-precioActual(item);
+            itemsHtml += `
+                <div class="cart-item-card">
+                    <img src="${item.imagen}" alt="${item.nombre}" onerror="this.src='https://via.placeholder.com/100?text=Sin+Foto'">
+                    
+                    <div class="item-details">
+                        <div class="item-name">${item.nombre}</div>
+                        <div class="item-meta">${detallesStr}</div>
+                        ${item.observacion ? `<div class="item-obs">Nota: "${item.observacion}"</div>` : ""}
+                        ${ahorroStr}
+                        
+                        <div class="item-controls-price">
+                            <div class="qty-controls">
+                                <button class="qty-btn" onclick="restar(${index})">−</button>
+                                <span class="qty-number">${item.cantidad}</span>
+                                <button class="qty-btn" onclick="sumar(${index})">+</button>
+                                <button class="delete-btn" onclick="eliminar(${index})" title="Eliminar producto">🗑️</button>
+                            </div>
+                            <div class="item-subtotal">$${subtotal.toLocaleString("es-CL")}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
 
-let subtotal =
-precio * item.cantidad;
+        container.innerHTML = `
+            <div class="cart-list">
+                ${itemsHtml}
+            </div>
 
-total += subtotal;
+            <div class="summary-card">
+                <h2>Resumen del Pedido</h2>
+                <div class="total-display">
+                    Total: $<span>${total.toLocaleString("es-CL")}</span>
+                </div>
 
-let mayorista =
-item.cantidad >= item.mayorDesde
-&& item.precioMayor > 0;
+                <label for="obsGeneral" class="obs-label">Observaciones Generales</label>
+                <textarea id="obsGeneral" class="general-obs" placeholder="con factura / solo boleta"></textarea>
 
-let ahorro =
-(item.precio -
-item.precioMayor)
-* item.cantidad;
+                <div class="actions-grid">
+                    <button class="btn-action btn-primary" onclick="copiar()">
+                        Envíame tu pedido por WhatsApp pinchando aquí... ❤️
+                    </button>
+                    <button class="btn-action btn-secondary" onclick="volverCatalogo()">
+                        ⬅ Volver al Catálogo
+                    </button>
+                    <button class="btn-action btn-danger" onclick="vaciar()">
+                        🗑 Vaciar Carrito
+                    </button>
+                </div>
+            </div>
+        `;
+    }
 
-html += `
-<div class="card">
+    function guardar() {
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+    }
 
-<img src="${item.imagen}">
+    function sumar(index) {
+        carrito[index].cantidad++;
+        guardar();
+        render();
+    }
 
-<div class="info">
+    function restar(index) {
+        if (carrito[index].cantidad > 1) {
+            carrito[index].cantidad--;
+            guardar();
+            render();
+        }
+    }
 
-<div class="nombre">
-${item.nombre}
-</div>
+    function eliminar(index) {
+        if (confirm("¿Deseas eliminar este producto de tu pedido?")) {
+            carrito.splice(index, 1);
+            guardar();
+            render();
+        }
+    }
 
-<div class="precio">
-Precio unitario:
-$${precio.toLocaleString('es-CL')}
-</div>
+    function vaciar() {
+        if (confirm("¿Seguro que deseas vaciar tu carrito?")) {
+            carrito = [];
+            guardar();
+            render();
+        }
+    }
 
-${mayorista ? `
-<div class="mayorista">
-🎉 Precio mayorista aplicado
-</div>
+    function volverCatalogo() {
+        window.open('', '_self');
+        window.close();
+        
+        setTimeout(() => {
+            const volver = localStorage.getItem("volverCatalogo") || "https://sites.google.com/view/bendito-taller/p%C3%A1gina-principal";
+            if (window.self !== window.top) {
+                window.top.location.href = volver;
+            } else {
+                window.location.href = volver;
+            }
+        }, 300);
+    }
 
-<div class="ahorro">
-💰 Ahorras
-$${ahorro.toLocaleString('es-CL')}
-</div>
-` : ""}
+    function copiar() {
+        if (carrito.length === 0) return;
 
-<div class="controles">
+        let mensaje = `Hola 😊 quiero cotizar estos productos de Bendito Taller:\n\n`;
 
-<button
-class="qty-btn"
-onclick="restar(${index})">
-−
-</button>
+        carrito.forEach(item => {
+            let det = [];
+            if (item.medida) det.push(`Medida: ${item.medida}`);
+            if (item.variante) det.push(`Opción: ${item.variante}`);
+            if (item.precio < item.unitario) det.push(`Precio Mayorista aplicado`);
+            let detStr = det.length > 0 ? ` (${det.join(" | ")})` : "";
 
-<span class="cantidad">
-${item.cantidad}
-</span>
+            mensaje += `• ${item.nombre}${detStr}\n`;
+            mensaje += `  Cantidad: ${item.cantidad}\n`;
+            if (item.observacion) mensaje += `  Nota: "${item.observacion}"\n`;
+            mensaje += `\n`;
+        });
 
-<button
-class="qty-btn"
-onclick="sumar(${index})">
-+
-</button>
+        const total = carrito.reduce((acc, item) => acc + (item.precio * item.cantidad), 0);
+        mensaje += `💰 Total estimado: $${total.toLocaleString("es-CL")}\n`;
 
-</div>
+        const obsGeneralVal = document.getElementById("obsGeneral").value.trim();
+        if (obsGeneralVal) {
+            mensaje += `\nObservaciones generales:\n"${obsGeneralVal}"`;
+        }
 
-<div class="subtotal">
-Subtotal:
-$${subtotal.toLocaleString('es-CL')}
-</div>
+        navigator.clipboard.writeText(mensaje)
+            .then(() => {
+                alert("¡Redirigiendo a WhatsApp para enviar tu pedido! (El texto del pedido también ha sido copiado al portapapeles)");
+                window.open(`https://wa.me/${numeroWhatsapp}?text=${encodeURIComponent(mensaje)}`, "_blank");
+            })
+            .catch(err => {
+                console.error("Error al copiar: ", err);
+                const t = document.createElement("textarea");
+                t.value = mensaje;
+                document.body.appendChild(t);
+                t.select();
+                document.execCommand("copy");
+                document.body.removeChild(t);
+                alert("¡Redirigiendo a WhatsApp para enviar tu pedido!");
+                window.open(`https://wa.me/${numeroWhatsapp}?text=${encodeURIComponent(mensaje)}`, "_blank");
+            });
+    }
 
-</div>
-
-</div>
-`;
-});
-
-document.getElementById(
-"carrito"
-).innerHTML = html;
-
-document.getElementById(
-"total"
-).innerText =
-total.toLocaleString("es-CL");
-
-}
-
-function sumar(index){
-let c =
-JSON.parse(
-localStorage.getItem(
-"benditoCarrito"
-));
-c[index].cantidad++;
-localStorage.setItem(
-"benditoCarrito",
-JSON.stringify(c)
-);
-render();
-}
-
-function restar(index){
-let c =
-JSON.parse(
-localStorage.getItem(
-"benditoCarrito"
-));
-c[index].cantidad--;
-
-if(c[index].cantidad<=0){
-c.splice(index,1);
-}
-
-localStorage.setItem(
-"benditoCarrito",
-JSON.stringify(c)
-);
-
-render();
-}
-
-function vaciar(){
-if(confirm(
-"¿Vaciar carrito?"
-)){
-localStorage.removeItem(
-"benditoCarrito"
-);
-render();
-}
-}
-
-function generar(){
-
-let carrito =
-JSON.parse(
-localStorage.getItem(
-"benditoCarrito"
-)
-) || [];
-
-let texto =
-"Hola 👋 quiero hacer este pedido:\n\n";
-
-let total=0;
-
-carrito.forEach(item=>{
-
-let precio =
-precioActual(item);
-
-let subtotal =
-precio * item.cantidad;
-
-total += subtotal;
-
-texto +=
-`• ${decodeURIComponent(item.nombre)}
-x${item.cantidad}
-= $${subtotal.toLocaleString('es-CL')}\n`;
-});
-
-texto +=
-`\n💰 Total:
-$${total.toLocaleString('es-CL')}`;
-
-document.getElementById(
-"pedido"
-).value = texto;
-}
-
-function copiar(){
-let t =
-document.getElementById(
-"pedido"
-);
-t.select();
-document.execCommand(
-"copy"
-);
-alert(
-"Pedido copiado 👍"
-);
-}
-
-render();
-
+    // Inicializar
+    render();
 </script>
 
 </body>

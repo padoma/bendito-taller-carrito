@@ -1,136 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Producto agregado</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redireccionando... | Bendito Taller</title>
 </head>
+<body style="font-family: Arial, sans-serif; text-align: center; padding: 50px; background-color: #fffcf8; color: #4b372d;">
+    
+    <div style="font-size: 40px; margin-bottom: 20px;">🛍️</div>
+    <h2>Cargando selector de producto...</h2>
+    <p>Por favor espera un momento.</p>
 
-<body style="
-font-family:Arial,sans-serif;
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-margin:0;
-text-align:center;
-background:#f5f1eb;
-padding:20px;
-">
+    <!-- Cargar base de datos para validar IDs antes de redirigir -->
+    <script src="productos.js"></script>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        
+        // Soporta tanto ?id=CA10 como ?producto=CA10 de enlaces antiguos y nuevos
+        const originalId = params.get("id") || params.get("producto") || "";
+        
+        // Normalizar ID antiguo a minúsculas y sin caracteres especiales (ej: reno-base -> renobase)
+        let cleanId = originalId.toLowerCase().replace(/[^a-z0-9]/g, "");
 
-<div style="
-background:white;
-padding:30px;
-border-radius:22px;
-box-shadow:0 6px 18px rgba(0,0,0,.12);
-max-width:500px;
-width:90%;
-border:2px solid #00FFBC;
-">
-
-<div style="
-font-size:100px;
-margin-bottom:10px;">
-🛍️
-</div>
-
-<h2 style="
-font-size:60px;
-margin:0 0 14px 0;
-color:#4b372d;">
-¡Producto agregado!
-</h2>
-
-<p style="
-font-size:40px;
-line-height:1.5;
-margin:0;
-color:#5f4b42;">
-Tu producto fue añadido
-al carrito
-</p>
-
-<p style="
-font-size:35px;
-margin-top:20px;
-color:#777;">
-Esta ventana se cerrará en
-
-<b>
-<span id="contador">
-3
-</span>
-</b>
-
-segundos...
-</p>
-
-</div>
-
-<script>
-
-const params =
-new URLSearchParams(window.location.search);
-
-const producto = {
- id: params.get("id"),
- nombre: params.get("nombre")
-?.replace(/\+/g, " "),
- precio: Number(params.get("precio")),
- imagen: params.get("imagen"),
- mayorDesde:
- Number(params.get("mayordesde")) || 999,
- precioMayor:
- Number(params.get("preciomayor")) || 0
-};
-
-let carrito =
-JSON.parse(
-localStorage.getItem(
-"benditoCarrito"
-)
-) || [];
-
-let existe =
-carrito.find(
-p => p.id === producto.id
-);
-
-if(existe){
- existe.cantidad++;
-}else{
- carrito.push({
-   ...producto,
-   cantidad:1
- });
-}
-
-localStorage.setItem(
-"benditoCarrito",
-JSON.stringify(carrito)
-);
-
-let segundos = 3;
-
-const intervalo =
-setInterval(() => {
-
-segundos--;
-
-document.getElementById(
-"contador"
-).innerText = segundos;
-
-if(segundos <= 0){
- clearInterval(intervalo);
-}
-
-},1000);
- 
-setTimeout(() => {
- window.close();
-}, 3000);
-
-</script>
-
+        // Validar si existe en la base de datos de productos.js
+        if (cleanId && productos[cleanId]) {
+            window.location.href = `index.html?producto=${cleanId}`;
+        } else {
+            let encontrado = false;
+            
+            // Solo buscar coincidencia parcial si cleanId no está vacío
+            if (cleanId) {
+                for (let key in productos) {
+                    if (key.includes(cleanId) || cleanId.includes(key)) {
+                        window.location.href = `index.html?producto=${key}`;
+                        encontrado = true;
+                        break;
+                    }
+                }
+            }
+            
+            // Fallback: Redirigir a la raíz si no hay coincidencia
+            if (!encontrado) {
+                window.location.href = "index.html";
+            }
+        }
+    </script>
 </body>
 </html>
