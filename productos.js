@@ -3452,5 +3452,13 @@ const productos = {
         "tipo": "simple",
         "unitario": 600,
         "mayor": 600
+    },
+    "banderindiseno": {
+        "codigo": "Banderin diseño",
+        "nombre": "Banderin diseño",
+        "imagen": "img/banderindiseno.jpg",
+        "tipo": "simple",
+        "unitario": 850,
+        "mayor": 850
     }
 };
