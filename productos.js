@@ -2464,8 +2464,8 @@ const productos = {
         "nombre": "Memorial Mascotas",
         "imagen": "img/Memorial Mascotas.jpg",
         "tipo": "simple",
-        "mayor": 3600,
-        "unitario": 2800
+        "mayor": 2800,
+        "unitario": 3600
     },
     "mujerlunar": {
         "codigo": "mujerlunar",
