@@ -340,8 +340,8 @@ const productos = {
         "nombre": "Banderín1",
         "imagen": "img/Banderín1.jpg",
         "tipo": "simple",
-        "mayor": 700,
-        "unitario": 900
+        "mayor": 500,
+        "unitario": 500
     },
     "banderin2": {
         "codigo": "Banderin2",
