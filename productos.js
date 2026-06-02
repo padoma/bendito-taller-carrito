@@ -3445,12 +3445,12 @@ const productos = {
         "unitario": 900,
         "mayor": 900
     },
-    "banderinmex": {
-        "codigo": "banderin mex",
-        "nombre": "banderin mex",
-        "imagen": "img/banderinmex.jpg",
+    "banderinliso": {
+        "codigo": "Banderin liso",
+        "nombre": "Banderin liso",
+        "imagen": "img/banderinliso.jpg",
         "tipo": "simple",
-        "unitario": 900,
-        "mayor": 900
+        "unitario": 600,
+        "mayor": 600
     }
 };
