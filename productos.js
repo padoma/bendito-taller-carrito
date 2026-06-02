@@ -2352,16 +2352,16 @@ const productos = {
         "nombre": "Letrero1",
         "imagen": "img/Letrero1.jpg",
         "tipo": "simple",
-        "mayor": 3400,
-        "unitario": 4200
+        "mayor": 3500,
+        "unitario": 4300
     },
     "letrero2": {
         "codigo": "Letrero2",
         "nombre": "Letrero2",
         "imagen": "img/Letrero2.jpg",
         "tipo": "simple",
-        "mayor": 3000,
-        "unitario": 3800
+        "mayor": 4000,
+        "unitario": 3300
     },
     "letrero3": {
         "codigo": "Letrero3",
