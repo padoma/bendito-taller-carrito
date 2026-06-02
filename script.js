@@ -106,14 +106,19 @@ function abrirSelectorProducto(){
 
         <div class="modal-input-group">
             <label for="cantidadProducto">Cantidad</label>
-            <input
-                type="number"
-                id="cantidadProducto"
-                value="1"
-                min="1"
-                class="modal-input"
-                oninput="actualizarPreciosModal()"
-            >
+            <div class="modal-qty-container">
+                <button type="button" class="modal-qty-btn" onclick="decrementarCantidadModal()">-</button>
+                <input
+                    type="number"
+                    id="cantidadProducto"
+                    value="1"
+                    min="1"
+                    class="modal-input modal-qty-input"
+                    oninput="if(this.value !== '' && this.value < 1) this.value = 1; actualizarPreciosModal()"
+                    onblur="if(this.value === '' || this.value < 1) this.value = 1; actualizarPreciosModal()"
+                >
+                <button type="button" class="modal-qty-btn" onclick="incrementarCantidadModal()">+</button>
+            </div>
         </div>
 
         <div class="modal-input-group">
@@ -137,6 +142,25 @@ function abrirSelectorProducto(){
 
     document.body.appendChild(popup);
     actualizarPreciosModal(); // Inicializar precios dinámicos
+}
+
+function incrementarCantidadModal() {
+    const input = document.getElementById("cantidadProducto");
+    if (input) {
+        input.value = (parseInt(input.value) || 1) + 1;
+        actualizarPreciosModal();
+    }
+}
+
+function decrementarCantidadModal() {
+    const input = document.getElementById("cantidadProducto");
+    if (input) {
+        const val = parseInt(input.value) || 1;
+        if (val > 1) {
+            input.value = val - 1;
+            actualizarPreciosModal();
+        }
+    }
 }
 
 /* ==========================
@@ -541,8 +565,8 @@ function copiarPedido(){
 
     navigator.clipboard.writeText(mensaje)
         .then(() => {
-            alert("¡Pedido copiado al portapapeles! Abre Instagram para enviarlo.");
-            window.open("https://www.instagram.com/bendito_taller_/", "_blank");
+            alert("¡Redirigiendo a WhatsApp para enviar tu pedido! (El texto del pedido también ha sido copiado al portapapeles)");
+            window.open(`https://wa.me/${numeroWhatsapp}?text=${encodeURIComponent(mensaje)}`, "_blank");
         })
         .catch(err => {
             console.error("Error al copiar: ", err);
@@ -552,8 +576,8 @@ function copiarPedido(){
             t.select();
             document.execCommand("copy");
             document.body.removeChild(t);
-            alert("¡Pedido copiado! Abre Instagram para enviarlo.");
-            window.open("https://www.instagram.com/bendito_taller_/", "_blank");
+            alert("¡Redirigiendo a WhatsApp para enviar tu pedido!");
+            window.open(`https://wa.me/${numeroWhatsapp}?text=${encodeURIComponent(mensaje)}`, "_blank");
         });
 }
 

@@ -340,8 +340,8 @@ const productos = {
         "nombre": "Banderín1",
         "imagen": "img/Banderín1.jpg",
         "tipo": "simple",
-        "mayor": 700,
-        "unitario": 900
+        "mayor": 500,
+        "unitario": 500
     },
     "banderin2": {
         "codigo": "Banderin2",
@@ -2352,16 +2352,16 @@ const productos = {
         "nombre": "Letrero1",
         "imagen": "img/Letrero1.jpg",
         "tipo": "simple",
-        "mayor": 3400,
-        "unitario": 4200
+        "mayor": 3500,
+        "unitario": 4300
     },
     "letrero2": {
         "codigo": "Letrero2",
         "nombre": "Letrero2",
         "imagen": "img/Letrero2.jpg",
         "tipo": "simple",
-        "mayor": 3000,
-        "unitario": 3800
+        "mayor": 4000,
+        "unitario": 3300
     },
     "letrero3": {
         "codigo": "Letrero3",
@@ -2464,8 +2464,8 @@ const productos = {
         "nombre": "Memorial Mascotas",
         "imagen": "img/Memorial Mascotas.jpg",
         "tipo": "simple",
-        "mayor": 3600,
-        "unitario": 2800
+        "mayor": 2800,
+        "unitario": 3600
     },
     "mujerlunar": {
         "codigo": "mujerlunar",
@@ -2738,8 +2738,8 @@ const productos = {
         "nombre": "Set Anillos2",
         "imagen": "img/Set Anillos2.jpg",
         "tipo": "simple",
-        "mayor": 2000,
-        "unitario": 2500
+        "mayor": 2300,
+        "unitario": 2800
     },
     "setanillos3": {
         "codigo": "Set Anillos3",
@@ -2770,8 +2770,8 @@ const productos = {
         "nombre": "Set Anillos6",
         "imagen": "img/Set Anillos6.jpg",
         "tipo": "simple",
-        "mayor": 2000,
-        "unitario": 2500
+        "mayor": 2300,
+        "unitario": 2800
     },
     "setanillos7": {
         "codigo": "Set Anillos7",
