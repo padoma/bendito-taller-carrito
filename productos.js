@@ -3468,5 +3468,13 @@ const productos = {
         "tipo": "simple",
         "unitario": 11,
         "mayor": 1
+    },
+    "prueba1": {
+        "codigo": "prueba1",
+        "nombre": "prueba1",
+        "imagen": "img/prueba1.jpg",
+        "tipo": "simple",
+        "unitario": 22,
+        "mayor": 2
     }
 };
