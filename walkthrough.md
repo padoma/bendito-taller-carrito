@@ -604,6 +604,36 @@ Se ha implementado una reestructuración de la barra de navegación superior (na
 - **Modificación en styles.css**: Se copió la imagen `FONDO NICHOS.jpg` desde la unidad `D:\` a la carpeta local de imágenes como `img/FONDO_NICHOS.jpg`, y se configuró como el fondo enmascarado del badge de letras (`.card-nichos .card-content::after`) para aplicarse de forma exclusiva en la tarjeta de la categoría "Nichos".
 - **Sincronización**: Se propagaron las actualizaciones a los repositorios locales clonados de Git (`bendito-taller-carrito` y `bendito-taller-web`).
 
+## 83. Textura de Fondo Personalizada en la Tarjeta de Categoría "DECO"
+
+- **Modificación en styles.css e index.html**: Se añadió la clase `.card-deco` en `index.html` para la tarjeta de categoría DECO, se copió la imagen `fondo deco (2).jpg` desde `D:\bendito taller\CATALOGO LORE\fondo\fondo deco` a la carpeta local de imágenes como `img/fondo_deco_2.jpg`, y se configuró como el fondo enmascarado del badge de letras (`.card-deco .card-content::after`) en `styles.css`.
+- **Sincronización**: Se propagaron las actualizaciones a los repositorios locales clonados de Git (`bendito-taller-carrito` y `bendito-taller-web`).
+
+## 84. Modificación de Subtítulo en la Tarjeta de Categoría "DECO" a "creativa"
+
+- **Modificación en index.html**: Se actualizó el subtítulo de la categoría "DECO" en [index.html](file:///D:/bendito-taller-web-main/index.html) para cambiar `<span class="subtitle">` de "originales y creativas" a "creativa".
+- **Sincronización**: Se propagaron las actualizaciones a los repositorios locales clonados de Git (`bendito-taller-carrito` y `bendito-taller-web`).
+
+## 85. Ajuste de Altura de Subtítulos y Divisores en Vista Celular
+
+- **Modificación en styles.css**: Se ajustaron las reglas en la media query de celulares (`@media (max-width: 480px)`) para subir los elementos `.subtitle` y `.divider` (estableciendo `top: calc(50% + 18px) !important` y `top: calc(50% + 34px) !important` respectively), dejándolos mucho más juntos a los títulos principales (`h2`) y manteniendo una composición armónica y compacta en pantallas pequeñas.
+- **Sincronización**: Se propagaron las actualizaciones a los repositorios locales clonados de Git (`bendito-taller-carrito` y `bendito-taller-web`).
+
+## 86. Textura de Fondo Personalizada en la Tarjeta de Categoría "Navidad"
+
+- **Modificación en styles.css**: Se copió la imagen `FONDO NAVIDAD.jpg` desde la unidad `D:\bendito taller\CATALOGO LORE\fondo\fondo navidad` a la carpeta local de imágenes como `img/FONDO_NAVIDAD.jpg`, y se configuró como el fondo enmascarado del badge de letras (`.card-navidad .card-content::after`) en `styles.css`.
+- **Sincronización**: Se propagaron las actualizaciones a los repositorios locales clonados de Git (`bendito-taller-carrito` y `bendito-taller-web`).
+
+## 87. Aumento de Ancho en las Líneas del Toldo para Celulares
+
+- **Modificación en styles.css**: Se incrementó la escala horizontal de la imagen del toldo en la vista de celular (`@media (max-width: 768px)`) aumentando `background-size` de `180% 100%` a `300% 100%`. Esto hace que las rayas del toldo se vean notablemente más anchas y definidas, logrando el efecto visual adecuado en lugar de parecer simples líneas finas en pantallas pequeñas.
+- **Sincronización**: Se propagaron las actualizaciones a los repositorios locales clonados de Git (`bendito-taller-carrito` y `bendito-taller-web`).
+
+
+
+
+
+
 
 
 

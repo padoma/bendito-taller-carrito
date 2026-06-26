@@ -123,6 +123,16 @@
 - [x] Cambiar el subtítulo del cuadro principal de "Nichos" en index.html, reemplazando "tipo mexicanos" por "estilo mexicanos".
 - [x] Configurar los subtítulos (.subtitle) y divisores (.divider) en styles.css para estar siempre visibles y activos por defecto (opacity: 1 y scaleX(1)) en lugar de aparecer únicamente en hover.
 - [x] Copiar la imagen "FONDO NICHOS.jpg" de D:\ a img/FONDO_NICHOS.jpg y aplicarla como textura de fondo del badge de letras en la tarjeta de Nichos (.card-nichos .card-content::after) en styles.css.
+- [x] Copiar la imagen "fondo deco (2).jpg" de D:\bendito taller\CATALOGO LORE\fondo\fondo deco a img/fondo_deco_2.jpg y aplicarla como textura de fondo del badge de letras en la tarjeta de DECO (.card-deco .card-content::after) en styles.css.
+- [x] Cambiar el subtítulo del cuadro principal de "DECO" en index.html, reemplazando "originales y creativas" por "creativa".
+- [x] Ajustar la posición vertical de los subtítulos (.subtitle) y divisores (.divider) en styles.css para la vista de celular (@media (max-width: 480px)) a top: calc(50% + 18px) y calc(50% + 34px) para subirlos y hacer la composición más compacta y armónica.
+- [x] Copiar la imagen "FONDO NAVIDAD.jpg" de D:\bendito taller\CATALOGO LORE\fondo\fondo navidad a img/FONDO_NAVIDAD.jpg y aplicarla como textura de fondo del badge de letras en la tarjeta de Navidad (.card-navidad .card-content::after) en styles.css.
+- [x] Agrandar la imagen del toldo (.main-navbar::before) horizontalmente un 66% más (de 180% a 300% de background-size) en styles.css para la vista de celular/móvil (@media (max-width: 768px)) para que las líneas se vean más anchas.
+
+
+
+
+
 
 
 

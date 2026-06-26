@@ -84,7 +84,7 @@ h1, h2, h3, h4, h5, h6 {
 @media (max-width: 768px) {
     .main-navbar::before {
         height: 30px; /* Achicado en móviles */
-        background-size: 180% 100%; /* Estirar las líneas horizontalmente para que se vean más anchas */
+        background-size: 300% 100%; /* Estirar las líneas horizontalmente para que se vean más anchas */
     }
     #catalog-section {
         scroll-margin-top: 140px;
@@ -1033,6 +1033,14 @@ h1, h2, h3, h4, h5, h6 {
 
 .card-nichos .card-content::after {
     background-image: url('img/FONDO_NICHOS.jpg');
+}
+
+.card-deco .card-content::after {
+    background-image: url('img/fondo_deco_2.jpg');
+}
+
+.card-navidad .card-content::after {
+    background-image: url('img/FONDO_NAVIDAD.jpg');
 }
 
 .category-card:hover .card-content::after,
@@ -2289,12 +2297,14 @@ h1, h2, h3, h4, h5, h6 {
     
     .card-content .subtitle {
         font-size: 11px !important;
-        margin-bottom: 2px;
+        top: calc(50% + 18px) !important;
+        transform: translate(-50%, 0) !important;
     }
     
     .divider {
-        margin: 6px 0;
         width: 40px;
+        top: calc(50% + 34px) !important;
+        transform: translate(-50%, 0) !important;
     }
 
     .carousel-caption p {
