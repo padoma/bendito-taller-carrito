@@ -155,6 +155,7 @@
 - [x] Copiar el archivo de textura `fondo cuaros blancos.jpeg` de D:\ a la carpeta local img como `fondo_cuadros_blancos.jpeg`, y definirlo como el fondo translúcido (`opacity: 0.55` en pseudo-elemento `::before`) de los cuadros de características (`.feature-card`) en styles.css.
 - [x] Incrementar la translucidez del fondo de las tarjetas de características `.feature-card::before` reduciendo la opacidad a `0.35` (35% de opacidad) en styles.css para optimizar la legibilidad y contraste del texto y logotipos.
 - [x] Copiar las imágenes `fondo cuaros blancos1.jpeg` y `fondo cuaros blancos2.jpeg` desde D:\ a la carpeta local img como `fondo_cuadros_blancos1.jpeg` y `fondo_cuadros_blancos2.jpeg`, y aplicarlas de forma selectiva a cada tarjeta de características (tarjeta 1: fondo_cuadros_blancos.jpeg, tarjeta 2: fondo_cuadros_blancos1.jpeg, tarjeta 3: fondo_cuadros_blancos2.jpeg) en styles.css usando selectores :nth-child.
+- [x] Implementar redirección de retorno a Google Sites para el flujo activo: se configuró la bandera `fromSites` en `sessionStorage` en add.html, y se adaptaron cerrarPopup() y agregarProducto() en script.js, así como volverCatalogo() en carrito.html para redirigir a https://www.benditotaller.cl/ en lugar del nuevo index.html cuando la bandera esté activa.
 
 
 

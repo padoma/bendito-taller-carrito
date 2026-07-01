@@ -24,6 +24,7 @@
 
         // Validar si existe en la base de datos de productos.js
         if (cleanId && productos[cleanId]) {
+            sessionStorage.setItem("fromSites", "true");
             window.location.href = `index.html?producto=${cleanId}`;
         } else {
             let encontrado = false;
@@ -32,6 +33,7 @@
             if (cleanId) {
                 for (let key in productos) {
                     if (key.includes(cleanId) || cleanId.includes(key)) {
+                        sessionStorage.setItem("fromSites", "true");
                         window.location.href = `index.html?producto=${key}`;
                         encontrado = true;
                         break;
@@ -41,6 +43,7 @@
             
             // Fallback: Redirigir a la raíz si no hay coincidencia
             if (!encontrado) {
+                sessionStorage.setItem("fromSites", "true");
                 window.location.href = "index.html";
             }
         }

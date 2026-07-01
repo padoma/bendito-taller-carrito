@@ -882,6 +882,19 @@ Se ha implementado una reestructuración de la barra de navegación superior (na
   - Todas las tarjetas heredan la configuración translúcida global (`opacity: 0.35`) que garantiza la visibilidad de los diferentes motivos gráficos de fondo sin comprometer la legibilidad del contenido textual ni los logotipos a color.
 - **Sincronización**: Se propagaron las actualizaciones a los repositorios locales clonados de Git (`bendito-taller-carrito` y `bendito-taller-web`).
 
+## 114. Redirección Inteligente de Retorno a Google Sites
+
+- **Configuración de add.html**:
+  - Se copió el archivo de redirección de entrada `add.html` al directorio de trabajo `D:\bendito-taller-web-main` para su gestión centralizada.
+  - Se modificó la lógica interna de `add.html` para establecer una bandera de control en sesión (`sessionStorage.setItem("fromSites", "true")`) antes de realizar cualquier redirección a `index.html`.
+- **Modificación en script.js**:
+  - Se modificó `cerrarPopup()` para comprobar si `sessionStorage.getItem("fromSites")` está activo; si es así, al cancelar la selección del producto, el usuario es redirigido inmediatamente a `https://www.benditotaller.cl/` (Google Sites).
+  - Se modificó `agregarProducto()` para que, en caso de provenir de Google Sites, cierre el selector de forma silenciosa (para que la redirección no compita con la animación), muestre el toast exitoso "Agregado al pedido", y tras un lapso de 1.5 segundos (tiempo suficiente para leer la confirmación), redirija al cliente a `https://www.benditotaller.cl/`.
+- **Modificación en carrito.html**:
+  - Se modificó la función `volverCatalogo()` de la página de checkout. Si la bandera `fromSites` es verdadera, redirige de vuelta al catálogo activo en Google Sites (`https://www.benditotaller.cl/`), en lugar de redirigir al nuevo `index.html` que sigue en etapa de diseño.
+- **Sincronización**: Se propagaron las actualizaciones a los repositorios locales clonados de Git (`bendito-taller-carrito` y `bendito-taller-web`).
+
+
 
 
 

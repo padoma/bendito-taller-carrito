@@ -721,8 +721,17 @@ function agregarProducto() {
     recalcularPreciosCarrito(carrito);
     guardarCarrito();
     renderCarrito();
-    cerrarPopup();
-    mostrarToast();
+    
+    if (sessionStorage.getItem("fromSites") === "true") {
+        cerrarPopupSilencioso();
+        mostrarToast();
+        setTimeout(() => {
+            window.location.href = "https://www.benditotaller.cl/";
+        }, 1500);
+    } else {
+        cerrarPopup();
+        mostrarToast();
+    }
 }
 
 function cerrarPopup() {
@@ -730,6 +739,21 @@ function cerrarPopup() {
     if (popup) popup.remove();
     
     // Limpiar query param de producto
+    const url = new URL(window.location);
+    url.searchParams.delete('producto');
+    window.history.replaceState({}, document.title, url.pathname + url.search);
+
+    // Si viene de Google Sites y cancela, redirigir de vuelta a Google Sites
+    if (sessionStorage.getItem("fromSites") === "true") {
+        window.location.href = "https://www.benditotaller.cl/";
+    }
+}
+
+// Cierra el modal de producto sin gatillar la redirección inmediata a Google Sites
+function cerrarPopupSilencioso() {
+    const popup = document.getElementById("popupProducto");
+    if (popup) popup.remove();
+    
     const url = new URL(window.location);
     url.searchParams.delete('producto');
     window.history.replaceState({}, document.title, url.pathname + url.search);

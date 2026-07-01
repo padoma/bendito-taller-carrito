@@ -479,7 +479,11 @@
         }
 
         function volverCatalogo() {
-            window.location.href = "index.html#catalog-section";
+            if (sessionStorage.getItem("fromSites") === "true") {
+                window.location.href = "https://www.benditotaller.cl/";
+            } else {
+                window.location.href = "index.html#catalog-section";
+            }
         }
 
         function copiar() {
