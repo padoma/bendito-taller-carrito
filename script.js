@@ -190,11 +190,96 @@ function handleSearch() {
     handleNavbarSearch();
 }
 
+// Datos y función para banner dinámico de categoría
+const CATEGORY_BANNER_DATA = {
+    "all": {
+        title: "Productos",
+        subtitle: "Catálogo completo",
+        bg: "img/fondo_rayas.jpg"
+    },
+    "corazones": {
+        title: "Corazones",
+        subtitle: "Colección",
+        bg: "img/CORAZONES_2.jpg"
+    },
+    "corazones-alados": {
+        title: "Alados",
+        subtitle: "diseños variados",
+        bg: "img/grabados_bg.jpg"
+    },
+    "nichos-y-altares": {
+        title: "Nichos",
+        subtitle: "estilo mexicanos",
+        bg: "img/FONDO_NICHOS.jpg"
+    },
+    "mexicanos-y-calacas": {
+        title: "Calacas",
+        subtitle: "y mexicanos",
+        bg: "img/grabados_bg.jpg"
+    },
+    "grabados": {
+        title: "Grabados",
+        subtitle: "infantiles y más",
+        bg: "img/grabados_bg.jpg"
+    },
+    "navidad": {
+        title: "Navidad",
+        subtitle: "todo el año",
+        bg: "img/FONDO_NAVIDAD.jpg"
+    },
+    "deco": {
+        title: "Deco",
+        subtitle: "creativa",
+        bg: "img/fondo_deco_2.jpg"
+    },
+    "stencil": {
+        title: "Stencils",
+        subtitle: "creaciones propias",
+        bg: "img/grabados_bg.jpg"
+    },
+    "mistico-y-mas": {
+        title: "Místico",
+        subtitle: "energía y conexión",
+        bg: "img/grabados_bg.jpg"
+    },
+    "otros-insumos": {
+        title: "Insumos",
+        subtitle: "complementarios",
+        bg: "img/grabados_bg.jpg"
+    },
+    "libros-3d": {
+        title: "Libros 3D",
+        subtitle: "fantasía y encanto",
+        bg: "img/grabados_bg.jpg"
+    }
+};
+
+function actualizarBannerCategoria() {
+    const banner = document.getElementById("categoryHeaderBanner");
+    const titleEl = document.getElementById("categoryBannerTitle");
+    const subtitleEl = document.getElementById("categoryBannerSubtitle");
+    if (!banner || !titleEl || !subtitleEl) return;
+
+    const bannerData = CATEGORY_BANNER_DATA[categoriaActiva] || CATEGORY_BANNER_DATA["all"];
+
+    if (busquedaActual) {
+        titleEl.textContent = "Buscador";
+        subtitleEl.textContent = `Resultados para "${busquedaActual}"`;
+        banner.style.backgroundImage = "url('img/fondo_rayas.jpg')";
+    } else {
+        titleEl.textContent = bannerData.title;
+        subtitleEl.textContent = bannerData.subtitle;
+        banner.style.backgroundImage = `url('${bannerData.bg}')`;
+    }
+    banner.style.display = "flex";
+}
+
 // Renderizar grilla de catálogo
 function renderCatalog() {
     const grid = document.getElementById("productsGrid");
     if (!grid) return;
     grid.innerHTML = "";
+    actualizarBannerCategoria();
     
     // Obtener sólo productos padres (filtrar los aliases de medidas que apuntan a padres)
     const parentKeys = Object.keys(productos).filter(key => !productos[key].parent);
@@ -271,7 +356,7 @@ function renderCatalog() {
         const card = document.createElement("div");
         card.className = "product-card";
         card.innerHTML = `
-            <div class="product-img-wrapper">
+            <div class="product-img-wrapper" onclick="abrirImagenGrande('${key}')" title="Ver imagen en grande">
                 <img 
                     src="${p.imagen}" 
                     alt="${p.nombre}" 
@@ -292,6 +377,36 @@ function renderCatalog() {
         `;
         grid.appendChild(card);
     });
+}
+
+// Abrir imagen en grande (Lightbox)
+function abrirImagenGrande(id) {
+    if (!productos[id]) return;
+    const p = productos[id];
+    cerrarPopup();
+
+    const popup = document.createElement("div");
+    popup.id = "popupProducto";
+    popup.className = "modal-overlay";
+    popup.onclick = (e) => {
+        if (e.target === popup) cerrarPopup();
+    };
+
+    popup.innerHTML = `
+    <div class="modal-container" style="max-width: 600px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 20px; padding: 24px; box-sizing: border-box;">
+        <h2 style="margin: 0; font-family: var(--font-serif); font-size: 24px; color: #4b372d;">${p.nombre}</h2>
+        
+        <div style="width: 100%; border-radius: var(--radius-md); overflow: hidden; background: #ffffff; border: 1px solid rgba(75, 55, 45, 0.1); box-shadow: var(--shadow-md); display: flex; align-items: center; justify-content: center; padding: 10px; box-sizing: border-box;">
+            <img src="${p.imagen}" alt="${p.nombre}" style="max-width: 100%; max-height: 60vh; object-fit: contain; display: block; border-radius: var(--radius-sm);" onerror="this.src='https://via.placeholder.com/400?text=Sin+Foto'">
+        </div>
+        
+        <button onclick="cerrarPopup()" class="modal-btn-secondary" style="width: 100%; margin-top: 10px; font-weight: bold; background: linear-gradient(135deg, #95AB9E 0%, #7d9084 100%); color: white; border: none; border-radius: var(--radius-sm); padding: 12px; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+            ⬅ Volver
+        </button>
+    </div>
+    `;
+
+    document.body.appendChild(popup);
 }
 
 // Abrir Selector Modal para comprar

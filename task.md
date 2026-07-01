@@ -128,7 +128,33 @@
 - [x] Ajustar la posición vertical de los subtítulos (.subtitle) y divisores (.divider) en styles.css para la vista de celular (@media (max-width: 480px)) a top: calc(50% + 18px) y calc(50% + 34px) para subirlos y hacer la composición más compacta y armónica.
 - [x] Copiar la imagen "FONDO NAVIDAD.jpg" de D:\bendito taller\CATALOGO LORE\fondo\fondo navidad a img/FONDO_NAVIDAD.jpg y aplicarla como textura de fondo del badge de letras en la tarjeta de Navidad (.card-navidad .card-content::after) en styles.css.
 - [x] Agrandar la imagen del toldo (.main-navbar::before) horizontalmente un 66% más (de 180% a 300% de background-size) en styles.css para la vista de celular/móvil (@media (max-width: 768px)) para que las líneas se vean más anchas.
-
+- [x] Dividir la cuadrícula de categorías en index.html en tres bloques separados para intercalar los banners horizontalmente y ajustar espaciados (padding vertical).
+- [x] Repetir el banner rosado debajo de los cuadros "nichos" y "calacas" con la frase "Ventas al detalle y al por mayor" en index.html.
+- [x] Repetir el banner rosado debajo de los cuadros "navidad" y "stencils" con la frase "Productos complementarios para tus proyectos" en index.html.
+- [x] Repetir el banner debajo de la tarjeta de "Libros 3D" con información sobre pedidos por Instagram y un botón de enlace interactivo con icono SVG.
+- [x] Achicar las letras y el botón de enlace de los banners agregados en la vista de celulares (@media (max-width: 480px)) para mejorar la legibilidad y composición.
+- [x] Unificar la altura (min-height) del segundo y tercer banner agregado recientemente mediante la clase .tall-banner y reglas adaptativas en CSS.
+- [x] Reemplazar el icono de camión por los logos de Blue Express, Starken y Correos de Chile en el cuadro de "Envíos a Todo Chile" en index.html y catalogo.html, consolidando además los estilos CSS compartidos.
+- [x] Mover el título "Explora Nuestras Categorías" dentro del primer banner interactivo superior de la página principal, posicionándolo bajo el texto descriptivo.
+- [x] Sincronizar todos los archivos modificados con los repositorios Git locales (bendito-taller-carrito y bendito-taller-web).
+- [x] Ajustar el alto del segundo banner agregado recientemente ("Productos complementarios para tus proyectos") para que coincida exactamente con la altura del primer banner, removiendo la clase ".tall-banner" en index.html.
+- [x] Ajustar el alto del tercer banner ("Si tienes alguna duda o deseas hacer un pedido...") para que coincida con el primer banner, y posicionar el botón de Instagram al final de la leyenda (flex row) en index.html y styles.css.
+- [x] Copiar las imágenes de logotipos de envío a color (logo_starken.png, Logo-Blue.png y correos-chile-logo.jpg) de D:\ a la carpeta img del proyecto y actualizar el diseño de la tarjeta de envíos (Starken/Blue Express en fila, Correos de Chile abajo al centro) en index.html, catalogo.html y styles.css.
+- [x] Engranar y agrandar un poco el logo de Correos de Chile tanto en escritorio (a 42px de alto) como en celulares (a 34px de alto) en styles.css para un mejor balance visual.
+- [x] Agrandar los logos de Starken y Blue Express un 20% (38px de alto en PC y 29px en celulares), e integrar la nueva imagen horizontal "correos-chile-logo1.jpg" para Correos de Chile (ajustada a 38px en PC y 29px en celulares) en index.html, catalogo.html y styles.css.
+- [x] Actualizar la frase del cuadro de envíos reemplazando "cotización" por "pedido" y borrando la palabra "rápidamente" en index.html y catalogo.html.
+- [x] Unificar la altura de los dos primeros banners repetidos ("Ventas al detalle..." y "Productos complementarios...") en la vista móvil de celular a una altura mínima de 80px (y 90px en tablet) en styles.css.
+- [x] Eliminar la leyenda estática del inicio de catalogo.html e implementar un banner dinámico de categoría (#categoryHeaderBanner) en script.js, catalogo.html y styles.css, que muestra el título y subtítulo dentro de la silueta del badge vintage de madera sobre la imagen de fondo de cada categoría específica.
+- [x] Agrandar un 50% la silueta de madera (a 435x240px) y las fuentes (título a 42px, subtítulo a 16px) del badge del banner de categorías en styles.css sin modificar la altura del banner contenedor (200px) y habilitando overflow visible para un efecto flotante 3D.
+- [x] Evitar que la silueta y las letras sobresalgan del banner de categorías, configurando overflow: hidden y ajustando la altura de la silueta a la medida exacta del banner (200px en escritorio, 160px en móvil) en styles.css.
+- [x] Tintar la silueta completa del badge vintage (`img/fondo_letra.png`) de color verde salvia mediante una máscara de CSS (`mask-image`) y `mix-blend-mode: multiply` en `.category-banner-badge::after`, eliminando el recuadro rectangular de fondo en `.category-banner-badge-inner`.
+- [x] Evitar la deformación o estiramiento de las imágenes de fondo en el banner de categorías (`.category-header-banner`) mediante el uso del tamaño real de la foto (`background-size: auto`) y repetición completa en mosaico (`background-repeat: repeat`) tanto en escritorio como en móvil.
+- [x] Eliminar el margen vertical superior del catálogo (`padding-top: 0px` en `#catalog-section`) en catalogo.html para posicionar el banner de categorías pegado a la barra de navegación que contiene el botón de carrito.
+- [x] Habilitar la visualización ampliada de fotos de productos mediante el clic en su imagen en la grilla: se creó la función `abrirImagenGrande(id)` en script.js, se configuró el cursor interactivo en `.product-img-wrapper` en styles.css, y se diseñó una interfaz modal centrada con la foto a gran escala, título del producto y botón "Volver" verde salvia.
+- [x] Copiar el archivo de textura `textura papel.png` de D:\ a la carpeta local img como `textura_papel.png`, y definirlo como el fondo (`background-image`) de los cuadros de características (`.feature-card`) en styles.css.
+- [x] Copiar el archivo de textura `fondo cuaros blancos.jpeg` de D:\ a la carpeta local img como `fondo_cuadros_blancos.jpeg`, y definirlo como el fondo translúcido (`opacity: 0.55` en pseudo-elemento `::before`) de los cuadros de características (`.feature-card`) en styles.css.
+- [x] Incrementar la translucidez del fondo de las tarjetas de características `.feature-card::before` reduciendo la opacidad a `0.35` (35% de opacidad) en styles.css para optimizar la legibilidad y contraste del texto y logotipos.
+- [x] Copiar las imágenes `fondo cuaros blancos1.jpeg` y `fondo cuaros blancos2.jpeg` desde D:\ a la carpeta local img como `fondo_cuadros_blancos1.jpeg` y `fondo_cuadros_blancos2.jpeg`, y aplicarlas de forma selectiva a cada tarjeta de características (tarjeta 1: fondo_cuadros_blancos.jpeg, tarjeta 2: fondo_cuadros_blancos1.jpeg, tarjeta 3: fondo_cuadros_blancos2.jpeg) en styles.css usando selectores :nth-child.
 
 
 

@@ -629,6 +629,269 @@ Se ha implementado una reestructuración de la barra de navegación superior (na
 - **Modificación en styles.css**: Se incrementó la escala horizontal de la imagen del toldo en la vista de celular (`@media (max-width: 768px)`) aumentando `background-size` de `180% 100%` a `300% 100%`. Esto hace que las rayas del toldo se vean notablemente más anchas y definidas, logrando el efecto visual adecuado en lugar de parecer simples líneas finas en pantallas pequeñas.
 - **Sincronización**: Se propagaron las actualizaciones a los repositorios locales clonados de Git (`bendito-taller-carrito` y `bendito-taller-web`).
 
+## 88. Repetición de Banners Decorativos e Intercalado en la Cuadrícula
+
+- **Modificación en index.html**: Se dividió la cuadrícula `.categories-grid` en tres bloques separados para intercalar horizontalmente los nuevos banners decorativos después de las filas correspondientes de tarjetas.
+- **Inserción de Banners**:
+  - Se repitió el banner con fondo floral rosado (#DDB6A8) y animación interactiva debajo de los cuadros de "Nichos" y "Calacas", configurando la frase: **"Ventas al detalle y al por mayor"**.
+  - Se repitió el mismo banner debajo de los cuadros de "Navidad" y "Stencils", configurando la frase: **"Productos complementarios para tus proyectos"**.
+  - Se removieron los límites de ancho (`max-width: 1000px`, `border-radius: 20px`) y los overrides de tamaño de fuente (`font-size: 32px`) para que coincidan exactamente con la estructura de ancho de pantalla completo (100%) y el tamaño de letra de título predeterminado (38px) del primer banner decorativo superior.
+- **Ajustes de Espaciado**: Se aplicaron estilos inline de control de padding en las tres cuadrículas resultantes (`padding-bottom: 0;` en la primera, `padding-top: 0; padding-bottom: 0;` en la segunda y `padding-top: 0;` en la tercera) para evitar espacios en blanco excesivos y mantener la coherencia en el flujo vertical de la grilla.
+- **Sincronización**: Se propagaron las actualizaciones a los repositorios locales clonados de Git (`bendito-taller-carrito` y `bendito-taller-web`).
+
+## 89. Tercer Banner Repetido (Instagram y Botón de Enlace con SVG)
+
+- **Modificación en index.html**: Se añadió un tercer banner rosado de puntos interactivos al final del catálogo de categorías (inmediatamente debajo del bloque que contiene "Libros 3D"), configurando la leyenda: **"Si tienes alguna duda o deseas hacer un pedido, comunícate con nosotros a nuestro Instagram, pinchando en el botón de enlace."**
+- **Botón e Icono de Enlace**:
+  - Se configuró el contenedor `.dots-banner-content` con `max-width: 75%` inline para distribuir mejor el texto a lo largo de la pantalla.
+  - Se insertó un botón interactivo con el enlace directo al perfil de Instagram (`https://www.instagram.com/bendito_taller_/`) y un icono SVG vectorial nativo de Instagram.
+- **Modificación en styles.css**:
+  - Se creó la clase `.banner-insta-btn` estilizada con los colores de marca café oscuro (`#4b372d`) y texto crema (`#fffcf8`), aplicando un espaciado interior adecuado, bordes redondeados y una sombra de botón premium.
+  - Se habilitó explícitamente `pointer-events: auto;` en el botón para permitir hacer clic sobre él, ya que el contenedor padre (`.dots-banner-content`) tiene desactivado los eventos de puntero.
+  - Se implementaron efectos interactivos en hover: traslación hacia arriba (`translateY(-2px)`), cambio de color de fondo al verde oliva/toldo (`#7d8b63`) y rotación del SVG de `10deg` con un escalado de `1.1`.
+- **Sincronización**: Se propagaron las actualizaciones a los repositorios locales clonados de Git (`bendito-taller-carrito` y `bendito-taller-web`).
+
+## 90. Optimización de Tipografía de Banners en Vista Celular (max-width: 480px)
+
+- **Modificación en styles.css**:
+  - Se añadieron reglas de diseño responsive exclusivas para celulares (`@media (max-width: 480px)`) para reducir la tipografía de los banners interactivos, previniendo desbordes y excesivos saltos de línea.
+  - Se redujo el tamaño de los títulos `.dots-banner-title` de `24px` a **`19px`** (con ajuste de `line-height: 1.4` y `margin-bottom: 6px`).
+  - Se redujo el tamaño de los textos descriptivos `.dots-banner-text` de `16px` a **`14px`**.
+  - Se ajustaron las dimensiones del botón de enlace `.banner-insta-btn` (padding de `12px 28px` a **`10px 22px`**, tamaño de letra a **`14px`** y margen superior a **`12px`**) para una visualización más compacta y centrada en pantallas de celulares.
+- **Sincronización**: Se propagaron las actualizaciones a los repositorios locales clonados de Git (`bendito-taller-carrito` y `bendito-taller-web`).
+
+## 91. Alturas Unificadas para el Segundo y Tercer Banner (Clase `.tall-banner`)
+
+- **Modificación en index.html**: Se incorporó la clase de estilo `.tall-banner` en las etiquetas `.dots-banner-container` del segundo banner ("Productos complementarios para tus proyectos") y el tercer banner (Instagram) para poder sincronizar sus dimensiones verticales.
+- **Modificación en styles.css**:
+  - Se implementó la regla `.dots-banner-container.tall-banner` fijando un `min-height` de **`160px`** en escritorio, logrando que el segundo banner alcance la misma altura generosa que tiene el tercer banner con su botón.
+  - Se configuró la media query para tablets (`@media (max-width: 768px)`) fijando `min-height: 140px;` para ambos banners.
+  - Se configuró la media query para celulares (`@media (max-width: 480px)`) fijando `min-height: 135px;` para asegurar una altura y equilibrio idéntico en teléfonos.
+- **Sincronización**: Se propagaron las actualizaciones a los repositorios locales clonados de Git (`bendito-taller-carrito` y `bendito-taller-web`).
+
+## 92. Reemplazo de Icono de Camión por Logos de Envíos en Cuadro de Características
+
+- **Consolidación de Estilos CSS**:
+  - Se extrajeron todos los estilos del bloque `<style>` inline en [index.html](file:///D:/bendito-taller-web-main/index.html) (referentes a `.features-section`, `.feature-card`, `.feature-icon`, `.feature-title`, `.feature-desc`, `.insta-footer`, `.insta-btn` y su hover) y se consolidaron de forma limpia al final de [styles.css](file:///D:/bendito-taller-web-main/styles.css). Esto soluciona la falta de estilos que sufría la sección de características e Instagram footer en [catalogo.html](file:///D:/bendito-taller-web-main/catalogo.html).
+- **Integración de Logos de Envíos**:
+  - Se quitaron los iconos de camión emoji (`🚛`) en el cuadro de "Envíos a Todo Chile" en [index.html](file:///D:/bendito-taller-web-main/index.html) y [catalogo.html](file:///D:/bendito-taller-web-main/catalogo.html).
+  - En su lugar, se insertó un contenedor `.shipping-logos-container` con tres imágenes: `img/logo_blue.png` (copiado desde los activos locales del cliente), `img/logo_starken.png` (copiado desde los activos locales) y `img/logo_correos.svg` (descargado en formato vectorial SVG desde Wikimedia Commons).
+- **Estilizado de Logos de Envíos**:
+  - Se añadieron estilos CSS para `.shipping-logos-container` y `.shipping-logo` en [styles.css](file:///D:/bendito-taller-web-main/styles.css).
+  - Se configuró un efecto premium que aplica un filtro de escala de grises y opacidad por defecto (`filter: grayscale(1) contrast(1.2) opacity(0.85);`), logrando una estética neutral que combina perfectamente con los textos y diseño minimalista del sitio.
+  - Al pasar el cursor (hover), el filtro se desactiva (`filter: none;`) revelando los colores originales de cada marca y escalando levemente el logotipo (`scale(1.05)`) con transiciones suaves.
+  - Se añadieron reglas responsivas para celulares (`@media (max-width: 480px)`) para reducir la altura de los logos a `24px` y el espacio entre ellos (`gap: 12px`).
+- **Sincronización**: Se propagaron las actualizaciones a los repositorios locales clonados de Git (`bendito-taller-carrito` y `bendito-taller-web`).
+
+## 93. Reposicionamiento del Título "Explora Nuestras Categorías"
+
+- **Modificación en index.html**:
+  - Se removió la etiqueta `h2` con la clase `.section-title` de su posición original fuera de la sección del catálogo.
+  - Se insertó esta misma etiqueta directamente dentro del bloque `.dots-banner-content` del primer banner interactivo superior, ubicándolo justo debajo de la descripción: `<p class="dots-banner-text">Diseños propios y originales, creados por nosotros, especialmente para ti.</p>`.
+  - Se aplicó un estilo inline de control de márgenes (`style="margin-top: 16px; margin-bottom: 0;"`) al título para integrarlo de forma simétrica y equilibrada dentro del espacio del banner rosado.
+- **Sincronización**: Se propagaron las actualizaciones a los repositorios locales clonados de Git (`bendito-taller-carrito` y `bendito-taller-web`).
+
+## 94. Ajuste de Altura del Segundo Banner
+
+- **Modificación en index.html**:
+  - Se removió la clase `.tall-banner` del contenedor `.dots-banner-container` del segundo banner repetido ("Productos complementarios para tus proyectos").
+  - Con esto, el segundo banner deja de tener la altura expandida (que hereda el tercer banner con el enlace de Instagram) y vuelve a utilizar su tamaño por defecto, coincidiendo exactamente en dimensiones y altura vertical con el primer banner repetido ("Ventas al detalle y al por mayor").
+- **Sincronización**: Se propagaron las actualizaciones a los repositorios locales clonados de Git (`bendito-taller-carrito` y `bendito-taller-web`).
+
+## 95. Ajuste de Altura y Diseño Horizontal del Banner de Instagram
+
+- **Modificación en index.html**:
+  - Se removió la clase `.tall-banner` del contenedor `.dots-banner-container` del tercer banner de Instagram.
+  - Se añadió la clase `.instagram-banner-content` al contenedor de contenidos de este banner, removiendo la restricción inline de `max-width: 75%`.
+- **Modificación en styles.css**:
+  - Se añadieron estilos para `.instagram-banner-content` que reorganizan el texto y el botón de Instagram en formato flex horizontal (`flex-direction: row; gap: 24px; max-width: 85%`) en pantallas de escritorio. Esto sitúa el botón al final de la leyenda en lugar de debajo, permitiendo que el contenido quepa cómodamente en la altura de banner estándar de 120px.
+  - Se incorporaron reglas responsivas bajo un media query (`@media (max-width: 768px)`) para reordenar la disposición a vertical (columna), centrar los textos y ajustar márgenes para que se adapte perfectamente en celulares y pantallas pequeñas.
+- **Sincronización**: Se propagaron las actualizaciones a los repositorios locales clonados de Git (`bendito-taller-carrito` y `bendito-taller-web`).
+
+## 96. Logotipos de Envío en Color y Disposición Apilada
+
+- **Copia de Recursos**:
+  - Se copiaron las imágenes `logo_starken.png`, `Logo-Blue.png` y `correos-chile-logo.jpg` desde la carpeta `D:\bendito taller\CATALOGO LORE\logo` a la carpeta `img/` del proyecto.
+- **Modificación en index.html y catalogo.html**:
+  - Se actualizó la estructura HTML del contenedor `.shipping-logos-container` dentro de la tarjeta de "Envíos a Todo Chile".
+  - Se agruparon Starken y Blue Express en una fila horizontal (`.shipping-logos-row`) y se colocó Correos de Chile en su propia fila debajo (`.shipping-logos-row`), centrada en el medio del cuadro.
+  - Se modificaron las etiquetas `<img>` para apuntar a las nuevas rutas y nombres de archivo en color.
+- **Modificación en styles.css**:
+  - Se eliminó el filtro de escala de grises (`grayscale(1)`) de `.shipping-logo` para que los logos se muestren siempre en sus colores originales.
+  - Se adaptó `.shipping-logos-container` para usar `flex-direction: column` y deshabilitar la altura fija de 40px para que las dos filas apiladas quepan perfectamente.
+  - Se definió la clase `.shipping-logos-row` y se ajustaron las alturas de las imágenes (32px para Starken/Blue Express y 36px para Correos de Chile por su aspect-ratio más cuadrado en escritorio; y 24px y 28px respectivamente en móviles).
+- **Sincronización**: Se propagaron las actualizaciones a los repositorios locales clonados de Git (`bendito-taller-carrito` y `bendito-taller-web`).
+
+## 97. Ampliación del Tamaño del Logotipo de Correos de Chile
+
+- **Modificación en styles.css**:
+  - Se incrementó el tamaño asignado al logotipo de Correos de Chile (`.shipping-logo.correos-logo`) de 36px a **42px de alto** en pantallas de escritorio.
+  - Se incrementó su tamaño de 28px a **34px de alto** en pantallas de celulares y dispositivos móviles.
+  - Esto equilibra la visualización del logotipo debido a que su formato cuadrado-rectangular tenía menor peso visual frente a los otros logotipos horizontales (Starken y Blue Express).
+- **Sincronización**: Se propagaron las actualizaciones a los repositorios locales clonados de Git (`bendito-taller-carrito` y `bendito-taller-web`).
+
+## 98. Aumento de Tamaño de Logos Starken/Blue y Cambio de Logo Correos de Chile
+
+- **Copia de Recursos**:
+  - Se copió la nueva imagen horizontal `correos-chile-logo1.jpg` desde la ruta `D:\bendito taller\CATALOGO LORE\logo` a la carpeta `img/` del proyecto.
+- **Modificación en index.html y catalogo.html**:
+  - Se cambió el atributo `src` del logo de Correos de Chile para apuntar a `img/correos-chile-logo1.jpg`.
+- **Modificación en styles.css**:
+  - Se agrandaron un 20% los logotipos de Starken y Blue Express (`.shipping-logo`): de 32px a **38px de alto** en pantallas de escritorio, y de 24px a **29px de alto** en celulares.
+  - Se ajustó el logotipo de Correos de Chile (`.shipping-logo.correos-logo`) para usar el mismo tamaño (38px de alto en escritorio y 29px en celulares). Al ser ahora una imagen de formato horizontal (521x204), esta altura uniforme mantiene un equilibrio simétrico perfecto y armónico en ambas filas.
+- **Sincronización**: Se propagaron las actualizaciones a los repositorios locales clonados de Git (`bendito-taller-carrito` y `bendito-taller-web`).
+
+## 99. Actualización de Texto en el Cuadro de Envíos
+
+- **Modificación en index.html y catalogo.html**:
+  - Se modificó la descripción en el cuadro de "Envíos a Todo Chile" (`.feature-desc`).
+  - Se reemplazó el término "cotización" por "pedido".
+  - Se removió la palabra "rápidamente".
+  - El texto resultante quedó como: *"Enviamos tu pedido por la empresa de transportes de tu preferencia."*
+- **Sincronización**: Se propagaron las actualizaciones a los repositorios locales clonados de Git (`bendito-taller-carrito` y `bendito-taller-web`).
+
+## 100. Unificación de Altura de Banners en Vista Móvil
+
+- **Modificación en styles.css**:
+  - Se configuró una altura mínima (`min-height: 90px`) para el selector `.dots-banner-container` en la vista de tabletas (`@media (max-width: 768px)`).
+  - Se configuró una altura mínima (`min-height: 80px`) para el mismo selector en la vista de celulares (`@media (max-width: 480px)`).
+  - Esto garantiza que tanto el primer banner ("Ventas al detalle...") como el segundo banner ("Productos complementarios...") tengan exactamente la misma altura física en móvil, independientemente de la diferencia en la cantidad de caracteres de su texto o de cómo se ajuste el flujo de línea del navegador.
+- **Sincronización**: Se propagaron las actualizaciones a los repositorios locales clonados de Git (`bendito-taller-carrito` y `bendito-taller-web`).
+
+## 101. Banner Dinámico de Categorías con Badge Vintage
+
+- **Modificación en catalogo.html**:
+  - Se eliminó la leyenda estática y el título "Nuestros Productos" del inicio de la sección del catálogo.
+  - Se insertó la estructura HTML del nuevo banner dinámico (`#categoryHeaderBanner`), que incluye una estructura para contener el badge vintage de la categoría (con título, subtítulo y línea divisoria dorada).
+- **Modificación en script.js**:
+  - Se definió el diccionario `CATEGORY_BANNER_DATA` mapeando las llaves de cada categoría con sus textos (título y subtítulo) y sus imágenes de fondo reales (como `CORAZONES_2.jpg`, `FONDO_NICHOS.jpg`, `FONDO_NAVIDAD.jpg`, `fondo_deco_2.jpg`, o el fondo de rayas general para búsqueda y catálogo completo).
+  - Se implementó la función `actualizarBannerCategoria()` que carga dinámicamente el fondo de la categoría y dibuja el badge vintage centrado sobre este.
+  - Se integró la llamada a esta función en `renderCatalog()` para que el banner se actualice automáticamente en tiempo real al filtrar categorías o realizar búsquedas.
+- **Modificación en styles.css**:
+  - Se crearon las reglas de estilo de CSS para `.category-header-banner`, `.category-banner-badge`, `.category-banner-title`, `.category-banner-subtitle`, y `.category-banner-divider` con el badge vintage (`fondo_letra.png`), sombras y fuentes en Merriweather acordes a la identidad visual de la página principal.
+  - Se incorporaron las reglas de adaptabilidad y diseño responsivo para móviles y tabletas.
+- **Sincronización**: Se propagaron las actualizaciones a los repositorios locales clonados de Git (`bendito-taller-carrito` y `bendito-taller-web`).
+
+## 102. Ampliación de Silueta y Tipografía del Banner de Categorías
+
+- **Modificación en styles.css**:
+  - Se incrementaron un 50% las dimensiones de la silueta del badge vintage de madera (`.category-banner-badge`): de 290px a **435px de ancho** y de 160px a **240px de alto** en pantallas de escritorio.
+  - Se agrandaron un 50% las tipografías: el título (`.category-banner-title`) aumentó de 28px a **42px** y el subtítulo (`.category-banner-subtitle`) de 11px a **16px**.
+  - Se expandió la línea divisoria dorada (`.category-banner-divider`) de 40px a **60px** de ancho.
+  - Para el contenedor de banner (`.category-header-banner`), se modificó el parámetro `overflow: hidden` a `overflow: visible`. Esto permite un efecto 3D flotante donde la silueta de madera sobrepasa de forma sumamente premium los bordes superior e inferior del banner sin modificar la altura del banner contenedor (la cual se mantuvo intacta en 200px por estar en la medida perfecta).
+  - Se aplicaron los mismos ajustes proporcionales (+50%) en las vistas responsivas para celulares y tabletas (el badge de celulares pasó a tener un ancho de **360px** y una altura de **195px**, con título a **33px** y subtítulo a **14px**).
+- **Sincronización**: Se propagaron las actualizaciones a los repositorios locales clonados de Git (`bendito-taller-carrito` y `bendito-taller-web`).
+
+## 103. Ajuste de Altura de Silueta y Restricción de Desborde en Banners
+
+- **Modificación en styles.css**:
+  - Se configuró la propiedad `overflow: hidden` en `.category-header-banner` para recortar y contener de forma absoluta cualquier porción de la silueta de madera que pudiera sobresalir del recuadro del banner.
+  - Se ajustó la altura del badge de madera (`.category-banner-badge`) para que sea de **200px** en computadoras (coincidiendo exactamente con el alto del banner) y de **160px** en celulares y tabletas (coincidiendo con la altura móvil del banner).
+  - De esta forma, el badge con el fondo texturizado y las letras se adapta al espacio vertical completo del banner y queda perfectamente alineado en sus bordes sin sobresalir en absoluto.
+- **Sincronización**: Se propagaron las actualizaciones a los repositorios locales clonados de Git (`bendito-taller-carrito` y `bendito-taller-web`).
+
+## 104. Fondo Verde Salvia Difuminado para Contraste del Texto del Banner
+
+- **Modificación en styles.css**:
+  - Se configuró la clase `.category-banner-badge-inner` (que contiene las letras dentro del badge) con una propiedad `background` que consiste en un gradiente lineal verde salvia traslúcido (`rgba(149, 171, 158, 0.15)` a `rgba(125, 144, 132, 0.15)`), inspirado en la paleta de colores del botón del carrito de compras.
+  - Se le dio una terminación redondeada de 16px (`border-radius: 16px`), un borde sutil muy tenue (`1px solid rgba(149, 171, 158, 0.2)`), una sombra interior leve y un efecto difuminado de desenfoque de fondo (`backdrop-filter: blur(1px)`).
+  - En la vista móvil, se ajustó el relleno interior (`padding: 10px 20px`) y los bordes a 12px para mantener una escala armónica con el banner responsivo.
+  - Esto añade un bloque visualmente agradable de soporte detrás del texto, resolviendo por completo cualquier detalle de legibilidad de las letras café sobre el badge de madera.
+- **Sincronización**: Se propagaron las actualizaciones a los repositorios locales clonados de Git (`bendito-taller-carrito` y `bendito-taller-web`).
+
+## 105. Tintado Directo de la Silueta de Madera del Badge
+
+- **Modificación en styles.css**:
+  - Se eliminó el fondo rectangular y los bordes con sombra del contenedor interior `.category-banner-badge-inner`, dejando el texto libre para asentarse directamente sobre la silueta de madera.
+  - Se creó un pseudo-elemento `.category-banner-badge::after` que tiene de fondo el gradiente verde salvia de los botones del carrito (`#95AB9E` a `#7d9084` con opacidad del 55% para mantener la legibilidad).
+  - Se aplicó una máscara CSS (`mask-image` y `-webkit-mask-image`) utilizando la misma imagen de madera (`img/fondo_letra.png`). Esto limita el gradiente para que se dibuje exactamente dentro de la silueta del badge de madera (manteniendo el contorno y las transparencias del archivo PNG original).
+  - Se aplicó la propiedad `mix-blend-mode: multiply` en dicho pseudo-elemento. Esto multiplica el color verde con la textura interna, de modo que el fondo blanco de la silueta de madera se convierte en verde salvia degradado, mientras que los contornos y detalles de tallado de madera originales se mantienen oscurecidos en color verde oscuro/marrón.
+  - Se ajustó el posicionamiento z-index para que la capa coloreada quede justo por debajo del texto, logrando que las letras café oscuras queden perfectamente definidas y legibles.
+- **Sincronización**: Se propagaron las actualizaciones a los repositorios locales clonados de Git (`bendito-taller-carrito` y `bendito-taller-web`).
+
+## 106. Mosaico de Fondo para Evitar Deformación de Imágenes en Banners
+
+- **Modificación en styles.css**:
+  - Se cambió `background-size: cover` por `background-size: auto 200px` en `.category-header-banner`. Esto asegura que la altura de la imagen coincida exactamente con la del banner, manteniendo su proporción de aspecto y nitidez original sin estiramientos.
+  - Se modificó `background-repeat: no-repeat` a `background-repeat: repeat`. Esto hace que las imágenes de catálogo o patrones se repitan de forma limpia horizontalmente como un mosaico continuo a lo largo del ancho del banner.
+  - En la vista móvil, se ajustó el tamaño del mosaico a `background-size: auto 160px` para adaptarse proporcionalmente a la altura del banner responsivo.
+- **Sincronización**: Se propagaron las actualizaciones a los repositorios locales clonados de Git (`bendito-taller-carrito` y `bendito-taller-web`).
+
+## 107. Uso del Tamaño Original de la Foto en Mosaico de Fondo
+
+- **Modificación en styles.css**:
+  - Se modificó la propiedad `background-size` de `.category-header-banner` estableciéndola en `auto` (tanto para escritorio como en el bloque responsivo de móviles).
+  - Esto le indica al navegador que use la resolución de píxeles original y real de la imagen, sin aplicar ningún zoom, escalamiento o compresión que pudiese deformar los productos representados.
+  - Al estar acoplada con `background-repeat: repeat`, la imagen original se repite de manera infinita en mosaico (patrón de cuadrícula) cubriendo el 100% de la superficie del banner en ambas dimensiones sin perder en absoluto su nitidez y visualización original.
+- **Sincronización**: Se propagaron las actualizaciones a los repositorios locales clonados de Git (`bendito-taller-carrito` y `bendito-taller-web`).
+
+## 108. Reducción de Margen Superior y Alineación de Banners de Categorías
+
+- **Modificación en catalogo.html**:
+  - Se modificó el estilo inline del contenedor principal del catálogo (`#catalog-section`) cambiando la propiedad `padding-top: 40px;` por `padding-top: 0px;`.
+  - Esto elimina el espacio vertical de 40px que separaba al banner de la barra de navegación, haciendo que el banner de categorías se posicione de forma inmediata y pegado a la barra superior donde reside el botón del carrito de compras.
+- **Sincronización**: Se propagaron las actualizaciones a los repositorios locales clonados de Git (`bendito-taller-carrito` y `bendito-taller-web`).
+
+## 109. Visor de Imagen Ampliada para Productos (Lightbox) con Botón Volver
+
+- **Modificación en script.js**:
+  - Se modificó la renderización de la tarjeta de producto en `renderCatalog()` agregando un listener `onclick="abrirImagenGrande('${key}')"` al contenedor de la foto del producto (`.product-img-wrapper`).
+  - Se implementó la función `abrirImagenGrande(id)` que, basándose en la base de datos de productos, genera dinámicamente un visor modal interactivo de gran tamaño.
+  - El visor muestra el nombre del producto, la imagen a alta escala con un recubrimiento blanco con sombra suave, y un botón "Volver" prominente e interactivo de color verde salvia.
+  - Al reutilizar el sistema de `popupProducto`, el visor se integra de forma transparente con los métodos de cierre (`cerrarPopup()`) del sistema existente.
+- **Modificación en styles.css**:
+  - Se configuró la propiedad `cursor: pointer;` sobre `.product-img-wrapper` para indicar visualmente la interactividad de la imagen y guiar al usuario a hacer clic para ampliar.
+- **Sincronización**: Se propagaron las actualizaciones a los repositorios locales clonados de Git (`bendito-taller-carrito` y `bendito-taller-web`).
+
+## 110. Textura de Papel como Fondo de Cuadros de Características
+
+- **Importación de Recursos**:
+  - Se copió el archivo de imagen de textura `textura papel.png` de la unidad física `D:\` al directorio local del proyecto `img/textura_papel.png` para mantener la consistencia como recurso local y evitar dependencias de rutas externas al workspace.
+- **Modificación en styles.css**:
+  - Se actualizó el selector `.feature-card` (cuadros de características) para sustituir el fondo plano blanco por la textura de papel importada (`background-image: url('img/textura_papel.png')`).
+  - Se configuraron los atributos de visualización (`background-size: cover; background-position: center; background-repeat: no-repeat;`) para lograr que la textura de papel cubra uniformemente cada tarjeta sin deformarse.
+- **Sincronización**: Se propagaron las actualizaciones a los repositorios locales clonados de Git (`bendito-taller-carrito` y `bendito-taller-web`).
+
+## 111. Textura Translúcida de Cuadros Blancos en Tarjetas de Características
+
+- **Importación de Recursos**:
+  - Se copió el archivo de imagen de fondo `fondo cuaros blancos.jpeg` de la unidad física `D:\` al directorio local del proyecto como `img/fondo_cuadros_blancos.jpeg`.
+- **Modificación en styles.css**:
+  - Se removió el fondo `textura_papel.png` aplicado anteriormente sobre `.feature-card`.
+  - Se configuró `.feature-card` con posicionamiento relativo (`position: relative; z-index: 1; background: transparent; overflow: hidden;`) para estructurar capas.
+  - Se creó un pseudo-elemento `.feature-card::before` absoluto con `background-image: url('img/fondo_cuadros_blancos.jpeg')`.
+  - Se aplicó una opacidad controlada (`opacity: 0.55`) y posicionamiento (`z-index: -1`) en el pseudo-elemento para lograr que la textura de cuadros blancos sea translúcida y actúe como fondo, sin interferir ni opacar las letras del texto ni los logotipos de transporte oficiales, manteniendo una legibilidad impecable.
+- **Sincronización**: Se propagaron las actualizaciones a los repositorios locales clonados de Git (`bendito-taller-carrito` y `bendito-taller-web`).
+
+## 112. Incremento de Translucidez de Fondo en Cuadros de Características
+
+- **Modificación en styles.css**:
+  - Se redujo el valor de `opacity` en el pseudo-elemento `.feature-card::before` de `0.55` a **`0.35`** (35% de opacidad).
+  - Esta reducción del 20% en la opacidad del fondo de cuadros blancos suaviza notablemente la textura y aclara el fondo general, permitiendo un contraste significativamente mayor que hace destacar y leer de forma impecable las letras café, iconos y logotipos a color.
+- **Sincronización**: Se propagaron las actualizaciones a los repositorios locales clonados de Git (`bendito-taller-carrito` y `bendito-taller-web`).
+
+## 113. Fondo Específico y Translúcido para cada Tarjeta de Características
+
+- **Importación de Recursos**:
+  - Se copiaron las imágenes `fondo cuaros blancos1.jpeg` y `fondo cuaros blancos2.jpeg` de la unidad física `D:\` a la carpeta local de imágenes como `img/fondo_cuadros_blancos1.jpeg` y `img/fondo_cuadros_blancos2.jpeg`.
+- **Modificación en styles.css**:
+  - Se estructuró la asignación selectiva de fondos utilizando selectores `:nth-child` aplicados a los pseudo-elementos de las tarjetas de características (`.feature-card:nth-child(n)::before`).
+  - Se asignó `fondo_cuadros_blancos.jpeg` para la primera tarjeta ("Diseño 100% Original").
+  - Se asignó `fondo_cuadros_blancos1.jpeg` para la segunda tarjeta ("Envíos a Todo Chile").
+  - Se asignó `fondo_cuadros_blancos2.jpeg` para la tercera tarjeta ("Ventas al Detalle y Mayor").
+  - Todas las tarjetas heredan la configuración translúcida global (`opacity: 0.35`) que garantiza la visibilidad de los diferentes motivos gráficos de fondo sin comprometer la legibilidad del contenido textual ni los logotipos a color.
+- **Sincronización**: Se propagaron las actualizaciones a los repositorios locales clonados de Git (`bendito-taller-carrito` y `bendito-taller-web`).
+
+
+
+
+
+
+
+
+
+
+
 
 
 

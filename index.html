@@ -11,62 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Merriweather:wght@300;400;700;900&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="styles.css">
-    <style>
-        .features-section {
-            max-width: 1200px;
-            margin: 0 auto 60px auto;
-            padding: 0 24px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-        }
-        .feature-card {
-            background: #ffffff;
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            padding: 30px 24px;
-            text-align: center;
-            box-shadow: var(--shadow-sm);
-        }
-        .feature-icon {
-            font-size: 40px;
-            color: var(--primary-color);
-            margin-bottom: 16px;
-        }
-        .feature-title {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 10px;
-            color: var(--text-main);
-        }
-        .feature-desc {
-            font-size: 14px;
-            color: var(--text-muted);
-            line-height: 1.5;
-        }
-        .insta-footer {
-            text-align: center;
-            background: #f5ece1;
-            padding: 40px 24px;
-            border-top: 1px solid var(--border-color);
-        }
-        .insta-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: #4b372d;
-            color: #fffcf8;
-            text-decoration: none;
-            padding: 12px 24px;
-            border-radius: 30px;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-        .insta-btn:hover {
-            transform: translateY(-2px);
-            background: #7d8b63;
-        }
-    </style>
+
 </head>
 <body>
 
@@ -152,14 +97,13 @@
             <div class="dots-banner-content">
                 <h3 class="dots-banner-title">Insumos en corte láser para tus proyectos y manualidades.</h3>
                 <p class="dots-banner-text">Diseños propios y originales, creados por nosotros, especialmente para ti.</p>
+                <h2 class="section-title" style="margin-top: 16px; margin-bottom: 0;">Explora Nuestras Categorías</h2>
             </div>
         </div>
     </div>
 
     <!-- EXPLORA CATEGORIAS -->
     <section id="catalog-section" class="container" style="padding-bottom: 60px;">
-
-        <h2 class="section-title">Explora Nuestras Categorías</h2>
         
         <!-- CARRUSEL DE PRODUCTOS DESTACADOS -->
         <div class="carousel-container" onmouseenter="detenerAutoSlide()" onmouseleave="iniciarAutoSlide()">
@@ -175,7 +119,7 @@
             <div class="carousel-dots" id="carouselDots"></div>
         </div>
 
-        <div class="categories-grid">
+        <div class="categories-grid" style="padding-bottom: 0;">
                     <a href="catalogo.html?category=corazones" class="category-card card-corazones">
                         <div class="card-inner">
                             <div class="card-bg"></div>
@@ -227,7 +171,18 @@
                             </div>
                         </div>
                     </a>
+                </div>
 
+                <!-- PRIMER BANNER REPETIDO -->
+                <div class="decor-banner-container" style="margin: 24px 0; max-width: 100%; padding: 0;">
+                    <div class="dots-banner-container">
+                        <div class="dots-banner-content">
+                            <h3 class="dots-banner-title" style="margin: 0;">Ventas al detalle y al por mayor</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="categories-grid" style="padding-top: 0; padding-bottom: 0;">
                     <a href="catalogo.html?category=grabados" class="category-card">
                         <div class="card-inner">
                             <div class="card-bg"></div>
@@ -279,7 +234,18 @@
                             </div>
                         </div>
                     </a>
+                </div>
 
+                <!-- SEGUNDO BANNER REPETIDO -->
+                <div class="decor-banner-container" style="margin: 24px 0; max-width: 100%; padding: 0;">
+                    <div class="dots-banner-container">
+                        <div class="dots-banner-content">
+                            <h3 class="dots-banner-title" style="margin: 0;">Productos complementarios para tus proyectos</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="categories-grid" style="padding-top: 0;">
                     <a href="catalogo.html?category=mistico-y-mas" class="category-card card-mistico">
                         <div class="card-inner">
                             <div class="card-bg"></div>
@@ -319,6 +285,25 @@
                         </div>
                     </a>
                 </div>
+
+                <!-- TERCER BANNER REPETIDO (INSTAGRAM) -->
+                <div class="decor-banner-container" style="margin: 24px 0; max-width: 100%; padding: 0;">
+                    <div class="dots-banner-container">
+                        <div class="dots-banner-content instagram-banner-content">
+                            <h3 class="dots-banner-title" style="margin: 0; line-height: 1.4;">
+                                Si tienes alguna duda o deseas hacer un pedido, comunícate con nosotros a nuestro Instagram, pinchando en el botón de enlace.
+                            </h3>
+                            <a href="https://www.instagram.com/bendito_taller_/" target="_blank" class="banner-insta-btn">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: block;">
+                                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                </svg>
+                                <span>@bendito_taller_</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
     </section>
 
 
@@ -331,9 +316,17 @@
             <p class="feature-desc">Cada pieza es diseñada y manufacturada en nuestro taller propio con la máxima precisión láser.</p>
         </div>
         <div class="feature-card">
-            <div class="feature-icon">🚛</div>
+            <div class="shipping-logos-container">
+                <div class="shipping-logos-row">
+                    <img src="img/logo_starken.png" alt="Starken" class="shipping-logo">
+                    <img src="img/Logo-Blue.png" alt="Blue Express" class="shipping-logo">
+                </div>
+                <div class="shipping-logos-row">
+                    <img src="img/correos-chile-logo1.jpg" alt="Correos de Chile" class="shipping-logo correos-logo">
+                </div>
+            </div>
             <h3 class="feature-title">Envíos a Todo Chile</h3>
-            <p class="feature-desc">Enviamos tu cotización por la empresa de transportes de tu preferencia rápidamente.</p>
+            <p class="feature-desc">Enviamos tu pedido por la empresa de transportes de tu preferencia.</p>
         </div>
         <div class="feature-card">
             <div class="feature-icon">🏷️</div>

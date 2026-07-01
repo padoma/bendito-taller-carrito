@@ -1390,6 +1390,7 @@ h1, h2, h3, h4, h5, h6 {
     background-color: #fcf9f5;
     overflow: hidden;
     border-bottom: 1px solid rgba(229, 218, 203, 0.3);
+    cursor: pointer; /* Habilitar cursor interactivo para ampliar foto */
 }
 
 .product-img {
@@ -2144,6 +2145,10 @@ h1, h2, h3, h4, h5, h6 {
     box-sizing: border-box;
 }
 
+.dots-banner-container.tall-banner {
+    min-height: 160px;
+}
+
 .dots-banner-container::after {
     content: '';
     position: absolute;
@@ -2219,6 +2224,39 @@ h1, h2, h3, h4, h5, h6 {
     text-shadow: 0 1px 1px rgba(255, 255, 255, 0.2);
 }
 
+.banner-insta-btn {
+    pointer-events: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #4b372d;
+    color: #fffcf8 !important;
+    text-decoration: none;
+    padding: 12px 28px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 16px;
+    gap: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 18px;
+}
+
+.banner-insta-btn:hover {
+    transform: translateY(-2px);
+    background: #7d8b63;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.banner-insta-btn svg {
+    transition: transform 0.3s ease;
+}
+
+.banner-insta-btn:hover svg {
+    transform: rotate(10deg) scale(1.1);
+}
+
 
 
 @media (max-width: 950px) {
@@ -2240,7 +2278,10 @@ h1, h2, h3, h4, h5, h6 {
     }
     .dots-banner-container {
         padding: 4px 16px; /* Reducido de 10px a 4px para recortar altura */
-        min-height: auto;
+        min-height: 90px;
+    }
+    .dots-banner-container.tall-banner {
+        min-height: 140px;
     }
     .dots-banner-title {
         font-size: 24px;
@@ -2320,6 +2361,337 @@ h1, h2, h3, h4, h5, h6 {
         grid-template-columns: 1fr;
         padding: 0 16px 40px 16px;
     }
+
+    /* Ajuste de fuentes y tamaño para banners en celulares */
+    .dots-banner-title {
+        font-size: 19px !important;
+        margin-bottom: 6px;
+        line-height: 1.4;
+    }
+    .dots-banner-text {
+        font-size: 14px !important;
+    }
+    .banner-insta-btn {
+        padding: 10px 22px !important;
+        font-size: 14px !important;
+        margin-top: 12px !important;
+    }
+    .dots-banner-container {
+        min-height: 80px;
+    }
+    .dots-banner-container.tall-banner {
+        min-height: 135px;
+    }
+    
+    /* Logos de envío en celulares */
+    .shipping-logos-container {
+        gap: 6px;
+    }
+    .shipping-logo {
+        height: 29px;
+    }
+    .shipping-logo.correos-logo {
+        height: 29px;
+    }
 }
+
+/* ==========================
+   FEATURES SECTION & INSTAGRAM FOOTER (SHARED)
+========================== */
+.features-section {
+    max-width: 1200px;
+    margin: 0 auto 60px auto;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+.feature-card {
+    position: relative; /* Para posicionar el pseudo-elemento del fondo */
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 30px 24px;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden; /* Mantener el fondo recortado en las esquinas redondeadas */
+    background: transparent;
+    z-index: 1;
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.35; /* Aumentada la translucidez al 35% para mejor lectura */
+    z-index: -1;
+}
+
+/* Diferentes imágenes de fondo para cada tarjeta de características */
+.feature-card:nth-child(1)::before {
+    background-image: url('img/fondo_cuadros_blancos.jpeg');
+}
+
+.feature-card:nth-child(2)::before {
+    background-image: url('img/fondo_cuadros_blancos1.jpeg');
+}
+
+.feature-card:nth-child(3)::before {
+    background-image: url('img/fondo_cuadros_blancos2.jpeg');
+}
+
+.feature-icon {
+    font-size: 40px;
+    color: var(--primary-color);
+    margin-bottom: 16px;
+}
+
+.feature-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--text-main);
+}
+
+.feature-desc {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+.insta-footer {
+    text-align: center;
+    background: #f5ece1;
+    padding: 40px 24px;
+    border-top: 1px solid var(--border-color);
+}
+
+.insta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #4b372d;
+    color: #fffcf8;
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.insta-btn:hover {
+    transform: translateY(-2px);
+    background: #7d8b63;
+}
+
+/* Shipping logos container & image styling */
+.shipping-logos-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.shipping-logos-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+}
+
+.shipping-logo {
+    height: 38px;
+    width: auto;
+    object-fit: contain;
+    transition: all 0.3s ease;
+}
+
+.shipping-logo:hover {
+    transform: scale(1.05);
+}
+
+.shipping-logo.correos-logo {
+    height: 38px;
+}
+
+/* Instagram Banner Side-by-Side styling */
+.instagram-banner-content {
+    max-width: 85% !important;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+}
+
+.instagram-banner-content .dots-banner-title {
+    margin: 0;
+    text-align: left;
+}
+
+.instagram-banner-content .banner-insta-btn {
+    margin-top: 0;
+    flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+    .instagram-banner-content {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+    .instagram-banner-content .dots-banner-title {
+        text-align: center;
+    }
+    .instagram-banner-content .banner-insta-btn {
+        margin-top: 6px !important;
+    }
+}
+
+/* Banner dinámico de categorías en catálogo */
+.category-header-banner {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    border-radius: 24px;
+    margin-bottom: 40px;
+    background-size: auto; /* Usar tamaño real de la foto */
+    background-position: center;
+    background-repeat: repeat; /* Hacer mosaico */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Cortar cualquier desborde para que no sobresalga del banner */
+    box-shadow: 0 8px 24px rgba(75, 55, 45, 0.15);
+    border: 1px solid rgba(75, 55, 45, 0.12);
+    transition: background-image 0.5s ease;
+}
+
+.category-header-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.15); /* Soft overlay to lighten the background image */
+    z-index: 1;
+}
+
+.category-banner-badge {
+    position: relative;
+    width: 435px; /* Agrandado un 50% de 290px */
+    height: 200px; /* Ajustado al alto del banner para no sobresalir */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+.category-banner-badge::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('img/fondo_letra.png');
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1;
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.16));
+}
+
+.category-banner-badge::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(149, 171, 158, 0.55) 0%, rgba(125, 144, 132, 0.55) 100%);
+    -webkit-mask-image: url('img/fondo_letra.png');
+    mask-image: url('img/fondo_letra.png');
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    z-index: 0;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+}
+
+.category-banner-badge-inner {
+    text-align: center;
+    padding: 0 30px;
+    position: relative;
+    z-index: 1;
+}
+
+.category-banner-title {
+    font-family: 'Merriweather', serif;
+    font-size: 42px; /* Agrandado un 50% de 28px */
+    font-weight: 700;
+    color: #4b372d;
+    margin: 0 0 6px 0;
+    text-transform: uppercase;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.6);
+}
+
+.category-banner-subtitle {
+    font-family: 'Merriweather', serif;
+    font-size: 16px; /* Agrandado un 50% de 11px */
+    font-weight: 600;
+    color: #4b372d;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    display: block;
+    margin-bottom: 12px;
+}
+
+.category-banner-divider {
+    width: 60px; /* Agrandado un 50% de 40px */
+    height: 2px;
+    background-color: #FFBF00; /* Dorado */
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .category-header-banner {
+        height: 160px;
+        margin-bottom: 24px;
+        background-size: auto; /* Mantener tamaño real de la foto en móvil */
+    }
+    .category-banner-badge {
+        width: 360px; /* Agrandado un 50% de 240px */
+        height: 160px; /* Ajustado al alto del banner en móvil para no sobresalir */
+    }
+    .category-banner-badge-inner {
+        padding: 0 20px;
+    }
+    .category-banner-title {
+        font-size: 33px; /* Agrandado un 50% de 22px */
+    }
+    .category-banner-subtitle {
+        font-size: 14px; /* Agrandado un 50% de 9px */
+        letter-spacing: 3px;
+    }
+    .category-banner-divider {
+        width: 48px;
+    }
+}
+
+
 
 
