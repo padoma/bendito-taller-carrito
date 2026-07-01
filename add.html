@@ -23,10 +23,10 @@
         let cleanId = originalId.toLowerCase().replace(/[^a-z0-9]/g, "");
 
         // Guardar el referrer original de Google Sites (si existe) para saber a qué subpágina específica volver
-        if (document.referrer && (document.referrer.includes("benditotaller") || document.referrer.includes("google.com"))) {
+        if (document.referrer && (document.referrer.includes("bendito-taller") || document.referrer.includes("benditotaller") || document.referrer.includes("google.com"))) {
             sessionStorage.setItem("referrerSites", document.referrer);
         } else {
-            sessionStorage.setItem("referrerSites", "https://sites.google.com/view/benditotaller");
+            sessionStorage.setItem("referrerSites", "https://sites.google.com/view/bendito-taller/p%C3%A1gina-principal");
         }
         sessionStorage.setItem("fromSites", "true");
 

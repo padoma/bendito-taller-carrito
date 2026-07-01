@@ -904,6 +904,15 @@ Se ha implementado una reestructuración de la barra de navegación superior (na
   - Se modificó la función `volverCatalogo()` para que de forma incondicional retorne al cliente al catálogo activo (Google Sites), recuperando la subpágina exacta del referrer guardado en sesión o enviándolo al enlace directo estable en caso de entrada manual directa. Esto asegura que ningún cliente del carro sea redirigido a la nueva página de inicio local que sigue en construcción.
 - **Sincronización**: Se propagaron las actualizaciones a los repositorios locales clonados de Git (`bendito-taller-carrito` y `bendito-taller-web`).
 
+## 116. Corrección de URL Fallback de Google Sites (Guión Medio)
+
+- **Modificación en add.html, script.js y carrito.html**:
+  - Se identificó que la dirección de Google Sites oficial de la tienda contiene un guión medio (`bendito-taller`), y no es continua (`benditotaller`).
+  - Se corrigieron los detectores y los fallbacks de dirección en `add.html`, `script.js` y `carrito.html` para reemplazar la antigua ruta fallida por la URL correcta: `https://sites.google.com/view/bendito-taller/p%C3%A1gina-principal`.
+  - Esta corrección permite que la detección automática del referrer identifique correctamente la procedencia del cliente y que, en caso de no haber referrer registrado, la redirección por defecto apunte con precisión a la página de Google Sites en producción.
+- **Sincronización**: Se propagaron las actualizaciones a los repositorios locales clonados de Git (`bendito-taller-carrito` y `bendito-taller-web`).
+
+
 
 
 

@@ -726,7 +726,7 @@ function agregarProducto() {
         cerrarPopupSilencioso();
         mostrarToast();
         setTimeout(() => {
-            const targetUrl = sessionStorage.getItem("referrerSites") || "https://sites.google.com/view/benditotaller";
+            const targetUrl = sessionStorage.getItem("referrerSites") || "https://sites.google.com/view/bendito-taller/p%C3%A1gina-principal";
             window.location.href = targetUrl;
         }, 1500);
     } else {
@@ -746,7 +746,7 @@ function cerrarPopup() {
 
     // Si viene de Google Sites y cancela, redirigir de vuelta a Google Sites
     if (sessionStorage.getItem("fromSites") === "true") {
-        const targetUrl = sessionStorage.getItem("referrerSites") || "https://sites.google.com/view/benditotaller";
+        const targetUrl = sessionStorage.getItem("referrerSites") || "https://sites.google.com/view/bendito-taller/p%C3%A1gina-principal";
         window.location.href = targetUrl;
     }
 }
