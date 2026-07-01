@@ -383,7 +383,7 @@ function renderCatalog() {
 function abrirImagenGrande(id) {
     if (!productos[id]) return;
     const p = productos[id];
-    cerrarPopup();
+    cerrarPopupSilencioso();
 
     const popup = document.createElement("div");
     popup.id = "popupProducto";
@@ -467,7 +467,7 @@ function abrirSelectorProducto() {
     }
 
     // Remover modal anterior si existe
-    cerrarPopup();
+    cerrarPopupSilencioso();
 
     const popup = document.createElement("div");
     popup.id = "popupProducto";

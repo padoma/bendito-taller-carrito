@@ -158,6 +158,7 @@
 - [x] Implementar redirección de retorno a Google Sites para el flujo activo: se configuró la bandera `fromSites` en `sessionStorage` en add.html, y se adaptaron cerrarPopup() y agregarProducto() en script.js, así como volverCatalogo() en carrito.html para redirigir a https://www.benditotaller.cl/ en lugar del nuevo index.html cuando la bandera esté activa.
 - [x] Perfeccionar redirección de retorno en producción usando la ruta directa de Google Sites y seguimiento de referrer original (`referrerSites` en `sessionStorage`) en add.html, script.js y carrito.html para resolver el error DNS ERR_ADDRESS_UNREACHABLE en celulares y regresar incondicionalmente a Google Sites al pulsar "Volver al catálogo".
 - [x] Corregir la URL fallback de Google Sites a `https://sites.google.com/view/bendito-taller/p%C3%A1gina-principal` (añadiendo el guión medio faltante) y adaptar las condiciones de coincidencia de referrer en add.html, script.js y carrito.html.
+- [x] Resolver la redirección prematura del selector al iniciar: se cambiaron las llamadas del sistema de `cerrarPopup()` por `cerrarPopupSilencioso()` en abrirSelectorProducto() y abrirImagenGrande() dentro de script.js, asegurando que el modal no se cierre automáticamente tras 2 segundos al entrar y permitiendo al usuario elegir variantes y presionar botones con tranquilidad.
 
 
 

@@ -912,6 +912,16 @@ Se ha implementado una reestructuración de la barra de navegación superior (na
   - Esta corrección permite que la detección automática del referrer identifique correctamente la procedencia del cliente y que, en caso de no haber referrer registrado, la redirección por defecto apunte con precisión a la página de Google Sites en producción.
 - **Sincronización**: Se propagaron las actualizaciones a los repositorios locales clonados de Git (`bendito-taller-carrito` y `bendito-taller-web`).
 
+## 117. Prevención de Cierre y Redirección Prematura del Modal Selector
+
+- **Análisis de Causa Raíz**:
+  - Al abrir un producto (`abrirSelectorProducto()`) o su lightbox (`abrirImagenGrande()`), el sistema ejecutaba de forma preventiva `cerrarPopup()` para limpiar modales previos del DOM.
+  - Al haberse sobrecargado `cerrarPopup()` con lógica de redirección hacia Google Sites para sesiones que provienen de allí, esta limpieza preventiva gatillaba la redirección de salida de forma inmediata al momento de carga, cerrando el modal de forma prematura a los 2 segundos y abortando la compra.
+- **Modificación en script.js**:
+  - Se sustituyeron las llamadas preventivas de `cerrarPopup()` por `cerrarPopupSilencioso()` en las funciones de creación de modal `abrirSelectorProducto()` y `abrirImagenGrande()`.
+  - Esta corrección aísla la lógica de limpieza interna del DOM del enrutamiento del navegador, manteniendo el selector abierto de forma persistente hasta que el cliente decida de manera explícita presionar "Cancelar", hacer clic fuera, o presionar "Lo quiero" (con delay de 1.5s).
+- **Sincronización**: Se propagaron las actualizaciones a los repositorios locales clonados de Git (`bendito-taller-carrito` y `bendito-taller-web`).
+
 
 
 
