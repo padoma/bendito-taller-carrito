@@ -22,9 +22,16 @@
         // Normalizar ID antiguo a minúsculas y sin caracteres especiales (ej: reno-base -> renobase)
         let cleanId = originalId.toLowerCase().replace(/[^a-z0-9]/g, "");
 
+        // Guardar el referrer original de Google Sites (si existe) para saber a qué subpágina específica volver
+        if (document.referrer && (document.referrer.includes("benditotaller") || document.referrer.includes("google.com"))) {
+            sessionStorage.setItem("referrerSites", document.referrer);
+        } else {
+            sessionStorage.setItem("referrerSites", "https://sites.google.com/view/benditotaller");
+        }
+        sessionStorage.setItem("fromSites", "true");
+
         // Validar si existe en la base de datos de productos.js
         if (cleanId && productos[cleanId]) {
-            sessionStorage.setItem("fromSites", "true");
             window.location.href = `index.html?producto=${cleanId}`;
         } else {
             let encontrado = false;
@@ -33,7 +40,6 @@
             if (cleanId) {
                 for (let key in productos) {
                     if (key.includes(cleanId) || cleanId.includes(key)) {
-                        sessionStorage.setItem("fromSites", "true");
                         window.location.href = `index.html?producto=${key}`;
                         encontrado = true;
                         break;
@@ -43,7 +49,6 @@
             
             // Fallback: Redirigir a la raíz si no hay coincidencia
             if (!encontrado) {
-                sessionStorage.setItem("fromSites", "true");
                 window.location.href = "index.html";
             }
         }

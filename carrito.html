@@ -479,11 +479,9 @@
         }
 
         function volverCatalogo() {
-            if (sessionStorage.getItem("fromSites") === "true") {
-                window.location.href = "https://www.benditotaller.cl/";
-            } else {
-                window.location.href = "index.html#catalog-section";
-            }
+            // Siempre volver al catálogo de Google Sites en producción por ahora
+            const targetUrl = sessionStorage.getItem("referrerSites") || "https://sites.google.com/view/benditotaller";
+            window.location.href = targetUrl;
         }
 
         function copiar() {

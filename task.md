@@ -156,6 +156,7 @@
 - [x] Incrementar la translucidez del fondo de las tarjetas de características `.feature-card::before` reduciendo la opacidad a `0.35` (35% de opacidad) en styles.css para optimizar la legibilidad y contraste del texto y logotipos.
 - [x] Copiar las imágenes `fondo cuaros blancos1.jpeg` y `fondo cuaros blancos2.jpeg` desde D:\ a la carpeta local img como `fondo_cuadros_blancos1.jpeg` y `fondo_cuadros_blancos2.jpeg`, y aplicarlas de forma selectiva a cada tarjeta de características (tarjeta 1: fondo_cuadros_blancos.jpeg, tarjeta 2: fondo_cuadros_blancos1.jpeg, tarjeta 3: fondo_cuadros_blancos2.jpeg) en styles.css usando selectores :nth-child.
 - [x] Implementar redirección de retorno a Google Sites para el flujo activo: se configuró la bandera `fromSites` en `sessionStorage` en add.html, y se adaptaron cerrarPopup() y agregarProducto() en script.js, así como volverCatalogo() en carrito.html para redirigir a https://www.benditotaller.cl/ en lugar del nuevo index.html cuando la bandera esté activa.
+- [x] Perfeccionar redirección de retorno en producción usando la ruta directa de Google Sites y seguimiento de referrer original (`referrerSites` en `sessionStorage`) en add.html, script.js y carrito.html para resolver el error DNS ERR_ADDRESS_UNREACHABLE en celulares y regresar incondicionalmente a Google Sites al pulsar "Volver al catálogo".
 
 
 

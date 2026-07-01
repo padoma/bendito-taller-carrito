@@ -894,6 +894,16 @@ Se ha implementado una reestructuración de la barra de navegación superior (na
   - Se modificó la función `volverCatalogo()` de la página de checkout. Si la bandera `fromSites` es verdadera, redirige de vuelta al catálogo activo en Google Sites (`https://www.benditotaller.cl/`), en lugar de redirigir al nuevo `index.html` que sigue en etapa de diseño.
 - **Sincronización**: Se propagaron las actualizaciones a los repositorios locales clonados de Git (`bendito-taller-carrito` y `bendito-taller-web`).
 
+## 115. Resolución de Error DNS en Celulares y Retorno Incondicional a Google Sites
+
+- **Configuración de add.html**:
+  - Se modificó la lógica en `add.html` para detectar el referrer original (`document.referrer`) desde el que entra el cliente (Google Sites) y almacenarlo en `sessionStorage` bajo la clave `"referrerSites"`. Si el referrer es nulo o inaccesible (por ejemplo, por acceso directo o bloqueo de privacidad), se define la URL directa y 100% estable de Google Sites (`https://sites.google.com/view/benditotaller`) como valor por defecto.
+- **Modificación en script.js**:
+  - Se actualizaron las redirecciones en `agregarProducto()` y `cerrarPopup()` para priorizar el referrer guardado en sesión (`sessionStorage.getItem("referrerSites")`) con fallback a la ruta directa de Google Sites, evitando errores de resolución de nombres de dominio o problemas con redirecciones múltiples (`ERR_ADDRESS_UNREACHABLE`) en navegadores in-app en celulares.
+- **Modificación en carrito.html**:
+  - Se modificó la función `volverCatalogo()` para que de forma incondicional retorne al cliente al catálogo activo (Google Sites), recuperando la subpágina exacta del referrer guardado en sesión o enviándolo al enlace directo estable en caso de entrada manual directa. Esto asegura que ningún cliente del carro sea redirigido a la nueva página de inicio local que sigue en construcción.
+- **Sincronización**: Se propagaron las actualizaciones a los repositorios locales clonados de Git (`bendito-taller-carrito` y `bendito-taller-web`).
+
 
 
 
